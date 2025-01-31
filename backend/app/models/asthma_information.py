@@ -54,7 +54,7 @@ class MedicationInfo(BaseModel):
   medication_type: MedicationType
   
 
-class AsthmaInformationBase(BaseModel):
+class AsthmaInformation(BaseModel):
   """The base asthma information model
 
   Defines the common attributes shared across different asthma_information related models.
@@ -63,7 +63,36 @@ class AsthmaInformationBase(BaseModel):
   severity_level: AsthmaSeverity
   triggers: List[AsthmaTriggers]
   custom_triggers: Optional[List[str]] = None
-  medications= List[MedicationInfo]
+ 
+
+class MedicationInfoUpdate(BaseModel):
+  """The class defines which fields can be updated and whether they are optional"""
+
+  name: Optional[str] = None
+  dosage: Optional[str] = None
+  frequency: Optional[MedicationFrequency] = None
+  medication_type: Optional[MedicationType] =  None
+
+class AsthmaInformationUpdate(BaseModel):
+  """THe class defines which fields can be updated and which ones are optional"""
+
+  severity_level: Optional[AsthmaSeverity] = None
+  triggers: Optional[List[AsthmaTriggers]] = None
+  custom_triggers: Optional[List[str]] = None
 
 
+class AsthmaInformationResponse(BaseModel):
+  """The class defines which fields can be returned"""
 
+  severity_level: AsthmaSeverity
+  triggers: List[AsthmaTriggers]
+  custom_triggers: List[str]
+
+
+class MedicationInfoResponse(BaseModel):
+  """The class defines which fields can be returned"""
+
+  name: str
+  dosage: str
+  frequency: MedicationFrequency
+  medication_type: MedicationType
