@@ -14,8 +14,9 @@
 **/*.jks
 **/*.p8
 **/*.p12
+
 **/*.key
-*/*.mobileprovision
+**/*.mobileprovision
 
 # Metro
 **/.metro-health-check*
@@ -31,8 +32,11 @@
 
 # local env files
 **/.env*.local
+**/.env
 
 # typescript
 **/*.tsbuildinfo
+
+**/app-example
 
 **/app.json

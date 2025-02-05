@@ -12,7 +12,7 @@ class AsthmaSeverity(Enum):
 class AsthmaTriggers(Enum):
   """The class defines enumeration for asthma triggers"""
 
-  POLLEN = "pollen"
+  POLLEN = "pollen" 
   DUST = "dust"
   MOLD = "mold"
   AIR_POLLUTION = "air_pollution"

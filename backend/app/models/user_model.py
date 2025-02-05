@@ -1,8 +1,8 @@
 from pydantic import BaseModel, Field, EmailStr, Field_validator 
 from typing import Optional
-from datetime import datetime
+from datetime import date, datetime
 
-class UserBase(BaseModel):
+class UserModel(BaseModel):
   """The base user model
 
   Defines the common atrributes shared across different user-related models
@@ -23,9 +23,9 @@ class UserBase(BaseModel):
   email: EmailStr = Field(frozen=True)
   display_name: Optional[str] = None
   phone_number: Optional[str] = None
-  date_of_birth: Optional[str] = None
-  height: Optional[int] = 0
-  weight: Optional[int] = 0
+  date_of_birth: Optional[date] = None
+  height: int = 0
+  weight: int = 0
   consent_signed: bool = False
 
   @classmethod
@@ -43,8 +43,8 @@ class UserBase(BaseModel):
     return cls(
       uid=user.uid,
       email=user.email,
-      display_name=user.display_name or None,
-      phone_number=user.phone_number or None
+      display_name=user.display_name,
+      phone_number=user.phone_number,
     )
 
   def to_dict(self):
@@ -52,11 +52,11 @@ class UserBase(BaseModel):
     return self.model_dump()
   
   
-class UserCreate(UserBase):
+class UserCreate(UserModel):
   """Model for creating a new user via POST request."""
   password: str = Field(repr=False)
 
-class UserResponse(UserBase):
+class UserResponse(UserModel):
   """Model for retrieving user data."""
   created_at: Optional[datetime] = None
 
@@ -75,10 +75,23 @@ class UserResponse(UserBase):
       return datetime.fromtimestamp(timestamp_value.timestamp())
     return timestamp_value
 
-class UserUpdate(BaseModel):
+class UserUpdateModel(BaseModel):
   """Model for updating user via PUT request"""
 
-  display_name: Optional[str] = None
-  phone_number: Optional[str] = None
+  display_name: Optional[str]
+  phone_number: Optional[str]
+  date_of_birth: Optional[date]
+  height: int
+  weight: int
   consent_signed: bool
 
+class UserGet(UserModel):
+  """Model for retrieving user data via GET request"""
+
+  @classmethod
+  def from_firestore(cls, user_doc):
+    """the method validates the data retrieved from firestore document"""
+
+    user_data = user_doc.to_dict()
+    user_data["uid"] = user_doc.id
+    return cls(**user_data)
