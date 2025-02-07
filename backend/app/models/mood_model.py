@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from enum import Enum
+from datetime import date
 
 class MoodLevels(Enum):
   """The class defines different mood levels"""
@@ -19,15 +20,19 @@ class MoodLevels(Enum):
   PANIC = "panic"
 
 
-class Mood(BaseModel):
+class MoodModel(BaseModel):
   """The mood base model that define the patients daily moods"""
 
   mood_today: MoodLevels
+  today: date
+  created_at: date
 
 
-class MoodUpdate(BaseModel):
+class MoodUpdateModel(BaseModel):
   """The mood update model validates the user's mood updates"""
 
   mood_today: Optional[MoodLevels]
+  update_at: date
+
 
 

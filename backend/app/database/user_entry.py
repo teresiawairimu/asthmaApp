@@ -1,5 +1,5 @@
 from firebase_config import db
-from app.models.user_model import UserModel, UserGet
+from app.models.user_model import UserModel, UserUpdateModel
 from datetime import datetime
 from typing import Annotated
 from fastapi import Depends, HTTPException
@@ -39,7 +39,7 @@ class User:
       raise HTTPException(status_code=500, detail="Failed to create user")
     
 
-  async def update_user(self, user_data_update: UserModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
+  async def update_user(self, user_data_update: UserUpdateModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
     """"""
 
     try:
@@ -63,20 +63,21 @@ class User:
       raise HTTPException(status_code=500, detail="Failed to update user")
   
 
-  async def get_user(self, user_id: Annotated[str, Depends(verify_firebase_token)]) -> UserGet:
+  async def get_user(self, user_id: Annotated[str, Depends(verify_firebase_token)]) -> UserModel:
     """"""
 
     try:
-      user_doc = await db.collection("users").document(user_id).get()
+      user_doc_ref = db.collection("users").document(user_id)
+      user_doc = await user_doc_ref.get()
       if not user_doc.exists:
-        print(f"Error retrieving user: {str(e)}")
         raise HTTPException(status_code=404, detail="User not found")
-      return UserGet.from_firestore(user_doc)
+      user_dict = user_doc.to_dict()
+      return UserModel(**user_dict)
     except Exception as e:
       print(f"Error retrieving user: {str(e)}")
       raise HTTPException(status_code=500, detail="Internal server error")
     
-  async def delete_user(self, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
+  async def delete_user(self, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict | HTTPException:
     """"""
 
     try:

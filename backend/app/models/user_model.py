@@ -16,17 +16,19 @@ class UserModel(BaseModel):
     height (int): The user's height
     weight (int): THe user's weight
     consent_signed (bool): The user's consent
+    created_at: The timestamp added when stored in firestore
   """
 
 
-  uid: str = Field(..., description="Firebase UID", frozen=True)
-  email: EmailStr = Field(frozen=True)
+  uid: str = Field(..., description="Firebase UID")
+  email: EmailStr
   display_name: Optional[str] = None
   phone_number: Optional[str] = None
   date_of_birth: Optional[date] = None
-  height: int = 0
-  weight: int = 0
+  height: float = 0
+  weight: float = 0
   consent_signed: bool = False
+  created_at: Optional[datetime] = None
 
   @classmethod
   def from_firebase(cls, user):
@@ -51,30 +53,6 @@ class UserModel(BaseModel):
     """The method converts the pydantic user object to a dictionary"""
     return self.model_dump()
   
-  
-class UserCreate(UserModel):
-  """Model for creating a new user via POST request."""
-  password: str = Field(repr=False)
-
-class UserResponse(UserModel):
-  """Model for retrieving user data."""
-  created_at: Optional[datetime] = None
-
-  @Field_validator("created_at", mode="before")
-  @classmethod
-  def convert_timestamp(cls, timestamp_value):
-    """Class method that converts Firestore's timestamp to datetime
-
-    Args:
-        cls (class): class itself
-        timestamp_value: Firestore's timestamp
-    Returns:
-          datetime: A datetime object if converstion is successful, otherwise None
-    """
-    if hasattr(timestamp_value, "timestamp"):
-      return datetime.fromtimestamp(timestamp_value.timestamp())
-    return timestamp_value
-
 class UserUpdateModel(BaseModel):
   """Model for updating user via PUT request"""
 
@@ -85,13 +63,4 @@ class UserUpdateModel(BaseModel):
   weight: int
   consent_signed: bool
 
-class UserGet(UserModel):
-  """Model for retrieving user data via GET request"""
 
-  @classmethod
-  def from_firestore(cls, user_doc):
-    """the method validates the data retrieved from firestore document"""
-
-    user_data = user_doc.to_dict()
-    user_data["uid"] = user_doc.id
-    return cls(**user_data)

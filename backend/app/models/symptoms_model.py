@@ -41,24 +41,35 @@ class EnvironmentalFactors(Enum):
   HIGH_HUMIDITY = "high_humidity"
   POOR_AIR_QUALITY = "poor_air_quality"
 
+class TimePeriods(Enum):
+  """The class defines different time periods"""
 
-class SymptomEntry(BaseModel):
+  MORNING = "morning"
+  AFTERNOON = "afternoon"
+  EVENING= "evening"
+  NIGHT = "night"
+
+
+class SymptomModel(BaseModel):
   """The class defines a pydation data model for symptoms tracking"""
 
   symptom_date: date
+  time_periods: List[TimePeriods]
   symptoms: List[AsthmaSymptoms]
   symptoms_severity: SymptomSeverity
   duration: Optional[int] = Field(None, ge=0, le=1440, description="Duration in minutes")
-  triggers: Optional[List[AsthmaTriggers]]
-  medication_name: Optional[str]
-  medication_dosage: Optional[str]
+  triggers: Optional[List[AsthmaTriggers]] = None
+  medication_name: Optional[str] = None
+  medication_dosage: Optional[str] = None
   environmental_factors: List[EnvironmentalFactors]
-  journal_entry: str = Field(None, min_length=1, max_length=2000, Description="Acitivity level")
+  journal_entry: Optional[str] = Field(None, min_length=1, max_length=2000, Description="Acitivity level")
+  created_at: date
 
 
-class SymptomEntryUpdate(BaseModel):
+class SymptomModelUpdate(BaseModel):
   """The class defines the symptom entry basemodel update"""
 
+  time_periods: Optional[List[TimePeriods]]
   symptoms: Optional[List[AsthmaSymptoms]]
   symptoms_severity: Optional[SymptomSeverity]
   duration: Optional[int] = Field(None, ge=0, le=1440)
