@@ -45,40 +45,32 @@ class MedicationFrequency(Enum):
   MONTHLY = "monthly"
 
 
-class MedicationInfo(BaseModel):
-  """The base medication information model"""
-  
-  name: str
-  dosage: str
-  frequency: MedicationFrequency
-  medication_type: MedicationType
-  
-
-class AsthmaInformation(BaseModel):
+class AsthmaInformationModel(BaseModel):
   """The base asthma information model
 
   Defines the common attributes shared across different asthma_information related models.
   """
 
-  severity_level: AsthmaSeverity
-  triggers: List[AsthmaTriggers]
+  severity_level: Optional[AsthmaSeverity] = None
+  triggers: Optional[List[AsthmaTriggers]] = None
   custom_triggers: Optional[List[str]] = None
+  medication_name: Optional[str] = None
+  medication_dosage: Optional[str] = None
+  medication_frequency: Optional[MedicationFrequency] = None
+  medication_type: Optional[MedicationType] = None
+
  
 
-class MedicationInfoUpdate(BaseModel):
-  """The class defines which fields can be updated and whether they are optional"""
-
-  name: Optional[str] = None
-  dosage: Optional[str] = None
-  frequency: Optional[MedicationFrequency] = None
-  medication_type: Optional[MedicationType] =  None
-
-class AsthmaInformationUpdate(BaseModel):
+class AsthmaInformationUpdateModel(BaseModel):
   """THe class defines which fields can be updated and which ones are optional"""
 
   severity_level: Optional[AsthmaSeverity] = None
   triggers: Optional[List[AsthmaTriggers]] = None
   custom_triggers: Optional[List[str]] = None
+  medication_name: Optional[str] = None
+  medication_dosage: Optional[str] = None
+  medication_frequency: Optional[MedicationFrequency] = None
+  medication_type: Optional[MedicationType] =  None
 
 
 class AsthmaInformationResponse(BaseModel):

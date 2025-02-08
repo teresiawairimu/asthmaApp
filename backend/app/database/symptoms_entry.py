@@ -1,5 +1,5 @@
 from firebase_config import db
-from app.models.symptoms_model import SymptomModel, SymptomModelUpdate
+from app.models.symptoms_model import SymptomModel, SymptomUpdateModel
 from datetime import datetime
 from typing import Annotated
 from fastapi import Depends, HTTPException
@@ -53,7 +53,7 @@ class Symptom:
       print(f"Error retrieving user: {str(e)}")
       raise HTTPException(status_code=500, detail="Internal server error")
     
-  async def update_symptom(self, symptom_data: SymptomModelUpdate, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
+  async def update_symptom(self, symptom_data: SymptomUpdateModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
     """"""
 
     try:

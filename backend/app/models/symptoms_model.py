@@ -66,7 +66,7 @@ class SymptomModel(BaseModel):
   created_at: date
 
 
-class SymptomModelUpdate(BaseModel):
+class SymptomUpdateModel(BaseModel):
   """The class defines the symptom entry basemodel update"""
 
   time_periods: Optional[List[TimePeriods]]

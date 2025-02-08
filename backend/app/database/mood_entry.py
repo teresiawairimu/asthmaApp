@@ -1,6 +1,5 @@
 from firebase_config import db
-from app.models.user_model import MoodModel, MoodUpdateModel
-from datetime import datetime
+from app.models.mood_model import MoodModel, MoodUpdateModel
 from typing import Annotated
 from fastapi import Depends, HTTPException
 from app.middleware.authentication_middleware import verify_firebase_token
