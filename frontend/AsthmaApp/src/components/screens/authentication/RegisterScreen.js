@@ -1,10 +1,9 @@
-import {View, Text} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 
 const RegisterScreen = () => {
   return (
     <View style={styles.container}>
-      <TextInput />
-      <TextInput />
+      <Text>Hello Register!!</Text>
     </View>
   );
 }

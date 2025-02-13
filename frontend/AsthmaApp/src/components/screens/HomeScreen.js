@@ -1,9 +1,19 @@
-import {View, Text } from "react-native";
+import {View, Text, StyleSheet } from "react-native";
+import { useNavigation} from "@react-navigation/native";
+import { Button } from "@react-navigation/elements";
+
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text>Hello World</Text>
+      <Text>Hello World!!</Text>
+      <Button onPress={() => navigation.navigate("Register")}>
+        Go to Register
+      </Button>
+      <Button onPressIn={() => navigation.navigate("Login")}>
+        Go to Logins
+      </Button>
     </View>
 
   );
