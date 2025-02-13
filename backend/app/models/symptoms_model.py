@@ -28,9 +28,7 @@ class SymptomSeverity(Enum):
   """The class defines five symptoms' severity levels"""
 
   MILD = "mild"
-  MILD_MODERATE = "mild_moderate"
   MODERATE = "moderate"
-  MODERATE_SEVERE = "moderate_severe"
   SEVERE = "severe"
 
 class EnvironmentalFactors(Enum):
@@ -49,12 +47,31 @@ class TimePeriods(Enum):
   EVENING= "evening"
   NIGHT = "night"
 
+class ActivityLevel(Enum):
+  """"""
+
+  LOW = "low"
+  MODERATE = "moderate"
+  HIGH = "high"
+
+class ActivityType(Enum):
+  """"""
+
+  WALKING = "walking"
+  RUNNING = "running"
+  CYCLING = "cycling"
+  SWIMMING = "swimming"
+  SPORTS = "sports"
+  WORKOUTS = "workouts"
+  OTHERS = "others"
 
 class SymptomModel(BaseModel):
   """The class defines a pydation data model for symptoms tracking"""
 
   symptom_date: date
   time_periods: List[TimePeriods]
+  activity_level: Optional[ActivityLevel]
+  activity_type: Optional[List[ActivityType]]
   symptoms: List[AsthmaSymptoms]
   symptoms_severity: SymptomSeverity
   duration: Optional[int] = Field(None, ge=0, le=1440, description="Duration in minutes")
@@ -70,6 +87,8 @@ class SymptomUpdateModel(BaseModel):
   """The class defines the symptom entry basemodel update"""
 
   time_periods: Optional[List[TimePeriods]]
+  activity_level: Optional[ActivityLevel]
+  ativity_type: Optional[List[ActivityType]]
   symptoms: Optional[List[AsthmaSymptoms]]
   symptoms_severity: Optional[SymptomSeverity]
   duration: Optional[int] = Field(None, ge=0, le=1440)
@@ -78,6 +97,7 @@ class SymptomUpdateModel(BaseModel):
   medication_dosage: Optional[str]
   environmental_factors: Optional[List[EnvironmentalFactors]]
   journal_entry: Optional[str] = Field(None, min_length=1, max_length=2000)
+  updated_at: date
 
 
   

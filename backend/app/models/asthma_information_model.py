@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from enum import Enum
 from typing import List, Optional
+from datetime import date 
 
 class AsthmaSeverity(Enum):
   """The class defines enumeration for asthma severity"""
@@ -50,27 +51,32 @@ class AsthmaInformationModel(BaseModel):
 
   Defines the common attributes shared across different asthma_information related models.
   """
-
+  asthma_diagnosis: Optional[bool] = False
   severity_level: Optional[AsthmaSeverity] = None
+  smoker: Optional[bool] = False
   triggers: Optional[List[AsthmaTriggers]] = None
   custom_triggers: Optional[List[str]] = None
   medication_name: Optional[str] = None
   medication_dosage: Optional[str] = None
   medication_frequency: Optional[MedicationFrequency] = None
   medication_type: Optional[MedicationType] = None
+  created_at: date
 
  
 
 class AsthmaInformationUpdateModel(BaseModel):
   """THe class defines which fields can be updated and which ones are optional"""
 
+  asthma_diagnosis: Optional[bool] = False
   severity_level: Optional[AsthmaSeverity] = None
+  smoker: bool = False
   triggers: Optional[List[AsthmaTriggers]] = None
   custom_triggers: Optional[List[str]] = None
   medication_name: Optional[str] = None
   medication_dosage: Optional[str] = None
   medication_frequency: Optional[MedicationFrequency] = None
   medication_type: Optional[MedicationType] =  None
+  updated_at: date
 
 
 class AsthmaInformationResponse(BaseModel):

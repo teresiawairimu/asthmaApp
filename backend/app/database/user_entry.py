@@ -26,6 +26,7 @@ class User:
           "display_name": user_dict.get("display_name", None),
           "phone_number": user_dict.get("phone_number", None),
           "date_of_birth": date_of_birth_timestamp,
+          "gender": user_dict.get("gender", None),
           "height": user_dict.get("height", 0),
           "weight": user_dict.get("weight", 0),
           "consent_signed": user_dict.get("consent_signed", False),

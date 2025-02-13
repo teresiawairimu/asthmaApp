@@ -21,6 +21,8 @@ class Symptom:
         "user_id": user_id,
         "symptom_date": symptom_date_timestamp,
         "time_periods": symptom_dict.get("time_periods", []),
+        "activity_level": symptom_dict.get("activity_level"),
+        "activity_type": symptom_dict.get("activity_type", []),
         "symptoms": symptom_dict.get("symptoms", []),
         "symptoms_severity": symptom_dict.get("symptoms_severity"),
         "duration": symptom_dict.get("duration", None),
@@ -28,7 +30,6 @@ class Symptom:
         "medicine_name": symptom_dict.get("medicine_name", None),
         "medicine_dosage": symptom_dict.get("medicine_dosage", None),
         "environmental_factors": symptom_dict.get("environmental_factors", []),
-        "journal_entry": symptom_dict.get("journal_entry", None),
         "created_at": firestore.FieldValue.serverTimestamp()
       })
       return {"status": "success"}
@@ -69,14 +70,15 @@ class Symptom:
       
       await symptom_ref.update({
         "time_periods": symptom_dict.get("time_periods"),
+        "activity_level": symptom_dict.get("activity_level"),
+        "activity_type": symptom_dict.get("activity_type"),
         "symptoms": symptom_dict.get("symptoms"),
         "symptoms_recovery": symptom_dict.get("symptoms_recovery"),
         "duration": symptom_dict.get("duration"),
-        "triggers": symptom_dict.get("triggers"),
+        "triggers": symptom_dict.get("triggers"), 
         "medicine_name": symptom_dict.get("medicine_name"),
         "medicine_dosage": symptom_dict.get("medicine_dosage"),
         "environmental_factors": symptom_dict.get("environmental_factors"),
-        "journal_entry": symptom_dict.get("journal_entry"),
         "updated_at": firestore.FieldValue.serverTimestamp()
       })
       return {"status": "success"}

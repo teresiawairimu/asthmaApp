@@ -1,6 +1,12 @@
-from pydantic import BaseModel, Field, EmailStr, Field_validator 
+from enum import Enum
+from pydantic import BaseModel, Field, EmailStr 
 from typing import Optional
-from datetime import date, datetime
+from datetime import date
+
+class Gender(Enum):
+  male = "male"
+  female = "female"
+
 
 class UserModel(BaseModel):
   """The base user model
@@ -13,6 +19,7 @@ class UserModel(BaseModel):
     display_name (str): The user's display_name
     phone_number (str): The user's phonenumber
     date_of_birth (str): The user's date_of_birth
+    gender (Gender): THe user's gender
     height (int): The user's height
     weight (int): THe user's weight
     consent_signed (bool): The user's consent
@@ -25,10 +32,11 @@ class UserModel(BaseModel):
   display_name: Optional[str] = None
   phone_number: Optional[str] = None
   date_of_birth: Optional[date] = None
+  gender: Optional[Gender] = None
   height: float = 0
   weight: float = 0
   consent_signed: bool = False
-  created_at: Optional[datetime] = None
+  created_at: Optional[date] = None
 
   @classmethod
   def from_firebase(cls, user):
@@ -62,5 +70,6 @@ class UserUpdateModel(BaseModel):
   height: int
   weight: int
   consent_signed: bool
+  updated_at: date
 
 
