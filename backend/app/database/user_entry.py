@@ -1,9 +1,9 @@
-from firebase_config import db
-from app.models.user_model import UserModel, UserUpdateModel
+from .firebase_config import db
+from models.user_model import UserModel, UserUpdateModel
 from datetime import datetime
 from typing import Annotated
 from fastapi import Depends, HTTPException
-from app.middleware.authentication_middleware import verify_firebase_token
+from middleware.authentication_middleware import verify_firebase_token
 from firebase_admin import firestore
 
 
@@ -11,10 +11,11 @@ from firebase_admin import firestore
 class User:
   """"""
 
-  async def create_user(self, user_data: UserModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
+  async def create_user(self, user_data: UserModel, token: dict) -> dict:
     """"""
 
     try:
+      user_id = token["uid"]
       user_dict = user_data.dict()
       date_of_birth = user_dict.get("date_of_birth")
       date_of_birth_timestamp = datetime.combine(date_of_birth, datetime.min.time()) if date_of_birth else None
@@ -30,7 +31,7 @@ class User:
           "height": user_dict.get("height", 0),
           "weight": user_dict.get("weight", 0),
           "consent_signed": user_dict.get("consent_signed", False),
-          "created_at": firestore.FieldValue.serverTimestamp()
+          "created_at": firestore.SERVER_TIMESTAMP
         }
       )
 

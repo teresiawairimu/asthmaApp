@@ -27,14 +27,14 @@ class UserModel(BaseModel):
   """
 
 
-  uid: str = Field(..., description="Firebase UID")
+  uid: Optional[str] = Field(None, description="Firebase UID")
   email: EmailStr
   display_name: Optional[str] = None
   phone_number: Optional[str] = None
   date_of_birth: Optional[date] = None
   gender: Optional[Gender] = None
-  height: float = 0
-  weight: float = 0
+  height: Optional[float] = 0
+  weight: Optional[float] = 0
   consent_signed: bool = False
   created_at: Optional[date] = None
 
