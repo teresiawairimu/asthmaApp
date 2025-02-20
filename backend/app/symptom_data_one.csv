@@ -1,0 +1,21 @@
+user_id,symptom_date,time_periods,activity_level,activity_type,symptoms,symptoms_severity,triggers,rescueinhaler_used,environmental_factors,created_at
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-01,"['morning', 'evening']",high,"['swimming', 'running']",['fatigue'],mild,['air_pollution'],False,"['cold_weather', 'high_humidity']",2024-01-01
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-02,"['night', 'afternoon']",high,['walking'],['chest_tightness'],moderate,['stress'],True,['high_humidity'],2024-01-02
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-03,['evening'],high,['sports'],"['shortness_of_breath', 'fatigue']",moderate,['air_pollution'],True,['high_pollen_levels'],2024-01-03
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-04,"['evening', 'afternoon']",low,['others'],"['shortness_of_breath', 'fatigue']",moderate,['air_pollution'],True,"['high_humidity', 'high_pollen_levels']",2024-01-04
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-05,"['evening', 'night']",moderate,[],"['shortness_of_breath', 'fatigue']",moderate,['air_pollution'],True,"['poor_air_quality', 'high_pollen_levels']",2024-01-05
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-06,['afternoon'],high,['cycling'],"['fatigue', 'shortness_of_breath']",moderate,['air_pollution'],True,"['poor_air_quality', 'cold_weather']",2024-01-06
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-07,"['afternoon', 'night']",low,"['cycling', 'others']",['chest_tightness'],moderate,['stress'],True,"['high_humidity', 'high_pollen_levels']",2024-01-07
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-08,['evening'],high,['cycling'],"['shortness_of_breath', 'fatigue']",moderate,['air_pollution'],True,"['poor_air_quality', 'high_humidity']",2024-01-08
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-09,['night'],low,"['walking', 'sports']","['fatigue', 'chest_tightness']",moderate,['stress'],True,['high_humidity'],2024-01-09
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,2024-01-10,"['morning', 'afternoon']",moderate,[],"['fatigue', 'chest_tightness']",moderate,['stress'],True,"['high_humidity', 'cold_weather']",2024-01-10
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-01,"['morning', 'night']",high,['running'],"['difficulty_speaking', 'wheezing']",severe,['respiratory_infection'],True,"['poor_air_quality', 'high_humidity']",2024-01-01
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-02,"['afternoon', 'morning']",high,"['sports', 'walking']","['difficulty_speaking', 'fatigue']",severe,['respiratory_infection'],True,"['high_humidity', 'high_pollen_levels']",2024-01-02
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-03,"['afternoon', 'night']",high,"['sports', 'running']","['fatigue', 'wheezing']",moderate,['respiratory_infection'],True,['high_humidity'],2024-01-03
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-04,"['morning', 'night']",high,"['walking', 'cycling']",['fatigue'],mild,['respiratory_infection'],False,['high_humidity'],2024-01-04
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-05,"['evening', 'night']",high,[],"['difficulty_speaking', 'wheezing']",severe,['respiratory_infection'],True,['high_humidity'],2024-01-05
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-06,"['afternoon', 'evening']",moderate,[],"['difficulty_speaking', 'fatigue']",severe,['respiratory_infection'],True,"['high_pollen_levels', 'cold_weather']",2024-01-06
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-07,"['evening', 'night']",moderate,[],['difficulty_speaking'],severe,['respiratory_infection'],True,['poor_air_quality'],2024-01-07
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-08,"['morning', 'night']",moderate,[],['fatigue'],mild,['respiratory_infection'],False,"['high_pollen_levels', 'high_humidity']",2024-01-08
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-09,"['afternoon', 'night']",high,[],"['wheezing', 'difficulty_speaking']",severe,['respiratory_infection'],True,['cold_weather'],2024-01-09
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,2024-01-10,"['evening', 'morning']",high,"['swimming', 'others']","['wheezing', 'fatigue']",moderate,['respiratory_infection'],True,['cold_weather'],2024-01-10

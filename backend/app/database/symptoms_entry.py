@@ -25,10 +25,8 @@ class Symptom:
         "activity_type": symptom_dict.get("activity_type", []),
         "symptoms": symptom_dict.get("symptoms", []),
         "symptoms_severity": symptom_dict.get("symptoms_severity"),
-        "duration": symptom_dict.get("duration", None),
         "triggers": symptom_dict.get("triggers", []),
-        "medicine_name": symptom_dict.get("medicine_name", None),
-        "medicine_dosage": symptom_dict.get("medicine_dosage", None),
+        "rescueinhaler_used": symptom_dict.get("rescueinhaler_used", False),
         "environmental_factors": symptom_dict.get("environmental_factors", []),
         "created_at": firestore.FieldValue.serverTimestamp()
       })
@@ -76,8 +74,7 @@ class Symptom:
         "symptoms_recovery": symptom_dict.get("symptoms_recovery"),
         "duration": symptom_dict.get("duration"),
         "triggers": symptom_dict.get("triggers"), 
-        "medicine_name": symptom_dict.get("medicine_name"),
-        "medicine_dosage": symptom_dict.get("medicine_dosage"),
+        "rescueinhaler_used": symptom_dict.get("rescueinhaler_used"),
         "environmental_factors": symptom_dict.get("environmental_factors"),
         "updated_at": firestore.FieldValue.serverTimestamp()
       })

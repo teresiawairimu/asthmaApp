@@ -36,14 +36,6 @@ class MedicationType(Enum):
   CONTROLLER = "controller"
   BIOLOGICAL = "biological"
 
-class MedicationFrequency(Enum):
-  """The class defines medication frequency"""
-
-  AS_NEEDED = "as_needed"
-  DAILY = "daily"
-  TWICE_DAILY = "twice_daily"
-  WEEKLY = "weekly"
-  MONTHLY = "monthly"
 
 
 class AsthmaInformationModel(BaseModel):
@@ -53,13 +45,9 @@ class AsthmaInformationModel(BaseModel):
   """
   asthma_diagnosis: Optional[bool] = False
   severity_level: Optional[AsthmaSeverity] = None
-  smoker: Optional[bool] = False
   triggers: Optional[List[AsthmaTriggers]] = None
   custom_triggers: Optional[List[str]] = None
-  medication_name: Optional[str] = None
-  medication_dosage: Optional[str] = None
-  medication_frequency: Optional[MedicationFrequency] = None
-  medication_type: Optional[MedicationType] = None
+  medication_type: Optional[List[MedicationType]] = None
   created_at: date
 
  
@@ -69,12 +57,8 @@ class AsthmaInformationUpdateModel(BaseModel):
 
   asthma_diagnosis: Optional[bool] = False
   severity_level: Optional[AsthmaSeverity] = None
-  smoker: bool = False
   triggers: Optional[List[AsthmaTriggers]] = None
   custom_triggers: Optional[List[str]] = None
-  medication_name: Optional[str] = None
-  medication_dosage: Optional[str] = None
-  medication_frequency: Optional[MedicationFrequency] = None
   medication_type: Optional[MedicationType] =  None
   updated_at: date
 
@@ -92,5 +76,4 @@ class MedicationInfoResponse(BaseModel):
 
   name: str
   dosage: str
-  frequency: MedicationFrequency
   medication_type: MedicationType

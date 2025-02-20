@@ -30,11 +30,7 @@ class UserModel(BaseModel):
   uid: Optional[str] = Field(None, description="Firebase UID")
   email: EmailStr
   display_name: Optional[str] = None
-  phone_number: Optional[str] = None
   date_of_birth: Optional[date] = None
-  gender: Optional[Gender] = None
-  height: Optional[float] = 0
-  weight: Optional[float] = 0
   consent_signed: bool = False
   created_at: Optional[date] = None
 
@@ -54,7 +50,6 @@ class UserModel(BaseModel):
       uid=user.uid,
       email=user.email,
       display_name=user.display_name,
-      phone_number=user.phone_number,
     )
 
   def to_dict(self):
@@ -65,10 +60,7 @@ class UserUpdateModel(BaseModel):
   """Model for updating user via PUT request"""
 
   display_name: Optional[str]
-  phone_number: Optional[str]
   date_of_birth: Optional[date]
-  height: int
-  weight: int
   consent_signed: bool
   updated_at: date
 

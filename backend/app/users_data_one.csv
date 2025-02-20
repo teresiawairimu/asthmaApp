@@ -1,0 +1,6 @@
+user_id,asthma_diagnosis,severity_level,triggers,custom_triggers,medication_type,created_at
+e8ea30c2-09a2-4505-b2de-a09e5ee0da97,False,,,,,2024-01-01
+ef25cfa8-0cdb-4e32-b1bc-409ab7240068,False,,,,,2024-01-01
+3285f125-f2ab-4d24-9ca9-9cc4e1f96a6d,False,,,,,2024-01-01
+866a58f9-8269-4bc1-b8ff-73bde78f4f63,True,mild,"['stress', 'air_pollution']",['humidity'],controller,2024-01-01
+fcdfb468-e786-4e59-a9aa-416cb2b14db5,True,mild,['respiratory_infection'],"['perfume', 'humidity']",biological,2024-01-01

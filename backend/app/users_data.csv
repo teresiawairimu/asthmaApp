@@ -1,0 +1,11 @@
+user_id,asthma_diagnosis,severity_level,triggers,custom_triggers,medication_type,created_at
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,True,moderate,"['exercise', 'allergies', 'stress']","['perfume', 'pet dander']",controller,2024-01-01
+6dd663ab-ac13-46fd-bcfe-98f6b709d1a0,False,,,,,2024-01-01
+5d28495c-3687-4460-ba90-0aabad898f3e,True,moderate,"['respiratory_infection', 'pollen', 'cold_air']","['pet dander', 'humidity']",controller,2024-01-01
+33f62d93-3d2f-4f5b-9522-4a9b40bb2a4e,False,,,,,2024-01-01
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,True,moderate,"['cold_air', 'stress', 'respiratory_infection']","['humidity', 'pet dander']",controller,2024-01-01
+043065cc-1d30-4244-b7f1-dbc63a9d2489,False,,,,,2024-01-01
+4f597abe-ff35-4bfc-a75f-f2f79f38a81f,False,,,,,2024-01-01
+925d8ed5-1d91-4e8b-bf82-779c3e38cf20,False,,,,,2024-01-01
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,True,mild,['cold_air'],['perfume'],biological,2024-01-01
+f9458892-c318-4f09-b8a8-b923f972f6c0,True,moderate,"['smoke', 'cold_air', 'pollen']","['humidity', 'pet dander']",biological,2024-01-01

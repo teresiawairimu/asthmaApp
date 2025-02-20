@@ -54,6 +54,7 @@ class EnvironmentalFactors(Enum):
     COLD_WEATHER = "cold_weather"
     HIGH_HUMIDITY = "high_humidity"
     POOR_AIR_QUALITY = "poor_air_quality"
+    SMOKE_EXPOSURE = "smoke_exposure"
 
 
 test_user_ids = [str(uuid.uuid4()) for _ in range(20)] 

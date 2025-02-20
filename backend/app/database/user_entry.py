@@ -25,11 +25,7 @@ class User:
           "uid": user_id,
           "email": user_dict.get("email"),
           "display_name": user_dict.get("display_name", None),
-          "phone_number": user_dict.get("phone_number", None),
           "date_of_birth": date_of_birth_timestamp,
-          "gender": user_dict.get("gender", None),
-          "height": user_dict.get("height", 0),
-          "weight": user_dict.get("weight", 0),
           "consent_signed": user_dict.get("consent_signed", False),
           "created_at": firestore.SERVER_TIMESTAMP
         }
@@ -51,10 +47,7 @@ class User:
       user_ref = db.collection("users").document(user_id)
       await user_ref.update({
         "display_name": user_dict.get("display_name"),
-        "phone_number": user_dict.get("phone_number"),
         "date_of_birth": date_of_birth_timestamp,
-        "height": user_dict.get("height"),
-        "weight": user_dict.get("weight"),
         "consent_signed": user_dict.get("consent_signed"),
         "updated_at": firestore.FieldValue.serverTimestamp()
         }

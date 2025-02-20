@@ -1,0 +1,271 @@
+user_id,symptom_date,time_periods,activity_level,activity_type,symptoms,symptoms_severity,triggers,rescueinhaler_used,environmental_factors,created_at
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-01,"['evening', 'night']",low,[],['cough'],mild,['allergies'],False,['allergies'],2024-01-01
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-01,['night'],high,['others'],['fatigue'],mild,['stress'],False,['stress'],2024-01-01
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-02,['night'],moderate,"['running', 'cycling']",['fatigue'],mild,['stress'],False,['stress'],2024-01-02
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-02,"['morning', 'night']",moderate,[],"['wheezing', 'trouble_sleeping']",moderate,['allergies'],True,['allergies'],2024-01-02
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-03,"['afternoon', 'night']",low,['others'],['shortness_of_breath'],moderate,['exercise'],True,['exercise'],2024-01-03
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-03,"['afternoon', 'evening']",moderate,"['workouts', 'others']",['wheezing'],moderate,['allergies'],True,['allergies'],2024-01-03
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-04,['afternoon'],high,"['others', 'cycling']",['shortness_of_breath'],moderate,['exercise'],True,['exercise'],2024-01-04
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-04,['evening'],high,[],"['wheezing', 'shortness_of_breath']",moderate,['exercise'],True,['exercise'],2024-01-04
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-05,"['evening', 'morning']",high,[],['cough'],mild,['allergies'],False,['allergies'],2024-01-05
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-05,['night'],low,[],['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-05
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-06,"['morning', 'night']",low,['running'],['shortness_of_breath'],moderate,['exercise'],True,['exercise'],2024-01-06
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-06,['afternoon'],moderate,[],['shortness_of_breath'],moderate,['exercise'],True,['exercise'],2024-01-06
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-07,['morning'],high,"['walking', 'others']",['wheezing'],moderate,['exercise'],True,['exercise'],2024-01-07
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-07,['night'],moderate,['walking'],['wheezing'],moderate,['exercise'],True,['exercise'],2024-01-07
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-08,['afternoon'],low,['cycling'],"['wheezing', 'trouble_sleeping']",moderate,['allergies'],True,['allergies'],2024-01-08
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-08,['evening'],low,[],"['wheezing', 'trouble_sleeping']",moderate,['allergies'],True,['allergies'],2024-01-08
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-09,['night'],low,[],['cough'],mild,['allergies'],False,['allergies'],2024-01-09
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-09,"['afternoon', 'morning']",low,['cycling'],['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-09
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-10,"['evening', 'afternoon']",low,"['swimming', 'cycling']",['cough'],mild,['allergies'],False,['allergies'],2024-01-10
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-10,"['morning', 'evening']",moderate,['walking'],['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-10
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-11,"['night', 'afternoon']",moderate,['swimming'],"['wheezing', 'shortness_of_breath']",moderate,['exercise'],True,['exercise'],2024-01-11
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-11,"['night', 'afternoon']",moderate,[],['wheezing'],moderate,['exercise'],True,['exercise'],2024-01-11
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-12,"['night', 'afternoon']",low,"['swimming', 'walking']",['wheezing'],moderate,['allergies'],True,['allergies'],2024-01-12
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-12,['afternoon'],low,[],"['wheezing', 'shortness_of_breath']",moderate,['exercise'],True,['exercise'],2024-01-12
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-13,"['afternoon', 'evening']",high,[],"['shortness_of_breath', 'wheezing']",moderate,['exercise'],True,['exercise'],2024-01-13
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-13,['night'],low,[],['fatigue'],mild,['stress'],False,['stress'],2024-01-13
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-14,['night'],moderate,['sports'],"['shortness_of_breath', 'wheezing']",moderate,['exercise'],True,['exercise'],2024-01-14
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-14,['evening'],high,['swimming'],"['trouble_sleeping', 'cough']",mild,['allergies'],False,['allergies'],2024-01-14
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-15,['afternoon'],low,['sports'],['fatigue'],mild,['stress'],False,['stress'],2024-01-15
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-15,"['morning', 'afternoon']",low,[],"['wheezing', 'cough']",moderate,['allergies'],True,['allergies'],2024-01-15
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-16,"['night', 'morning']",high,"['walking', 'others']",['wheezing'],moderate,['exercise'],True,['exercise'],2024-01-16
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-16,['morning'],moderate,[],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-16
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-17,"['afternoon', 'night']",moderate,['others'],"['wheezing', 'trouble_sleeping']",moderate,['allergies'],True,['allergies'],2024-01-17
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-17,"['morning', 'afternoon']",low,"['swimming', 'others']","['cough', 'wheezing']",moderate,['allergies'],True,['allergies'],2024-01-17
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-18,['morning'],moderate,['cycling'],['wheezing'],moderate,['exercise'],True,['exercise'],2024-01-18
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-18,['evening'],high,['workouts'],['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-18
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-19,"['morning', 'night']",low,"['running', 'swimming']",['wheezing'],moderate,['allergies'],True,['allergies'],2024-01-19
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-19,"['night', 'evening']",moderate,['walking'],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-19
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-20,"['morning', 'night']",moderate,['running'],"['shortness_of_breath', 'wheezing']",moderate,['exercise'],True,['exercise'],2024-01-20
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-20,['morning'],low,"['running', 'sports']","['fatigue', 'chest_tightness']",moderate,['stress'],True,['stress'],2024-01-20
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-21,['evening'],moderate,['swimming'],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-21
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-21,"['morning', 'afternoon']",low,[],"['wheezing', 'shortness_of_breath']",moderate,['exercise'],True,['exercise'],2024-01-21
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-22,['evening'],low,[],"['cough', 'wheezing']",moderate,['allergies'],True,['allergies'],2024-01-22
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-22,['afternoon'],high,['workouts'],"['shortness_of_breath', 'wheezing']",moderate,['exercise'],True,['exercise'],2024-01-22
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-23,['morning'],high,['running'],['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-23
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-23,"['afternoon', 'morning']",high,"['cycling', 'running']",['shortness_of_breath'],moderate,['exercise'],True,['exercise'],2024-01-23
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-24,['afternoon'],moderate,"['running', 'walking']",['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-24
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-24,['morning'],moderate,['swimming'],"['cough', 'wheezing']",moderate,['allergies'],True,['allergies'],2024-01-24
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-25,"['evening', 'afternoon']",moderate,[],['shortness_of_breath'],moderate,['exercise'],True,['exercise'],2024-01-25
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-25,['night'],high,[],['cough'],mild,['allergies'],False,['allergies'],2024-01-25
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-26,['night'],moderate,['running'],['shortness_of_breath'],moderate,['exercise'],True,['exercise'],2024-01-26
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-26,['night'],low,"['sports', 'walking']","['fatigue', 'chest_tightness']",moderate,['stress'],True,['stress'],2024-01-26
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-27,"['afternoon', 'morning']",high,"['workouts', 'running']","['wheezing', 'shortness_of_breath']",moderate,['exercise'],True,['exercise'],2024-01-27
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-27,['evening'],moderate,[],"['trouble_sleeping', 'cough']",mild,['allergies'],False,['allergies'],2024-01-27
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-28,['evening'],low,['sports'],"['wheezing', 'trouble_sleeping']",moderate,['allergies'],True,['allergies'],2024-01-28
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-28,"['evening', 'afternoon']",high,[],"['wheezing', 'shortness_of_breath']",moderate,['exercise'],True,['exercise'],2024-01-28
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-29,['evening'],high,['walking'],['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-29
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-29,"['night', 'afternoon']",moderate,"['cycling', 'others']","['wheezing', 'shortness_of_breath']",moderate,['exercise'],True,['exercise'],2024-01-29
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-30,"['night', 'evening']",high,[],"['shortness_of_breath', 'wheezing']",moderate,['exercise'],True,['exercise'],2024-01-30
+040f1a3d-bffa-46d7-aac8-ff153fc9120b,2024-01-30,"['night', 'morning']",low,[],"['cough', 'trouble_sleeping']",mild,['allergies'],False,['allergies'],2024-01-30
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-01,['afternoon'],moderate,"['swimming', 'sports']","['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-01
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-01,"['night', 'morning']",low,"['swimming', 'cycling']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-01
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-02,"['night', 'morning']",high,[],['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-02
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-02,"['afternoon', 'morning']",high,"['walking', 'running']","['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-02
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-03,['afternoon'],low,['workouts'],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-03
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-03,"['morning', 'evening']",high,[],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-03
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-04,['morning'],high,['swimming'],"['wheezing', 'fatigue']",moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-04
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-04,"['evening', 'night']",moderate,['running'],['difficulty_speaking'],severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-04
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-05,['evening'],moderate,[],"['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-05
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-05,['afternoon'],high,['workouts'],"['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-05
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-06,['evening'],low,['running'],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-06
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-06,['night'],low,['sports'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-06
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-07,['morning'],moderate,"['others', 'workouts']","['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-07
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-07,"['afternoon', 'evening']",low,"['walking', 'swimming']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-07
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-08,"['afternoon', 'night']",high,['cycling'],['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-08
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-08,['morning'],low,"['others', 'cycling']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-08
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-09,"['morning', 'night']",high,[],['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-09
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-09,['morning'],low,"['workouts', 'running']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-09
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-10,['afternoon'],low,[],['wheezing'],moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-10
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-10,"['morning', 'evening']",low,"['walking', 'running']",['cough'],mild,['pollen'],False,['pollen'],2024-01-10
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-11,['afternoon'],low,"['sports', 'running']",['fatigue'],mild,['respiratory_infection'],False,['respiratory_infection'],2024-01-11
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-11,['night'],high,"['walking', 'sports']",['fatigue'],mild,['respiratory_infection'],False,['respiratory_infection'],2024-01-11
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-12,"['afternoon', 'night']",high,[],"['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-12
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-12,['night'],low,['running'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-12
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-13,['afternoon'],high,"['walking', 'cycling']","['fatigue', 'difficulty_speaking']",severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-13
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-13,"['morning', 'afternoon']",high,"['workouts', 'sports']",['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-13
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-14,"['morning', 'night']",high,"['swimming', 'others']",['difficulty_speaking'],severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-14
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-14,"['afternoon', 'night']",moderate,['workouts'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-14
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-15,"['night', 'evening']",low,"['others', 'sports']",['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-15
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-15,['night'],moderate,['workouts'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-15
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-16,['afternoon'],high,['cycling'],['cough'],mild,['pollen'],False,['pollen'],2024-01-16
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-16,"['afternoon', 'morning']",moderate,[],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-16
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-17,['morning'],low,['swimming'],"['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-17
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-17,"['morning', 'evening']",high,"['swimming', 'others']","['wheezing', 'difficulty_speaking']",severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-17
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-18,"['evening', 'morning']",low,['workouts'],"['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-18
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-18,"['night', 'evening']",high,[],"['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-18
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-19,['evening'],low,"['sports', 'others']","['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-19
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-19,"['night', 'afternoon']",low,"['running', 'swimming']",['fatigue'],mild,['respiratory_infection'],False,['respiratory_infection'],2024-01-19
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-20,"['evening', 'afternoon']",low,['sports'],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-20
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-20,"['morning', 'evening']",low,[],['cough'],mild,['pollen'],False,['pollen'],2024-01-20
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-21,['afternoon'],high,['workouts'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-21
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-21,['evening'],high,['walking'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-21
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-22,"['morning', 'evening']",high,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-22
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-22,"['night', 'afternoon']",low,"['swimming', 'walking']","['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-22
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-23,['night'],low,['workouts'],['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-23
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-23,"['night', 'morning']",low,['sports'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-23
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-24,"['afternoon', 'night']",moderate,"['workouts', 'running']","['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-24
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-24,"['morning', 'evening']",high,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-24
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-25,"['evening', 'night']",moderate,"['workouts', 'cycling']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-25
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-25,"['morning', 'night']",low,['sports'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-25
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-26,['afternoon'],low,['sports'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-26
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-26,['afternoon'],low,['sports'],"['fatigue', 'difficulty_speaking']",severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-26
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-27,['morning'],moderate,[],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-27
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-27,"['night', 'evening']",high,[],['cough'],mild,['pollen'],False,['pollen'],2024-01-27
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-28,"['afternoon', 'evening']",low,[],['cough'],mild,['pollen'],False,['pollen'],2024-01-28
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-28,"['morning', 'afternoon']",moderate,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-28
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-29,['night'],high,"['walking', 'swimming']","['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-29
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-29,"['morning', 'afternoon']",low,"['sports', 'running']","['wheezing', 'fatigue']",moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-29
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-30,"['evening', 'night']",moderate,"['running', 'sports']",['difficulty_speaking'],severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-30
+5d28495c-3687-4460-ba90-0aabad898f3e,2024-01-30,"['night', 'afternoon']",moderate,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-30
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-01,['night'],high,['others'],['wheezing'],moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-01
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-01,['afternoon'],high,['sports'],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-01
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-02,['afternoon'],high,"['running', 'swimming']",['fatigue'],mild,['stress'],False,['stress'],2024-01-02
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-02,['afternoon'],low,"['walking', 'sports']",['difficulty_speaking'],severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-02
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-03,['morning'],moderate,['workouts'],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-03
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-03,['afternoon'],low,[],"['fatigue', 'chest_tightness']",moderate,['stress'],True,['stress'],2024-01-03
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-04,"['afternoon', 'night']",high,"['walking', 'cycling']",['fatigue'],mild,['stress'],False,['stress'],2024-01-04
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-04,['morning'],moderate,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-04
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-05,['afternoon'],moderate,"['swimming', 'sports']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-05
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-05,['night'],moderate,[],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-05
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-06,"['afternoon', 'evening']",moderate,['running'],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-06
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-06,['afternoon'],low,"['swimming', 'running']","['fatigue', 'wheezing']",moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-06
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-07,['evening'],moderate,['walking'],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-07
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-07,['afternoon'],high,"['cycling', 'workouts']","['wheezing', 'fatigue']",moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-07
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-08,['evening'],moderate,[],['difficulty_speaking'],severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-08
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-08,"['morning', 'evening']",moderate,"['cycling', 'walking']",['fatigue'],mild,['stress'],False,['stress'],2024-01-08
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-09,"['evening', 'morning']",moderate,['cycling'],['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-09
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-09,['evening'],high,['swimming'],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-09
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-10,['afternoon'],high,"['running', 'swimming']",['fatigue'],mild,['stress'],False,['stress'],2024-01-10
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-10,"['morning', 'afternoon']",moderate,[],"['fatigue', 'difficulty_speaking']",severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-10
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-11,"['morning', 'afternoon']",moderate,['walking'],"['fatigue', 'difficulty_speaking']",severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-11
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-11,['morning'],high,"['workouts', 'others']","['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-11
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-12,['morning'],low,"['others', 'walking']","['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-12
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-12,['evening'],high,['cycling'],['difficulty_speaking'],severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-12
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-13,"['morning', 'evening']",high,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-13
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-13,['morning'],high,"['workouts', 'cycling']",['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-13
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-14,"['morning', 'night']",moderate,"['swimming', 'cycling']","['fatigue', 'chest_tightness']",moderate,['stress'],True,['stress'],2024-01-14
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-14,['evening'],moderate,"['workouts', 'walking']",['fatigue'],mild,['respiratory_infection'],False,['respiratory_infection'],2024-01-14
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-15,"['morning', 'night']",low,[],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-15
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-15,['night'],moderate,"['others', 'running']","['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-15
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-16,['afternoon'],low,"['workouts', 'sports']",['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-16
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-16,['morning'],high,"['walking', 'sports']","['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-16
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-17,['night'],high,[],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-17
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-17,"['afternoon', 'evening']",moderate,[],['wheezing'],moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-17
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-18,"['afternoon', 'evening']",moderate,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-18
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-18,['morning'],high,[],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-18
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-19,['afternoon'],moderate,['sports'],['fatigue'],mild,['respiratory_infection'],False,['respiratory_infection'],2024-01-19
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-19,"['morning', 'evening']",high,"['workouts', 'running']",['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-19
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-20,['afternoon'],high,[],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-20
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-20,"['evening', 'night']",moderate,[],['difficulty_speaking'],severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-20
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-21,"['morning', 'evening']",moderate,['walking'],"['fatigue', 'chest_tightness']",moderate,['stress'],True,['stress'],2024-01-21
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-21,['evening'],high,[],"['fatigue', 'chest_tightness']",moderate,['stress'],True,['stress'],2024-01-21
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-22,"['night', 'afternoon']",moderate,['others'],['fatigue'],mild,['respiratory_infection'],False,['respiratory_infection'],2024-01-22
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-22,"['evening', 'night']",moderate,[],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-22
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-23,['afternoon'],moderate,"['cycling', 'walking']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-23
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-23,['night'],moderate,[],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-23
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-24,['afternoon'],moderate,"['sports', 'running']",['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-24
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-24,"['afternoon', 'evening']",low,['workouts'],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-24
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-25,"['night', 'evening']",low,[],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-25
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-25,['night'],low,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-25
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-26,"['morning', 'evening']",low,['swimming'],"['fatigue', 'chest_tightness']",moderate,['stress'],True,['stress'],2024-01-26
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-26,"['morning', 'night']",low,[],['wheezing'],moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-26
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-27,['morning'],moderate,['cycling'],['wheezing'],moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-27
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-27,['evening'],moderate,['others'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-27
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-28,['morning'],high,"['cycling', 'others']",['difficulty_speaking'],severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-28
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-28,"['morning', 'afternoon']",low,"['others', 'swimming']",['chest_tightness'],moderate,['stress'],True,['stress'],2024-01-28
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-29,"['afternoon', 'evening']",moderate,"['others', 'workouts']","['fatigue', 'wheezing']",moderate,['respiratory_infection'],True,['respiratory_infection'],2024-01-29
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-29,"['evening', 'afternoon']",high,['cycling'],"['chest_tightness', 'fatigue']",moderate,['stress'],True,['stress'],2024-01-29
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-30,['morning'],moderate,[],"['difficulty_speaking', 'wheezing']",severe,['respiratory_infection'],True,['respiratory_infection'],2024-01-30
+28ee901a-22ec-4f6b-9665-7cfd82b1c24a,2024-01-30,"['night', 'afternoon']",high,[],['fatigue'],mild,['stress'],False,['stress'],2024-01-30
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-01,['morning'],moderate,"['swimming', 'running']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-01
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-02,['morning'],low,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-02
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-03,"['morning', 'night']",high,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-03
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-04,['afternoon'],high,['swimming'],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-04
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-05,"['night', 'afternoon']",low,"['sports', 'running']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-05
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-06,"['night', 'morning']",high,"['workouts', 'swimming']","['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-06
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-07,['afternoon'],moderate,"['workouts', 'running']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-07
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-08,"['morning', 'night']",high,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-08
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-09,['afternoon'],moderate,['running'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-09
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-10,"['afternoon', 'morning']",moderate,"['swimming', 'walking']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-10
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-11,"['evening', 'morning']",high,['others'],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-11
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-12,"['morning', 'evening']",moderate,['workouts'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-12
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-13,"['afternoon', 'morning']",high,"['workouts', 'running']",['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-13
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-14,"['afternoon', 'night']",low,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-14
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-15,['morning'],moderate,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-15
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-16,['evening'],moderate,['workouts'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-16
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-17,"['afternoon', 'morning']",high,[],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-17
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-18,"['evening', 'night']",low,['others'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-18
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-19,"['night', 'evening']",high,"['others', 'sports']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-19
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-20,"['morning', 'night']",moderate,"['swimming', 'cycling']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-20
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-21,['afternoon'],moderate,['walking'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-21
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-22,['night'],high,"['cycling', 'sports']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-22
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-23,['evening'],high,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-23
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-24,"['evening', 'night']",high,['sports'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-24
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-25,"['afternoon', 'evening']",high,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-25
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-26,"['afternoon', 'evening']",low,"['others', 'swimming']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-26
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-27,"['afternoon', 'night']",low,[],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-27
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-28,"['morning', 'night']",high,['walking'],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-28
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-29,"['night', 'evening']",moderate,"['walking', 'cycling']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-29
+b3fed75a-f52a-4733-b132-0bcaa8ca45fb,2024-01-30,['night'],low,"['workouts', 'sports']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-30
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-01,"['evening', 'afternoon']",high,['swimming'],['cough'],mild,['smoke'],False,['smoke'],2024-01-01
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-01,['night'],high,['others'],['cough'],mild,['pollen'],False,['pollen'],2024-01-01
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-02,"['evening', 'night']",moderate,['running'],['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-02
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-02,['evening'],low,"['sports', 'running']","['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-02
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-03,"['afternoon', 'night']",high,['swimming'],"['wheezing', 'cough']",moderate,['smoke'],True,['smoke'],2024-01-03
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-03,['evening'],high,"['sports', 'workouts']","['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-03
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-04,['morning'],high,[],"['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-04
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-04,['afternoon'],low,['workouts'],"['cough', 'wheezing']",moderate,['smoke'],True,['smoke'],2024-01-04
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-05,['evening'],high,['workouts'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-05
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-05,"['evening', 'night']",high,[],"['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-05
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-06,"['morning', 'afternoon']",high,[],"['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-06
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-06,['morning'],moderate,"['cycling', 'workouts']",['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-06
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-07,"['evening', 'night']",low,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-07
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-07,['morning'],low,['walking'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-07
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-08,"['evening', 'morning']",moderate,"['running', 'others']",['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-08
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-08,['evening'],moderate,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-08
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-09,"['night', 'morning']",low,"['others', 'walking']",['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-09
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-09,['night'],moderate,"['workouts', 'others']","['cough', 'wheezing']",moderate,['smoke'],True,['smoke'],2024-01-09
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-10,"['evening', 'night']",high,['others'],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-10
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-10,['evening'],low,"['cycling', 'swimming']",['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-10
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-11,['night'],low,['walking'],['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-11
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-11,['evening'],high,[],['cough'],mild,['pollen'],False,['pollen'],2024-01-11
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-12,"['evening', 'afternoon']",low,"['sports', 'workouts']",['wheezing'],moderate,['smoke'],True,['smoke'],2024-01-12
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-12,"['evening', 'night']",high,['running'],['cough'],mild,['smoke'],False,['smoke'],2024-01-12
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-13,['afternoon'],moderate,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-13
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-13,['night'],moderate,[],['cough'],mild,['pollen'],False,['pollen'],2024-01-13
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-14,['morning'],moderate,[],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-14
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-14,"['night', 'afternoon']",low,"['others', 'sports']",['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-14
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-15,"['evening', 'afternoon']",moderate,['others'],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-15
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-15,"['evening', 'night']",high,"['workouts', 'sports']",['cough'],mild,['smoke'],False,['smoke'],2024-01-15
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-16,['morning'],moderate,"['running', 'walking']","['wheezing', 'cough']",moderate,['smoke'],True,['smoke'],2024-01-16
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-16,['afternoon'],low,[],['cough'],mild,['smoke'],False,['smoke'],2024-01-16
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-17,"['night', 'afternoon']",low,[],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-17
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-17,"['afternoon', 'evening']",moderate,"['running', 'walking']",['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-17
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-18,"['afternoon', 'evening']",low,"['walking', 'sports']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-18
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-18,['night'],low,['others'],"['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-18
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-19,['afternoon'],high,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-19
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-19,['afternoon'],moderate,"['others', 'walking']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-19
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-20,"['evening', 'morning']",low,['others'],['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-20
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-20,['afternoon'],high,['walking'],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-20
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-21,"['afternoon', 'night']",moderate,['running'],"['wheezing', 'cough']",moderate,['smoke'],True,['smoke'],2024-01-21
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-21,"['morning', 'afternoon']",moderate,"['sports', 'swimming']","['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-21
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-22,"['night', 'evening']",moderate,['cycling'],['cough'],mild,['smoke'],False,['smoke'],2024-01-22
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-22,['night'],low,"['sports', 'others']","['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-22
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-23,['evening'],low,"['swimming', 'running']","['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-23
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-23,"['afternoon', 'morning']",high,[],['wheezing'],moderate,['smoke'],True,['smoke'],2024-01-23
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-24,"['evening', 'night']",low,[],['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-24
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-24,['night'],high,"['running', 'others']",['wheezing'],moderate,['smoke'],True,['smoke'],2024-01-24
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-25,['afternoon'],moderate,[],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-25
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-25,"['night', 'afternoon']",low,"['workouts', 'sports']","['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-25
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-26,['afternoon'],high,[],['wheezing'],moderate,['pollen'],True,['pollen'],2024-01-26
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-26,"['evening', 'afternoon']",low,"['others', 'cycling']","['cough', 'wheezing']",moderate,['pollen'],True,['pollen'],2024-01-26
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-27,['afternoon'],high,[],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-27
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-27,['morning'],low,"['workouts', 'swimming']",['chest_tightness'],moderate,['cold_air'],True,['cold_air'],2024-01-27
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-28,['night'],high,[],"['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-28
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-28,['evening'],high,['cycling'],"['chest_tightness', 'wheezing']",moderate,['cold_air'],True,['cold_air'],2024-01-28
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-29,"['afternoon', 'morning']",high,"['workouts', 'swimming']",['wheezing'],moderate,['cold_air'],True,['cold_air'],2024-01-29
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-29,"['night', 'afternoon']",low,[],['cough'],mild,['smoke'],False,['smoke'],2024-01-29
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-30,"['afternoon', 'morning']",moderate,['running'],"['wheezing', 'cough']",moderate,['pollen'],True,['pollen'],2024-01-30
+f9458892-c318-4f09-b8a8-b923f972f6c0,2024-01-30,['afternoon'],low,"['running', 'sports']","['wheezing', 'chest_tightness']",moderate,['cold_air'],True,['cold_air'],2024-01-30

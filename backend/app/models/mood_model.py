@@ -3,7 +3,7 @@ from typing import Optional
 from enum import Enum
 from datetime import date
 
-class MoodLevels(Enum):
+class MoodState(Enum):
   """The class defines different mood levels"""
 
   STRESSED = "stressed"
@@ -13,17 +13,14 @@ class MoodLevels(Enum):
   HAPPY = "happy"
   ENERGETIC = "energetic"
   SAD = "sad"
-  DEPRESSED = "depressed"
   TIRED = "tired"
-  FATIGUED = "fatigued"
-  FEAR = "fear"
-  PANIC = "panic"
+  
 
 
 class MoodModel(BaseModel):
   """The mood base model that define the patients daily moods"""
 
-  mood_today: MoodLevels
+  mood_today: MoodState
   today: date
   created_at: date
 
@@ -31,7 +28,7 @@ class MoodModel(BaseModel):
 class MoodUpdateModel(BaseModel):
   """The mood update model validates the user's mood updates"""
 
-  mood_today: Optional[MoodLevels]
+  mood_today: Optional[MoodState]
   update_at: date
 
 

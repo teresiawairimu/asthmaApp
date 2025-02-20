@@ -7,7 +7,6 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text>Hello World!!</Text>
       <Button onPress={() => navigation.navigate("Register")}>
         Go to Register
       </Button>

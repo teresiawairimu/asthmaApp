@@ -34,7 +34,6 @@ const LoginScreen = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <Text>Hello login</Text>
       <LoginForm onSubmit={handleLogin} error={error} isLoading={isLoading}/>
     </View>
   );
