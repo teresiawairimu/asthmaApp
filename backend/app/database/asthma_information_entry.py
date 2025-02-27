@@ -19,12 +19,8 @@ class AsthmaInformation:
         "user_id": user_id,
         "asthma_diagnosis": asthma_info_dict.get("asthma_diagnosis"),
         "severity_level": asthma_info_dict.get("severity_level", None),
-        "smoker": asthma_info_dict.get("smoker", False),
         "triggers": asthma_info_dict.get("triggers", []),
         "custom_triggers": asthma_info_dict.get("custom_triggers", []),
-        "medication_name": asthma_info_dict.get("medication_name", None),
-        "medication_dosage": asthma_info_dict.get("medication_dosage", None),
-        "medication_frequency": asthma_info_dict.get("medication_frequency", None),
         "medication_type": asthma_info_dict.get("medication_type", None),
         "created_at": firestore.FieldValue.serverTimestamp()
       })

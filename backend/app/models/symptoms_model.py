@@ -1,4 +1,4 @@
-from backend.app.models.asthma_information_model import AsthmaTriggers
+from app.models.asthma_information_model import AsthmaTriggers
 from pydantic import BaseModel, Field
 from datetime import date
 from typing import List, Optional
@@ -53,8 +53,7 @@ class ActivityType(Enum):
   WALKING = "walking"
   RUNNING = "running"
   CYCLING = "cycling"
-  SWIMMING = "swimming"
-  SPORTS = "sports"
+  BASKETBALL = "basketball"
   WORKOUTS = "workouts"
   OTHERS = "others"
 

@@ -14,4 +14,5 @@ async def create_user(data: UserModel, token: Annotated[dict, Depends(verify_fir
     #raise HTTPException(status_code=401)
   #token = auth_header.split(" ")[1]
   return await user_db.create_user(data, token)
+
  

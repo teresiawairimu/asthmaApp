@@ -36,6 +36,7 @@ class User:
       print(f"Error creating user: {str(e)}")
       raise HTTPException(status_code=500, detail="Failed to create user")
     
+    
 
   async def update_user(self, user_data_update: UserUpdateModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
     """"""
