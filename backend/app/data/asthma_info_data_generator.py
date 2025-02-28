@@ -18,18 +18,15 @@ medication_map = {
   MedicationType.BIOLOGICAL: AsthmaSeverity.SEVERE
 }
 
-user_ids = ["9dIA3BDqxbUQoRqZEq6rieiKLhu1", "HjbhpCO5U6b1dEANWMskvBM2f393", "IJug4o9NG7Y6h8Q6UwUyL3mmrK12", 
-        "PsO0EPuDQ0gGIX5ctM7mQgApBcX2", "X3gH6Zzp3mZ08amOuNa9qsBVvqw1", "cPrutRkEcNRErfat90gDva6Ulfu2",
-        "gljtDf52UOOoZvz8bKMNh5wCmFy2", "qucKrynDFGRKmHhgny8tIhxoXE42", "vZwUqlQCZhOvXoMAvELdgaw0EoJ2",
-        "zWVkszpI1fchG79kSYCvNPAfEiS2"]
+user_ids = ["9dIA3BDqxbUQoRqZEq6rieiKLhu1", "HjbhpCO5U6b1dEANWMskvBM2f393", "IJug4o9NG7Y6h8Q6UwUyL3mmrK12"]
 
 num_users = 10
 
 data_generated = {}
 
 async def generate_data():
-  for _ in range(num_users):
-    user_id = random.choice(user_ids)
+  for user_id in user_ids:
+    user_id = user_id
     asthma_diagnosis = True
     if asthma_diagnosis:
       medication_type = random.sample(list(MedicationType), k=random.randint(1, 3))
@@ -58,7 +55,7 @@ async def generate_data():
     
     triggers = random.sample(list(AsthmaTriggers), k=random.randint(1,3)) if asthma_diagnosis else None
     custom_triggers = random.sample(["cold beverages", "scented lotion", "perfume", "humidity", "pet dander"], k=random.randint(0, 2)) if asthma_diagnosis else None 
-    created_at = datetime(2024, 1, 1).strftime("%Y-%m-%d")
+    created_at = datetime(2024, 1, 1)
 
     data_generated.update({
       "user_id": user_id,

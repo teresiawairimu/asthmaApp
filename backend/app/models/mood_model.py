@@ -20,8 +20,8 @@ class MoodState(Enum):
 class MoodModel(BaseModel):
   """The mood base model that define the patients daily moods"""
 
-  mood_today: MoodState
-  today: date
+  mood: MoodState
+  mood_date: date
   created_at: date
 
 

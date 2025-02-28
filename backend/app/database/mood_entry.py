@@ -9,16 +9,17 @@ from firebase_admin import firestore
 class Mood:
   """"""
 
-  async def create_mood(self, mood_data: MoodModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
+  async def create_mood(self, mood_data: MoodModel, token: dict) -> dict:
     """"""
 
     try:
+      user_id = token["uid"]
       mood_dict = mood_data.dict()
-      mood_ref = db.collection("moods").document()
+      mood_ref = db.collection("mood").document()
       await mood_ref.set({
         "user_id": user_id,
-        "mood_today": mood_dict.get("mood_today"),
-        "today": mood_dict.get("today"),
+        "mood": mood_dict.get("mood_today"),
+        "mood_date": mood_dict.get("today"),
         "created_at": firestore.FieldValue.serverTimestamp()
       })
       return {"status": "success"}
@@ -26,22 +27,23 @@ class Mood:
       print(f"Error saving mood: {str(e)}")
       raise HTTPException(status_code=500, detail="Internal Error")
   
-  async def update_mood(self, mood_data: MoodUpdateModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
+  async def update_mood(self, mood_data: MoodUpdateModel, token: dict) -> dict:
     """"""
 
     try:
+      user_id = token["uid"]
       mood_dict = mood_data.dict()
       mood_id = mood_dict.get("mood_id")
       if not mood_id:
         raise HTTPException(status_code=400, detail="Missing mood id")
       
-      mood_ref = db.collection("moods").document(mood_id)
+      mood_ref = db.collection("mood").document(mood_id)
       mood = await mood_ref.get()
       if not mood.exists or mood.to_dict().get("user_id") != user_id:
         raise HTTPException(status_code=403, detail="Not authorized to edit this mood")
       
       await mood_ref.update({
-        "mood_today": mood_dict.get("mood_today"),
+        "mood": mood_dict.get("mood"),
         "updated_at": firestore.FieldValue.serverTimestamp()
       })
       return {"status": "success"}
@@ -55,7 +57,7 @@ class Mood:
 
     try:
       mood_id = mood_data.get("mood_id")
-      mood_ref = db.collection("moods").document(mood_id)
+      mood_ref = db.collection("mood").document(mood_id)
       mood_doc = await mood_ref.get()
       
       if not mood_doc.exists:
@@ -67,24 +69,24 @@ class Mood:
       raise HTTPException(status_code=500, detail="Internal server error")
   
 
-  async def delete_mood(self, symptom_data, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
+  async def delete_mood(self, mood_data) -> dict:
     """"""
 
-    try: 
-      symptom_id = symptom_data.get("symptom_id")
-      if not symptom_id:
-        raise HTTPException(status_code=400, detail="Missing symptom_id")
+    try:
+      mood_id = mood_data.get("mood_id")
+      if not mood_id:
+        raise HTTPException(status_code=400, detail="Missing mood_id")
       
-      symptom_ref = db.collection("symptoms").document(symptom_id)
-      symptom = await symptom_ref.get()
-      if not symptom.exists or symptom.to_dict().get("user_id") != user_id:
-        raise HTTPException(status_code=403, detail="Not authorized to delete this symptom")
+      mood_ref = db.collection("mood").document(mood_id)
+      mood = await mood_ref.get()
+      if not mood.exists or mood.to_dict().get("mood_id") != mood_id:
+        raise HTTPException(status_code=403, detail="Not authorized to delete this mood")
       
-      await db.collection("symptoms").document(symptom_id).delete()
+      await db.collection("mood").document(mood_id).delete()
       return {"status": "success"}
     except Exception as e:
-      print(f"Error deleting symptoms: {str(e)}")
-      raise HTTPException(status_code=500, detail="Error deleting symptom data")
+      print(f"Error deleting mood: {str(e)}")
+      raise HTTPException(status_code=500, detail="Error deleting mood data")
   
 
   
