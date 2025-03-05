@@ -66,8 +66,7 @@ async def generate_data():
   #print(asthma_info)
 
   start_date = datetime(2024, 1, 1)
-  num_weeks = 1
-  end_date = start_date + timedelta(weeks=num_weeks)
+  num_weeks = 4
   symptoms_data = {}
   mood_data = {}
 
@@ -81,7 +80,6 @@ async def generate_data():
       log_days = random.sample(range(7), days_to_log)
       log_dates = [week_start + timedelta(days=day) for day in log_days]
       for day in log_dates:
-        date_logged = day
         trigger = random.choice(info["triggers"]) if info["triggers"] else None
         symptoms = random.sample(asthma_triggers_map[AsthmaTriggers(trigger)], k=random.randint(1, 2)) if trigger else []
         severity_levels = [symptom_severity_map[s] for s in symptoms]

@@ -85,7 +85,8 @@ class SymptomUpdateModel(BaseModel):
   environmental_factors: Optional[List[EnvironmentalFactors]]
   updated_at: date
 
-
-  
+class DateRangeRequest(BaseModel):
+  start_date: date
+  end_date: date
 
 
