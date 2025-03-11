@@ -4,6 +4,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import RegisterScreen from './src/screens/auth/RegisterScreen';
 import LoginScreen from "./src/screens/auth/LoginScreen";
 import DashboardScreen from "./src/screens/DashboardScreen";
+import { AuthProvider } from "./src/context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,12 @@ const App = () => {
   );
 }
 
-export default App;
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
 
 
