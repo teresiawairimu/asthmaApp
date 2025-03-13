@@ -3,8 +3,8 @@ import * as yup from "yup";
 import { yupResolver} from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
 import {View, StyleSheet, Text} from "react-native";
-import CustomTextInput from "../common/CustomTextInput";
-import CustomButton from "../common/CustomButton";
+import CustomTextInput from "../Common/CustomTextInput";
+import CustomButton from "../Common/CustomButton";
 
 
 const schema = yup.object({

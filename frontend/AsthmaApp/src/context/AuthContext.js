@@ -9,12 +9,12 @@ export const useAuth = () => {
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
-  const [loading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async user => {
       setUser(user);
-      setIsLoading(false);
+      setLoading(false);
     });
     return unsubscribe;
   }, []);

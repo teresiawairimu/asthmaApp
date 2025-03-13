@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {View, Text, StyleSheet} from "react-native";
-import RegisterForm from "../../components/forms/RegisterForm";
+import RegisterForm from "../../components/Forms/RegisterForm";
 import { auth, createUserWithEmailAndPassword } from "../../firebaseConfig";
 import { registerUser } from "../../services/userServices";
 

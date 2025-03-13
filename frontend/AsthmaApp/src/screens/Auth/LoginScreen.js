@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet} from "react-native";
-import LoginForm from "../../components/forms/LoginForm";
+import LoginForm from "../../components/Forms/LoginForm";
 import { auth, signInWithEmailAndPassword } from "../../firebaseConfig";
 
 const LoginScreen = ({navigation}) => {
