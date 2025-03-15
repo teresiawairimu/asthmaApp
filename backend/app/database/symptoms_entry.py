@@ -9,10 +9,11 @@ from firebase_admin import firestore
 class Symptom:
   """"""
 
-  async def create_symptom(self, symptom_data: SymptomModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:
+  async def create_symptom(self, symptom_data: SymptomModel, token: dict) -> dict:
     """"""
 
     try:
+      user_id = token["uid"]
       symptom_dict = symptom_data.dict()
       symptom_date = symptom_dict.get("symptom_date")
       symptom_date_timestamp = datetime.combine(symptom_date, datetime.min.time()) if symptom_date else None
@@ -32,24 +33,46 @@ class Symptom:
       })
       return {"status": "success"}
     except Exception as e:
-      print(f"Error storing symptom: {str(e)}")
+      print(f"Error storing symptom data: {str(e)}")
       raise HTTPException(status_code=500, detail="Failed to store symptom data")
     
 
-  async def get_symptom(self, symptom_data) -> SymptomModel:
+  async def get_symptom_by_id(self, symptom_id: str) -> SymptomModel:
     """"""
 
     try:
-      symptom_id = symptom_data.get("symptom_id")
       symptom_ref = db.collection("symptoms").document(symptom_id)
       symptom_doc = await symptom_ref.get()
       
       if not symptom_doc.exists:
-        raise HTTPException(status_code=404, detail="Symptom file not found")
+        raise HTTPException(status_code=404, detail="Symptom not found")
       symptom_dict = symptom_doc.to_dict()
       return SymptomModel(**symptom_dict)
     except Exception as e:
-      print(f"Error retrieving user: {str(e)}")
+      print(f"Error retrieving symptom data: {str(e)}")
+      raise HTTPException(status_code=500, detail="Internal server error")
+    
+
+  
+  async def get_symptoms_by_user(self, token: dict) -> list[SymptomModel]:
+    """"""
+
+    try:
+      user_id = token["uid"]
+      symptom_ref = db.collection("symptoms").where("user_id", "==", user_id)
+      symptom_docs = await symptom_ref.get()
+      
+      if not symptom_docs:
+        return []
+      
+      symptom_list = []
+      for doc in symptom_docs:
+        symptom_data = doc.to_dict()
+        symptom_model = SymptomModel(**symptom_data)
+        symptom_list.append(symptom_model)
+      return symptom_list
+    except Exception as e:
+      print(f"Error retrieving symptom data: {str(e)}")
       raise HTTPException(status_code=500, detail="Internal server error")
     
   async def update_symptom(self, symptom_data: SymptomUpdateModel, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict:

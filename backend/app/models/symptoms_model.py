@@ -54,6 +54,7 @@ class ActivityType(Enum):
   RUNNING = "running"
   CYCLING = "cycling"
   BASKETBALL = "basketball"
+  SPORTS = "sports"
   WORKOUTS = "workouts"
   OTHERS = "others"
 
@@ -61,14 +62,14 @@ class SymptomModel(BaseModel):
   """The class defines a pydation data model for symptoms tracking"""
 
   symptom_date: date
-  time_periods: List[TimePeriods]
+  time_periods: Optional[List[TimePeriods]]
   activity_level: Optional[ActivityLevel]
   activity_type: Optional[List[ActivityType]]
   symptoms: List[AsthmaSymptoms]
-  symptoms_severity: SymptomSeverity
+  symptoms_severity: Optional[SymptomSeverity]
   triggers: Optional[List[AsthmaTriggers]] = None
   rescueinhaler_used: Optional[bool] = False
-  environmental_factors: List[EnvironmentalFactors]
+  environmental_factors: Optional[List[EnvironmentalFactors]]
   created_at: date
 
 

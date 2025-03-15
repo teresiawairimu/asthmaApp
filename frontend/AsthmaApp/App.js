@@ -8,11 +8,22 @@ import { AuthProvider, useAuth } from "./src/context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
+
+const getCurrentDate = () => {
+  const today = new Date();
+  return today.toDateString();
+};
+
 const App = () => {
   const { user } = useAuth();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={ user ? "Dashboard": "Home"}>
+      <Stack.Navigator 
+      initialRouteName={ user ? "Dashboard": "Home"}
+      screenOptions={{
+        headerTitleAlign: "center",   
+      }}
+      >
         { !user ? (
           <>
             <Stack.Screen 
@@ -26,7 +37,13 @@ const App = () => {
             <Stack.Screen name="Login" component={LoginScreen} />
           </>
           ) : (
-            <Stack.Screen name="Dashboard" component={DashboardScreen} />
+            <Stack.Screen 
+            name="Dashboard" 
+            component={DashboardScreen}
+            options={{
+              title: getCurrentDate(),
+            }}
+            />
         )}
       </Stack.Navigator>
     </NavigationContainer>

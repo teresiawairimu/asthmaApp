@@ -9,22 +9,24 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 const Tab = createBottomTabNavigator();
 
+
 const DashboardScreen = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
         animation: "fade",
         tabBarActiveTintColor: "#4A90E2",
         tabBarInactiveTintColor: "#2C3E50",
         tabBarLabelPosition: "below-icon",
-        tabBarHideOnKeyboard: true
+        tabBarHideOnKeyboard: true,
+        headerShown: false,
       }}
     >
       <Tab.Screen 
       name="Today" 
       component={TodayScreen}
       options={{
+     
         tabBarIcon: ({color}) => (
           <Icon 
             name="notebook-outline"
