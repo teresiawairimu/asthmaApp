@@ -1,29 +1,32 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
 import CheckBox  from "expo-checkbox";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome6";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import { useAuth } from "../../context/AuthContext";
+import { logSymptoms, updateSymptoms } from "../../services/symptomServices";
 
-const SymptomsScreen = () => {
-  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+const SymptomsScreen = ({ existingData, isEditMode, selectedDate, onComplete}) => {
+  const [selectedSymptoms, setSelectedSymptoms] = useState(isEditMode ? existingData.symptoms : []);
   console.log(selectedSymptoms);
-  const [selectedSymptomsSeverity, setSelectedSymptomsSeverity] = useState(null);
+  const [selectedSymptomsSeverity, setSelectedSymptomsSeverity] = useState(isEditMode ? existingData.symptoms_severity : null);
   console.log(selectedSymptomsSeverity);
-  const [selectedTimePeriods, setSelectedTimePeriods] = useState([]);
+  const [selectedTimePeriods, setSelectedTimePeriods] = useState(isEditMode ? existingData.time_periods : []);
   console.log(selectedTimePeriods)
-  const [selectedActivityType, setSelectedActivityType] = useState([]);
+  const [selectedActivityType, setSelectedActivityType] = useState(isEditMode ? existingData.activityType : []);
   console.log(selectedActivityType)
-  const [selectedActivityLevel, setSelectedActivityLevel] = useState(null);
+  const [selectedActivityLevel, setSelectedActivityLevel] = useState(isEditMode ? existingData.activity_level : null);
   console.log(selectedActivityLevel);
-  const [selectedEnvironmentalFactors, setSelectedEnvironmentalFactors] = useState([]);
+  const [selectedEnvironmentalFactors, setSelectedEnvironmentalFactors] = useState(isEditMode ? existingData.environmental_factors : []);
   console.log(selectedEnvironmentalFactors);
-  const [selectedTriggers, setSelectedTriggers] = useState([])
-  const [isChecked, setChecked] = useState(false);
+  const [selectedTriggers, setSelectedTriggers] = useState(isEditMode ? existingData.triggers : [])
+  const [isChecked, setChecked] = useState(isEditMode ? existingData.rescue_inhaler : false);
   console.log(isChecked);
   const [symptomErrors, setSymptomsErrors] = useState([]);
   const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+ 
 
   const formatSymptomName = (key) => {
     return key
@@ -46,7 +49,7 @@ const SymptomsScreen = () => {
     }
 
     const symptomData = {
-      symptom_date : new Date(),
+      symptom_date : selectedDate || new Date(),
       symptoms: selectedSymptoms,
       symptoms_severity: selectedSymptomsSeverity,
       time_periods: selectedTimePeriods,
@@ -57,15 +60,19 @@ const SymptomsScreen = () => {
     }
     try {
       const token = await user.getIdToken();
-      await logSymptoms(symptomData, token);
+      if (isEditMode) {
+        await updateSymptoms({...symptomData, id: existingData.id}, token);
+      } else {
+        await logSymptoms(symptomData, token);
+      }
+      if (onComplete) onComplete();
     } catch (error) {
       console.error(error);
       setSymptomsErrors([error.message]);
     };
   };
-
+  
  
-
   const customSymptoms = {
     cough: <FontAwesomeIcon name="head-side-cough" size={20} color="#4A90E2" />,
     shortness_of_breath: <MaterialCommunityIcon name="emoticon-sick-outline" size={20} color="#4A90E2"  />,
@@ -129,12 +136,6 @@ const SymptomsScreen = () => {
   }
 
  
-
-
-  
-
- 
-
   return (
     <ScrollView>
     <View style={styles.container}>
@@ -302,6 +303,15 @@ const SymptomsScreen = () => {
         </View>
       )}
 
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={handleSubmit}
+      >
+        <Text style={styles.submitButtonText}>
+          {isEditMode ? "Update Symptoms" : "Log Symptoms"}
+        </Text>
+      </TouchableOpacity>
+
 
      </View>
      </ScrollView>
@@ -412,6 +422,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingTop: 5,
     fontWeight: "bold"
+  },
+  submitButton: {
+    backgroundColor: "#4A90E2",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 40
+  },
+  submitButtonText: {
+    color: "#ffffff",
+    fontWeight: "bold",
+    fontSize: 16
   }
   
 

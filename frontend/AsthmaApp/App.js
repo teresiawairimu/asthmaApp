@@ -1,28 +1,23 @@
+import { Alert, TouchableOpacity} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import HomeScreen from './src/screens/HomeScreen';
 import RegisterScreen from './src/screens/Auth/RegisterScreen';
 import LoginScreen from "./src/screens/Auth/LoginScreen";
-import DashboardScreen from "./src/screens/Main/DashboardScreen";
 import { AuthProvider, useAuth } from "./src/context/AuthContext";
+import Icon from "react-native-vector-icons/FontAwesome6";
+import { getAuth, signOut} from "firebase/auth";
+import DashboardStack from "./src/screens/Main/DashboardStack"
 
 const Stack = createNativeStackNavigator();
 
-
-const getCurrentDate = () => {
-  const today = new Date();
-  return today.toDateString();
-};
-
 const App = () => {
   const { user } = useAuth();
+
   return (
     <NavigationContainer>
       <Stack.Navigator 
-      initialRouteName={ user ? "Dashboard": "Home"}
-      screenOptions={{
-        headerTitleAlign: "center",   
-      }}
+        initialRouteName={ user ? "Dashboard": "Home"}
       >
         { !user ? (
           <>
@@ -38,11 +33,12 @@ const App = () => {
           </>
           ) : (
             <Stack.Screen 
-            name="Dashboard" 
-            component={DashboardScreen}
-            options={{
-              title: getCurrentDate(),
-            }}
+              name="Dashboard" 
+              component={DashboardStack}
+              options={{
+                //title: getCurrentDate(),
+                headerShown: false
+              }}
             />
         )}
       </Stack.Navigator>

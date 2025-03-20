@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import { initializeApp } from "firebase/app";
 import {getFirestore} from "firebase/firestore";
-import { getAuth, initializeAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, getReactNativePersistence} from "firebase/auth";
+import { initializeAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, getReactNativePersistence} from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
@@ -21,4 +21,4 @@ const auth = initializeAuth(app, {
 });
 
 
-export {db, auth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword};
+export {db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword};

@@ -12,14 +12,14 @@ origins = [
 ]
 
 app.add_middleware(
-  CORSMiddleware,
+  CORSMiddleware,                       
   allow_origins=origins,
   allow_credentials=True,
   allow_methods=["*"],
   allow_headers=["*"]
 )
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+#app.mount("analysis/static", StaticFiles(directory="static"), name="static")
 
 app.include_router(user_routes.router, prefix="/api/users")
 app.include_router(mood_routes.router, prefix="/api/mood")

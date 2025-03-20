@@ -1,14 +1,14 @@
 import axios from "axios";
 import { api_base_url } from "./apiConfig";
 
-const symptom_api_url = `${api_base_url}/api/symptom`;
+const asthmainfo_api_url = `${api_base_url}/api/asthmainfo`;
 
 
-export const logSymptoms = async(symptomData, idToken) => {
-  console.log("loging symptom data", symptomData);
+export const logAsthmaInfo = async(asthmaInfoData, idToken) => {
+  console.log("logging asthma info data", asthmaInfoData);
   console.log("Id token:", idToken);
   try {
-    const response = await axios.post(`${symptom_api_url}/log`, symptomData,
+    const response = await axios.post(`${asthmainfo_api_url}/log`, asthmaInfoData,
       {
         
         headers: {
@@ -17,7 +17,7 @@ export const logSymptoms = async(symptomData, idToken) => {
         },        
       }   
     );
-    console.log("symptom_api_url", symptom_api_url);
+    console.log("asthmainfo_api_url", asthmainfo_api_url);
     console.log("response data:", response.data);
     return response.data;
   } catch (error) {
@@ -27,10 +27,10 @@ export const logSymptoms = async(symptomData, idToken) => {
 };
 
 
-export const getSymptoms = async(idToken) => {
+export const getAsthmaInfo = async(userId, idToken) => {
   console.log("Id token:", idToken);
   try {
-    const response = await axios.get(`${symptom_api_url}/`,
+    const response = await axios.post(`${asthmainfo_api_url}`, userId,
       {
         
         headers: {
@@ -39,7 +39,7 @@ export const getSymptoms = async(idToken) => {
         },        
       }   
     );
-    console.log("symptom_api_url", symptom_api_url);
+    console.log("asthmainfo_api_url", asthmainfo_api_url);
     console.log("response data:", response.data);
     return response.data;
   } catch (error) {
@@ -49,12 +49,12 @@ export const getSymptoms = async(idToken) => {
 };
 
 
-export const updateSymptoms = async(symptom_id, symptomData, idToken) => {
-  console.log("loging symptom data", symptomData);
+export const updateAsthmaInfo = async(asthmainfo_id, asthmaInfoData, idToken) => {
+  console.log("logging asthma info data", asthmaInfoData);
   console.log("Id token:", idToken);
-  console.log("symptom_id:", symptom_id);
+  console.log("asthmainfo_id:", asthmainfo_id);
   try {
-    const response = await axios.post(`${symptom_api_url}/log`, symptom_id, symptomData,
+    const response = await axios.put(`${symptom_api_url}/${asthmainfo_id}`, asthmaInfoData,
       {
         
         headers: {
@@ -63,7 +63,7 @@ export const updateSymptoms = async(symptom_id, symptomData, idToken) => {
         },        
       }   
     );
-    console.log("symptom_api_url", symptom_api_url);
+    console.log("asthmainfo_api_url", asthmainfo_api_url);
     console.log("response data:", response.data);
     return response.data;
   } catch (error) {

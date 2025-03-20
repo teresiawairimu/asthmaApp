@@ -2,10 +2,12 @@ import React, {useState} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import LoginForm from "../../components/Forms/LoginForm";
 import { auth, signInWithEmailAndPassword } from "../../firebaseConfig";
+import { useNavigation } from "@react-navigation/native";
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const handleLogin = async (formData) => {
     setError(null);
@@ -16,7 +18,10 @@ const LoginScreen = ({navigation}) => {
         formData.email,
         formData.password
       );
-      navigation.navigate("Dashboard")
+      navigation.navigate({
+        index: 0,
+        routes: [{name : "Dashboard"}],
+      });
     } catch (error) {
       let errorMessage = "Something went wrong. Please try again.";
 

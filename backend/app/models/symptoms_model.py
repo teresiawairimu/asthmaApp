@@ -1,4 +1,4 @@
-from app.models.asthma_information_model import AsthmaTriggers
+from models.asthma_information_model import AsthmaTriggers
 from pydantic import BaseModel, Field
 from datetime import date
 from typing import List, Optional

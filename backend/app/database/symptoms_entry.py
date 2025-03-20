@@ -1,4 +1,4 @@
-from firebase_config import db
+from .firebase_config import db
 from app.models.symptoms_model import SymptomModel, SymptomUpdateModel
 from datetime import datetime
 from typing import Annotated

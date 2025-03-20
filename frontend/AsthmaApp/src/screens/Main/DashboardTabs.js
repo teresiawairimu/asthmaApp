@@ -1,16 +1,18 @@
-import { View, Text, } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TodayScreen from "./TodayScreen";
 import StatsScreen from "./StatsScreen";
 import CalendarScreen from "./CalendarScreen";
 import ProfileScreen from "./ProfileScreen";
+import ProfileStack from "./ProfileStack";
 import SymptomsScreen from "./SymptomsScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { signOut } from "../../firebaseConfig";
+import { Touchable, TouchableOpacity } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
 
-const DashboardScreen = () => {
+const DashboardTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -76,7 +78,7 @@ const DashboardScreen = () => {
         }}
       />
       <Tab.Screen 
-        name="Profile" 
+        name="Profile"
         component={ProfileScreen}
         options={{
           tabBarIcon: ({color}) => (
@@ -92,4 +94,4 @@ const DashboardScreen = () => {
   );
 }
 
-export default DashboardScreen;
+export default DashboardTabs;

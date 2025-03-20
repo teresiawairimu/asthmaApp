@@ -20,7 +20,7 @@ export const AuthProvider = ({children}) => {
   }, []);
 
   const value = {
-    user
+    user, setUser
   };
   return (
     <AuthContext.Provider value={value}>

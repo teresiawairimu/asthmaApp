@@ -26,4 +26,28 @@ export const registerUser = async(userData, idToken) => {
     console.error("Error", error);
     throw error;
   }
-}
+};
+
+
+export const retrieveUser = async(id, idToken) => {
+  console.log("Id :", id);
+  try {
+    const response = await axios.get(`${user_api_url}/${id}`,
+      {
+        
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+        },
+        
+      }
+      
+    );
+    console.log("user_api_url", user_api_url);
+    console.log("response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+};

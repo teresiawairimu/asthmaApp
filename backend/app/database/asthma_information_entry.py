@@ -1,8 +1,8 @@
-from firebase_config import db
-from app.models.asthma_information_model import AsthmaInformationModel, AsthmaInformationUpdateModel
+from .firebase_config import db
+from models.asthma_information_model import AsthmaInformationModel, AsthmaInformationUpdateModel
 from typing import Annotated
 from fastapi import Depends, HTTPException
-from app.middleware.authentication_middleware import verify_firebase_token
+from middleware.authentication_middleware import verify_firebase_token
 from firebase_admin import firestore
 
 
