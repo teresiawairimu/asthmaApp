@@ -3,6 +3,10 @@ from models.mood_model import MoodModel, MoodUpdateModel
 from typing import Annotated
 from fastapi import HTTPException
 from firebase_admin import firestore
+from datetime import datetime, date
+from utils.date_parser import parse_date_string
+from google.cloud.firestore_v1 import FieldFilter
+
 
 
 
@@ -18,9 +22,9 @@ class Mood:
       mood_ref = db.collection("mood").document()
       await mood_ref.set({
         "user_id": user_id,
-        "mood": mood_dict.get("mood_today"),
+        "mood_today": mood_dict.get("mood_today"),
         "mood_date": mood_dict.get("today"),
-        "created_at": firestore.FieldValue.serverTimestamp()
+        "created_at": firestore.SERVER_TIMESTAMP
       })
       return {"status": "success"}
     except Exception as e:
@@ -66,6 +70,50 @@ class Mood:
       return MoodModel(**mood_dict)
     except Exception as e:
       print(f"Error retrieving mood: {str(e)}")
+      raise HTTPException(status_code=500, detail="Internal server error")
+    
+
+  async def get_mood_by_date(self, retrieve_date: date, token: dict) -> MoodModel:
+    """"""
+
+    try:
+      user_id = token["uid"]
+      mood_data = None
+
+      mood_doc = (
+        db.collection("mood")
+        .where(filter=FieldFilter("user_id", "==", user_id))
+        .limit(1)
+        .stream()
+      )
+      
+      #target_date = retrieve_date.date()
+
+      async for doc in mood_doc:
+        mood_data = doc.to_dict()
+        mood_date = mood_data.get("mood_date")
+        if isinstance(mood_date, str):
+          try:
+            parsed_date = parse_date_string(mood_date)
+            mood_date_only = parsed_date.date()
+          except Exception as e:
+            print(f"Error parsing date string '{mood_date}': {str(e)}")
+            continue
+        elif hasattr(mood_date, "date"):
+          mood_date_only = mood_date.date()
+        else:
+          print(f"Unrecognized date format: {mood_date}")
+          continue
+
+        if mood_date_only == retrieve_date: 
+          mood_data["id"] = doc.id
+          return MoodModel(**mood_data)
+        
+      if mood_data is None:
+        return None
+       
+    except Exception as e:
+      print(f"Error retrieving mood data by date: {str(e)}")
       raise HTTPException(status_code=500, detail="Internal server error")
   
 

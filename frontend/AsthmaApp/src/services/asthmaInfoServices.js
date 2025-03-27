@@ -9,8 +9,7 @@ export const logAsthmaInfo = async(asthmaInfoData, idToken) => {
   console.log("Id token:", idToken);
   try {
     const response = await axios.post(`${asthmainfo_api_url}/log`, asthmaInfoData,
-      {
-        
+      {      
         headers: {
           Authorization: `Bearer ${idToken}`,
           "Content-Type": "application/json",
@@ -27,16 +26,15 @@ export const logAsthmaInfo = async(asthmaInfoData, idToken) => {
 };
 
 
-export const getAsthmaInfo = async(userId, idToken) => {
+export const getAsthmaInfo = async(idToken) => {
   console.log("Id token:", idToken);
   try {
-    const response = await axios.post(`${asthmainfo_api_url}`, userId,
-      {
-        
+    const response = await axios.get(`${asthmainfo_api_url}`,
+      { 
         headers: {
           Authorization: `Bearer ${idToken}`,
           "Content-Type": "application/json",
-        },        
+        },         
       }   
     );
     console.log("asthmainfo_api_url", asthmainfo_api_url);
@@ -54,9 +52,8 @@ export const updateAsthmaInfo = async(asthmainfo_id, asthmaInfoData, idToken) =>
   console.log("Id token:", idToken);
   console.log("asthmainfo_id:", asthmainfo_id);
   try {
-    const response = await axios.put(`${symptom_api_url}/${asthmainfo_id}`, asthmaInfoData,
+    const response = await axios.put(`${asthmainfo_api_url}/${asthmainfo_id}`, asthmaInfoData,
       {
-        
         headers: {
           Authorization: `Bearer ${idToken}`,
           "Content-Type": "application/json",

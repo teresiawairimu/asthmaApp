@@ -4,7 +4,7 @@ import ProfileScreen from "./ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
-const ProfileStack = ({navigation}) => {
+const ProfileStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -12,7 +12,6 @@ const ProfileStack = ({navigation}) => {
         component={ProfileScreen}
         options={{
           title: "Profile",
-       
         }}
       />
     </Stack.Navigator>

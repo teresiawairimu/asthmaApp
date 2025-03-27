@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { yupResolver} from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet } from "react-native";
 import CustomTextInput from "../Common/CustomTextInput";
 import CustomButton from "../Common/CustomButton";
-import { useAuth } from "../../context/AuthContext";
-import { retrieveUser } from "../../services/userServices";
+
 
 
 const schema = yup.object({
@@ -19,7 +18,7 @@ const schema = yup.object({
 
 const ProfileForm = ({ initialData, onSubmit }) => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [error, setError] = useState([]);
+  const [error, setError] = useState("");
 
 
   const { control, handleSubmit, formState: { errors}, reset} = useForm({
@@ -34,15 +33,25 @@ const ProfileForm = ({ initialData, onSubmit }) => {
     if (initialData) {
       reset({
         username: initialData.display_name || "",
-        email: initialData.email || ""
+        email: initialData.email || "",
       });
     }
   }, [initialData, reset]);
 
-  const processForm = (data) => {
-    onSubmit(data);
-    setIsEditMode(false);
-  };
+  const processForm = async (data) => {
+    try {
+      onSubmit({
+        display_name: data.username,
+        email: data.email,
+        //updated_at: new Date().toISOString().split("T")[0]
+      });
+      setIsEditMode(false);
+      setError("");
+    } catch(error) {
+      console.error(error);
+      setError("Failed to update profile. Please try again");
+    }
+  }
 
   return (
     <View style={[
@@ -66,44 +75,50 @@ const ProfileForm = ({ initialData, onSubmit }) => {
           )} 
         />
       </View>
-      <View style={styles.email}>
-      <Text>Email</Text>
-      <Controller
-        control={control}
-        name="email"
-        render={({field: {onChange, onBlur, value}}) => (
-          <CustomTextInput
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            value={value}
-            placeholder="Enter your email"
-            error={errors.email?.message}
-            editable={isEditMode}
+
+      {!isEditMode && (
+        <View style={styles.email}>
+          <Text>Email</Text>
+          <Controller
+            control={control}
+            name="email"
+            render={({field: {onChange, onBlur, value}}) => (
+              <CustomTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                placeholder="Enter your email"
+                error={errors.email?.message}
+                editable={false}
+              />
+            )} 
           />
-        )} 
-      />
-      </View>
+        </View>
+      )}
      
 
       <View style={styles.buttonContainer}>
         {error && <Text style={styles.errorText}>{error}</Text>}
         {isEditMode ? (
           <>
-        <CustomButton 
-          title="Save"
-          onPress={handleSubmit(processForm)}
-          disabled={isLoading}
-        />
-        <CustomButton
-        title="Cancel"
-        onPress={() => {
-          setIsEditMode(false);
-          reset({
-            username: userData.display_name || "",
-            email: userData.email || ""
-          });
-        }}
-        />
+        <View style={{ padding: 10}}>
+          <CustomButton 
+            title="Save"
+            onPress={handleSubmit(processForm)}
+          />
+        </View>
+        <View style={{ padding: 10}}>
+          <CustomButton
+            title="Cancel"
+            onPress={() => {
+              setIsEditMode(false);
+              reset({
+                username: initialData.display_name || "",
+                email: initialData.email || ""
+              });
+            }}
+          />
+        </View>
         </>
         ) : (
           <CustomButton

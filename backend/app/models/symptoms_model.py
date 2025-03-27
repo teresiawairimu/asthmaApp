@@ -1,6 +1,6 @@
 from models.asthma_information_model import AsthmaTriggers
 from pydantic import BaseModel, Field
-from datetime import date
+from datetime import datetime, date
 from typing import List, Optional
 from enum import Enum
 
@@ -61,16 +61,17 @@ class ActivityType(Enum):
 class SymptomModel(BaseModel):
   """The class defines a pydation data model for symptoms tracking"""
 
-  symptom_date: date
-  time_periods: Optional[List[TimePeriods]]
-  activity_level: Optional[ActivityLevel]
-  activity_type: Optional[List[ActivityType]]
-  symptoms: List[AsthmaSymptoms]
-  symptoms_severity: Optional[SymptomSeverity]
+  id: Optional[str] = None
+  symptom_date: datetime
+  time_periods: Optional[List[TimePeriods]] = None
+  activity_level: Optional[ActivityLevel] = None
+  activity_type: Optional[List[ActivityType]] = None
+  symptoms: List[AsthmaSymptoms] 
+  symptoms_severity: Optional[SymptomSeverity] = None
   triggers: Optional[List[AsthmaTriggers]] = None
   rescueinhaler_used: Optional[bool] = False
-  environmental_factors: Optional[List[EnvironmentalFactors]]
-  created_at: date
+  environmental_factors: Optional[List[EnvironmentalFactors]] = None
+  created_at: Optional[datetime] = None
 
 
 class SymptomUpdateModel(BaseModel):
@@ -78,13 +79,13 @@ class SymptomUpdateModel(BaseModel):
 
   time_periods: Optional[List[TimePeriods]]
   activity_level: Optional[ActivityLevel]
-  ativity_type: Optional[List[ActivityType]]
+  activity_type: Optional[List[ActivityType]]
   symptoms: Optional[List[AsthmaSymptoms]]
   symptoms_severity: Optional[SymptomSeverity]
   triggers: Optional[List[AsthmaTriggers]]
   rescueinhaler_used: Optional[bool] = False
   environmental_factors: Optional[List[EnvironmentalFactors]]
-  updated_at: date
+  updated_at: Optional[datetime] = None
 
 class DateRangeRequest(BaseModel):
   start_date: date

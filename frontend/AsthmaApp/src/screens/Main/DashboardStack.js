@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome6";
 import {getAuth, signOut} from "firebase/auth";
 import {Alert, TouchableOpacity} from "react-native";
 import { useAuth } from "../../context/AuthContext";
+import EntryScreen from "./EntryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,11 @@ const DashboardStack = () => {
             </TouchableOpacity>
           )
         }}
+      />
+      <Stack.Screen
+        name="Entry"
+        component={EntryScreen}
+        options={{ title: "Daily Entry"}}
       />
     </Stack.Navigator>
   )

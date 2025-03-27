@@ -3,10 +3,6 @@ from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
 from datetime import date
 
-class Gender(Enum):
-  male = "male"
-  female = "female"
-
 
 class UserModel(BaseModel):
   """The base user model
@@ -15,13 +11,8 @@ class UserModel(BaseModel):
 
   Attributes:
     uid (str): Firebase unique identifier
-    email (str): The user's email address
-    display_name (str): The user's display_name
-    phone_number (str): The user's phonenumber
+    email (str): The user's email address  
     date_of_birth (str): The user's date_of_birth
-    gender (Gender): THe user's gender
-    height (int): The user's height
-    weight (int): THe user's weight
     consent_signed (bool): The user's consent
     created_at: The timestamp added when stored in firestore
   """
@@ -30,7 +21,6 @@ class UserModel(BaseModel):
   uid: Optional[str] = Field(None, description="Firebase UID")
   email: EmailStr
   display_name: Optional[str] = None
-  date_of_birth: Optional[date] = None
   consent_signed: bool = False
   created_at: Optional[date] = None
 
@@ -60,8 +50,7 @@ class UserUpdateModel(BaseModel):
   """Model for updating user via PUT request"""
 
   display_name: Optional[str]
-  date_of_birth: Optional[date]
-  consent_signed: bool
-  updated_at: date
+  updated_at: Optional[date] = None
+
 
 

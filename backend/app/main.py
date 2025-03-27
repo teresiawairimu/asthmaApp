@@ -1,7 +1,7 @@
 from fastapi import FastAPI 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from routes import user_routes, mood_routes, symptoms_routes
+from routes import user_routes, mood_routes, symptoms_routes, asthma_info_routes
 
 
 
@@ -24,6 +24,7 @@ app.add_middleware(
 app.include_router(user_routes.router, prefix="/api/users")
 app.include_router(mood_routes.router, prefix="/api/mood")
 app.include_router(symptoms_routes.router, prefix="/api/symptoms")
+app.include_router(asthma_info_routes.router, prefix="/api/asthmainfo")
 
 if __name__ == "__main__":
   import uvicorn

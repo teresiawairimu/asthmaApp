@@ -28,6 +28,8 @@ class AsthmaTriggers(Enum):
 
   RESPIRATORY_INFECTION = "respiratory_infection"
   ALLERGIES = "allergies"
+  PET_DANDER = "pet_dander"
+  SCENTED_LOTION = "scented_lotion"
 
 class MedicationType(Enum):
   """The class defines enumeration for medicine types"""
@@ -43,12 +45,12 @@ class AsthmaInformationModel(BaseModel):
 
   Defines the common attributes shared across different asthma_information related models.
   """
+  id: Optional[str] = None
   asthma_diagnosis: Optional[bool] = False
   severity_level: Optional[AsthmaSeverity] = None
   triggers: Optional[List[AsthmaTriggers]] = None
-  custom_triggers: Optional[List[str]] = None
   medication_type: Optional[List[MedicationType]] = None
-  created_at: date
+  created_at: Optional[date] = None
 
  
 
@@ -58,9 +60,9 @@ class AsthmaInformationUpdateModel(BaseModel):
   asthma_diagnosis: Optional[bool] = False
   severity_level: Optional[AsthmaSeverity] = None
   triggers: Optional[List[AsthmaTriggers]] = None
-  custom_triggers: Optional[List[str]] = None
-  medication_type: Optional[MedicationType] =  None
-  updated_at: date
+  medication_type: Optional[List[MedicationType]] =  None
+  updated_at: Optional[date] = None
+
 
 
 class AsthmaInformationResponse(BaseModel):
@@ -68,7 +70,6 @@ class AsthmaInformationResponse(BaseModel):
 
   severity_level: AsthmaSeverity
   triggers: List[AsthmaTriggers]
-  custom_triggers: List[str]
 
 
 class MedicationInfoResponse(BaseModel):

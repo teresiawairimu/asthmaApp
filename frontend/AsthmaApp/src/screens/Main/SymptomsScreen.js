@@ -1,31 +1,33 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
 import CheckBox  from "expo-checkbox";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome6";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
-import { useAuth } from "../../context/AuthContext";
-import { logSymptoms, updateSymptoms } from "../../services/symptomServices";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const SymptomsScreen = ({ existingData, isEditMode, selectedDate, onComplete}) => {
-  const [selectedSymptoms, setSelectedSymptoms] = useState(isEditMode ? existingData.symptoms : []);
+
+
+const SymptomsScreen = ({ existingData, selectedDate, onSubmit}) => {
+const [selectedSymptoms, setSelectedSymptoms] = useState(existingData?.symptoms || []);
   console.log(selectedSymptoms);
-  const [selectedSymptomsSeverity, setSelectedSymptomsSeverity] = useState(isEditMode ? existingData.symptoms_severity : null);
+  const [selectedSymptomsSeverity, setSelectedSymptomsSeverity] = useState(existingData?.symptoms_severity || null);
   console.log(selectedSymptomsSeverity);
-  const [selectedTimePeriods, setSelectedTimePeriods] = useState(isEditMode ? existingData.time_periods : []);
+  const [selectedTimePeriods, setSelectedTimePeriods] = useState(existingData?.time_periods || []);
   console.log(selectedTimePeriods)
-  const [selectedActivityType, setSelectedActivityType] = useState(isEditMode ? existingData.activityType : []);
+  const [selectedActivityType, setSelectedActivityType] = useState(existingData?.activity_type || []);
   console.log(selectedActivityType)
-  const [selectedActivityLevel, setSelectedActivityLevel] = useState(isEditMode ? existingData.activity_level : null);
+  const [selectedActivityLevel, setSelectedActivityLevel] = useState(existingData?.activity_level || null);
   console.log(selectedActivityLevel);
-  const [selectedEnvironmentalFactors, setSelectedEnvironmentalFactors] = useState(isEditMode ? existingData.environmental_factors : []);
+  const [selectedEnvironmentalFactors, setSelectedEnvironmentalFactors] = useState(existingData?.environmental_factors || []);
   console.log(selectedEnvironmentalFactors);
-  const [selectedTriggers, setSelectedTriggers] = useState(isEditMode ? existingData.triggers : [])
-  const [isChecked, setChecked] = useState(isEditMode ? existingData.rescue_inhaler : false);
-  console.log(isChecked);
-  const [symptomErrors, setSymptomsErrors] = useState([]);
-  const { user } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedTriggers, setSelectedTriggers] = useState(existingData?.triggers || [])
+  const [isChecked, setIsChecked] = useState(existingData?.rescueinhaler_used || false);
+  const [isEditMode, setIsEditMode] = useState(!existingData);
+  const [error, setError] = useState(null);
+  console.log("existing data in symptoms file", existingData);
+
+
  
 
   const formatSymptomName = (key) => {
@@ -35,44 +37,28 @@ const SymptomsScreen = ({ existingData, isEditMode, selectedDate, onComplete}) =
       .join(' ');
   };
 
-  const handleSubmit = async () => {
-    setSymptomsErrors([]);
-
-    if (!user) {
-      setSymptomsErrors(["User is not logged in"]);
-      return;
-    }
-
-    if (selectedSymptoms.length === 0) {
-      setSymptomsErrors(["Please select at least one symptom"]);
-      return;
-    }
-
-    const symptomData = {
-      symptom_date : selectedDate || new Date(),
-      symptoms: selectedSymptoms,
-      symptoms_severity: selectedSymptomsSeverity,
-      time_periods: selectedTimePeriods,
-      activity_type: selectedActivityType,
-      activity_level: selectedActivityLevel,
-      environmental_factors: selectedEnvironmentalFactors,
-      rescue_inhaler: isChecked,
-    }
+  const processSymptomData = async () => {
     try {
-      const token = await user.getIdToken();
-      if (isEditMode) {
-        await updateSymptoms({...symptomData, id: existingData.id}, token);
-      } else {
-        await logSymptoms(symptomData, token);
-      }
-      if (onComplete) onComplete();
+      const symptomData = {
+        symptom_date : selectedDate || new Date().toISOString(),
+        symptoms: selectedSymptoms,
+        symptoms_severity: selectedSymptomsSeverity,
+        time_periods: selectedTimePeriods,
+        activity_type: selectedActivityType,
+        activity_level: selectedActivityLevel,
+        environmental_factors: selectedEnvironmentalFactors,
+        triggers: selectedTriggers,
+        rescueinhaler_used: isChecked,
+      };
+      await onSubmit(symptomData);
+      setIsEditMode(false);
     } catch (error) {
       console.error(error);
-      setSymptomsErrors([error.message]);
-    };
+      setError("An error occurred while processing symptom data")
+    }
   };
-  
- 
+
+
   const customSymptoms = {
     cough: <FontAwesomeIcon name="head-side-cough" size={20} color="#4A90E2" />,
     shortness_of_breath: <MaterialCommunityIcon name="emoticon-sick-outline" size={20} color="#4A90E2"  />,
@@ -101,7 +87,7 @@ const SymptomsScreen = ({ existingData, isEditMode, selectedDate, onComplete}) =
     walking: <FontAwesomeIcon name="person-walking" size={20} color="#4A90E2" />,
     running: <FontAwesomeIcon name="person-running" size={20} color="#4A90E2" />,
     cycling: <FontAwesomeIcon name="person-biking" size={20} color="#4A90E2" />,
-    Baketball: <FontAwesomeIcon name="basketball" size={20} color="#4A90E2" />,
+    Basketball: <FontAwesomeIcon name="basketball" size={20} color="#4A90E2" />,
     sports: <FontAwesomeIcon name="medal" size={20} color="#4A90E2" />,
     workouts: <FontAwesomeIcon name="dumbbell" size={20} color="#4A90E2" />,
     others: <FontAwesomeIcon name="people-pulling" size={20} color="#4A90E2" />
@@ -137,193 +123,244 @@ const SymptomsScreen = ({ existingData, isEditMode, selectedDate, onComplete}) =
 
  
   return (
-    <ScrollView>
+    <SafeAreaView style={styles.safeAreaStyle}>
+      <View style={styles.mainContainer}>
+    <ScrollView
+    //style={styles.scrollView}
+    //contentContainerStyle={styles.scrollViewContent}
+    showsVerticalScrollIndicator={true}
+    >
     <View style={styles.container}>
+      <View style={isEditMode ?  styles.viewModeContainer : styles.editModeContainer}>
       <Text style={styles.mainTitle}>How have you been?</Text>
 
-      <View style={styles.symptomContainer}>
+      <View style={styles.fieldContainer}>
         <Text style={styles.title}>Which symptoms have you experienced?</Text>
-        <View style={styles.symptomGrid}>
-          {Object.entries(customSymptoms).map(([symptom, icon]) => (
-            <View key={symptom} style={styles.symptomItem}>
-              <TouchableOpacity 
-              onPress={() => {
-                setSelectedSymptoms(previousSymptoms => previousSymptoms.includes(symptom)
-                ? previousSymptoms.filter(s => s !== symptom)
-                : [...previousSymptoms, symptom]);
-              }}>
-                {icon}
-                <Text style={[styles.symptomText, 
-                  selectedSymptoms.includes(symptom) ? styles.symptomTextSelected : null
-                ]}>{formatSymptomName(symptom)}</Text>
-              </TouchableOpacity>              
-            </View>
-          ))}
-        </View>
-        {selectedSymptoms.length > 0 && (<Text>Selected: {selectedSymptoms.join(", ")}</Text>)}
+            <View style={styles.grid}>
+              {Object.entries(customSymptoms).map(([symptom, icon]) => (
+                <View key={symptom} style={styles.item}>
+                  <TouchableOpacity
+                    disabled={!isEditMode}
+                    onPress={() => {
+                      setSelectedSymptoms(previousSymptoms => previousSymptoms.includes(symptom)
+                        ? previousSymptoms.filter(s => s !== symptom)
+                        : [...previousSymptoms, symptom]);
+                    }}
+                  >
+                    {icon}
+                    <Text style={[styles.symptomText, 
+                      selectedSymptoms.includes(symptom) ? styles.textSelected : null
+                    ]}>{formatSymptomName(symptom)}</Text>
+                  </TouchableOpacity>              
+                </View>
+              ))}
+           </View>
       </View>
 
-      <View style={styles.symptomSeverityContainer}>
+      <View style={styles.fieldContainer}>
         <Text style={styles.title}>How would you rate your symptoms' severity?</Text>
-        <View style={styles.symptomGrid}>
-          {Object.entries(customSymptomSeverityLevels).map(([symptomSeverity, icon]) => (
-            <View key={symptomSeverity} style={styles.symptomItem}>
-              <TouchableOpacity 
-              onPress={() => {
-                setSelectedSymptomsSeverity(symptomSeverity);
-              }}>
-                {icon}
-                <Text style={[styles.symptomText, 
-                  selectedSymptomsSeverity === symptomSeverity ? styles.severityTextSelected : null]}>{symptomSeverity}</Text>
-              </TouchableOpacity>
+            <View style={styles.grid}>
+              {Object.entries(customSymptomSeverityLevels).map(([symptomSeverity, icon]) => (
+                <View key={symptomSeverity} style={styles.item}>
+                  <TouchableOpacity 
+                    disabled={!isEditMode}
+                    onPress={() => {
+                      setSelectedSymptomsSeverity(previous =>
+                        previous === symptomSeverity ? null : symptomSeverity);
+                    }}
+                  >
+                    {icon}
+                    <Text style={[styles.symptomText, 
+                      selectedSymptomsSeverity === symptomSeverity ? styles.textSelected : null]}>{symptomSeverity}</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
       </View>
 
-      <View style={styles.timePeriodsContainer}>
+      <View style={styles.fieldContainer}>
         <Text style={styles.title}>What time periods did you experience these symptoms?</Text>
-        <View style={styles.symptomGrid}>
-          {Object.entries(customTimePeriods).map(([timePeriod, icon]) => (
-            <View key={timePeriod} style={styles.symptomItem}>
-              <TouchableOpacity onPress={() =>{
-                  setSelectedTimePeriods(previousPeriods => previousPeriods.includes(timePeriod)
-                  ? previousPeriods.filter(p => p !== timePeriod)
-                  : [...previousPeriods, timePeriod])
-              }}>
-                {icon}
-                <Text style={[styles.symptomText,
-                  selectedTimePeriods.includes(timePeriod) ? styles.timeTextSelected : null
-                ]}>{timePeriod}</Text>
-              </TouchableOpacity>
+            <View style={styles.grid}>
+              {Object.entries(customTimePeriods).map(([timePeriod, icon]) => (
+                <View key={timePeriod} style={styles.item}>
+                  <TouchableOpacity 
+                    disabled={!isEditMode} 
+                    onPress={() =>{
+                      setSelectedTimePeriods(previousPeriods => previousPeriods.includes(timePeriod)
+                        ? previousPeriods.filter(p => p !== timePeriod)
+                        : [...previousPeriods, timePeriod]);
+                    }}
+                  >
+                    {icon}
+                    <Text style={[styles.symptomText,
+                      selectedTimePeriods.includes(timePeriod) ? styles.textSelected : null
+                      ]}>{timePeriod}</Text>
+                  </TouchableOpacity>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
       </View>
 
-      <View style={styles.activityTypeContainer}>
+      <View style={styles.fieldContainer}>
         <Text style={styles.title}>Which activities were you participating in?</Text>
-        <View style={styles.symptomGrid}>
-          {Object.entries(customActivityType).map(([activityType, icon]) => (
-            <View key={activityType} style={styles.symptomItem}>
-              <TouchableOpacity onPress={() => {
-                setSelectedActivityType(previousActivities => previousActivities.includes(activityType)
-                ? previousActivities.filter(activity => activity !== activityType)
-                : [...previousActivities, activityType]
-              )
-              }}>
-                {icon}
-                <Text style={[styles.symptomText,
-                  selectedActivityType.includes(activityType) ? styles.activityTypeTextSelected : null
-                ]}>{activityType}</Text> 
-              </TouchableOpacity>
+            <View style={styles.grid}>
+              {Object.entries(customActivityType).map(([activityType, icon]) => (
+                <View key={activityType} style={styles.item}>
+                  <TouchableOpacity 
+                    disabled={!isEditMode} 
+                    onPress={() => {
+                      setSelectedActivityType(previousActivity => previousActivity.includes(activityType)
+                        ? previousActivity.filter(activity => activity !== activityType)
+                        : [...previousActivity, activityType]);
+                    }}
+                  >
+                    {icon}
+                    <Text style={[styles.symptomText,
+                      selectedTimePeriods.includes(activityType) ? styles.textSelected : null
+                      ]}>{activityType}</Text> 
+                  </TouchableOpacity>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
       </View>
 
-      <View style={styles.activityLevelContainer}>
+      <View style={styles.fieldContainer}>
         <Text style={styles.title}>How would you rate the intensity of your activities?</Text>
-        <View style={styles.symptomGrid}>
-          {Object.entries(customActivityLevel).map(([activityLevel, icon]) => (
-            <View key={activityLevel} style={styles.symptomItem}>
-              <TouchableOpacity onPress={() => {
-                setSelectedActivityLevel(activityLevel);
-              }}>
-                {icon}
-                <Text style={[styles.symptomText,
-                  selectedActivityLevel === activityLevel ? styles.activityLevelTextSelected : null
-                ]}>{activityLevel}</Text> 
-              </TouchableOpacity>
+            <View style={styles.grid}>
+              {Object.entries(customActivityLevel).map(([activityLevel, icon]) => (
+                <View key={activityLevel} style={styles.item}>
+                  <TouchableOpacity disabled={!isEditMode} onPress={() => {
+                    setSelectedActivityLevel(previous => 
+                      previous === activityLevel ? null : activityLevel);
+                    }}
+                  >
+                    {icon}
+                    <Text style={[styles.symptomText,
+                      selectedActivityLevel === activityLevel ? styles.textSelected : null
+                      ]}>{activityLevel}</Text> 
+                  </TouchableOpacity>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
       </View>
 
-      <View style={styles.environmentalFactorsContainer}>
+      <View style={styles.fieldContainer}>
         <Text style={styles.title}>What about environmental factors?</Text>
-        <View style={styles.symptomGrid}>
-          {Object.entries(customEnvironmentalFactors).map(([environmentalFactor, icon]) => (
-            <View key={environmentalFactor} style={styles.symptomItem}>
-              <TouchableOpacity onPress={() => {
-                setSelectedEnvironmentalFactors(previousFactors => previousFactors.includes(environmentalFactor)
-                ? previousFactors.filter(factor => factor !== environmentalFactor)
-                : [...previousFactors, environmentalFactor]
-              )
-              }}>
-                {icon}
-                <Text style={[styles.symptomText,
-                  selectedEnvironmentalFactors.includes(environmentalFactor)  ? styles.factorsTextSelected : null
-                ]}>{formatSymptomName(environmentalFactor)}</Text> 
-              </TouchableOpacity>
+            <View style={styles.grid}>
+              {Object.entries(customEnvironmentalFactors).map(([environmentalFactor, icon]) => (
+                <View key={environmentalFactor} style={styles.item}>
+                  <TouchableOpacity disabled={!isEditMode} onPress={() => {
+                    setSelectedEnvironmentalFactors(previousFactors => previousFactors.includes(environmentalFactor)
+                      ? previousFactors.filter(factor => factor !== environmentalFactor)
+                      : [...previousFactors, environmentalFactor]);
+                    }}
+                  >
+                    {icon}
+                    <Text style={[styles.symptomText,
+                      selectedEnvironmentalFactors.includes(environmentalFactor)  ? styles.textSelected : null
+                    ]}>{formatSymptomName(environmentalFactor)}</Text> 
+                  </TouchableOpacity>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
       </View>
 
-      <View style={styles.triggersContainer}>
+      <View style={styles.fieldContainer}>
         <Text style={styles.title}>Were you exposed to any known triggers?</Text>
-        <View style={styles.symptomGrid}>
-          {Object.entries(customTriggers).map(([trigger, icon]) => (
-            <View key={trigger} style={styles.symptomItem}>
-              <TouchableOpacity onPress={() => {
-                setSelectedTriggers(previousTriggers => previousTriggers.includes(trigger)
-                ? previousTriggers.filter(t => t !== trigger)
-                : [...previousTriggers, trigger]
-              )
-              }}>
-                {icon}
-                <Text style={[styles.symptomText,
-                  selectedTriggers.includes(trigger)  ? styles.triggersTextSelected : null
-                ]}>{formatSymptomName(trigger)}</Text> 
-              </TouchableOpacity>
+            <View style={styles.grid}>
+              {Object.entries(customTriggers).map(([trigger, icon]) => (
+                <View key={trigger} style={styles.item}>
+                  <TouchableOpacity disabled={!isEditMode} onPress={() => {
+                    setSelectedTriggers(previousTriggers => previousTriggers.includes(trigger)
+                      ? previousTriggers.filter(t => t !== trigger)
+                      : [...previousTriggers, trigger]);
+                    }}
+                  >
+                    {icon}
+                    <Text style={[styles.symptomText,
+                      selectedTriggers.includes(trigger)  ? styles.textSelected : null
+                    ]}>{formatSymptomName(trigger)}</Text> 
+                  </TouchableOpacity>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
       </View>
 
-      <View style={styles.inhalerContainer}>
-        <View style={styles.symptomGrid}>
+      <View style={styles.fieldContainer}>
+        <View style={styles.grid}>
           <View style={styles.section}>
-              <CheckBox
-                value={isChecked}
-                onValueChange={setChecked}
-                style={styles.checkbox}
+            <CheckBox
+              value={isChecked}
+              onValueChange={setIsChecked}
+              disabled={!isEditMode}
+              style={styles.checkbox}
               />
-              <Text style={styles.paragraph}>Did you use your rescue inhaler?</Text>
+                <Text style={styles.paragraph}>Did you use your rescue inhaler?</Text>
+              </View>
             </View>
-        </View>
       </View>
 
-      {symptomErrors.length > 0 && (
-        <View style={styles.errorContainer}>
-          {symptomErrors.map((error, index) => (
-            <Text key={index} style={styles.errorText}>{error}</Text>
-          ))}
-        </View>
-      )}
 
-      <TouchableOpacity
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
+      {isEditMode ? (
+        <>
+        <TouchableOpacity 
         style={styles.submitButton}
-        onPress={handleSubmit}
-      >
-        <Text style={styles.submitButtonText}>
-          {isEditMode ? "Update Symptoms" : "Log Symptoms"}
-        </Text>
-      </TouchableOpacity>
-
-
+        onPress={processSymptomData}
+        >
+          <Text style={styles.submitButtonText}>Save Symptoms</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+        style={styles.submitButton}
+        onPress={() => setIsEditMode(false)}
+        >
+          <Text style={styles.submitButtonText}>Cancel</Text>
+        </TouchableOpacity>
+        </>
+      ) : (
+        <TouchableOpacity
+        onPress={() => setIsEditMode(true)}
+        >
+          <Text>Edit Symptoms</Text>
+        </TouchableOpacity>
+      )}
+      </View>
      </View>
      </ScrollView>
+     </View>
+     </SafeAreaView>
 
   );
 };
     
 const styles = StyleSheet.create({
+  //scrollView: {
+    //flex: 1
+  //},
+  //scrollViewContent: {
+    //paddingBottom: 100
+  //},
+  safeAreaStyle: {
+    flex: 1
+  },
+ 
   container: {
-    flex: 1,
+    //flex: 1,
     padding: 10,
-    backgroundColor: "#F5F7FA"
+    backgroundColor: "#F5F7FA",
+    //minHeight: "100%"
+  },
+  viewModeContainer: {
+    backgroundColor: "#f5f5f5",
+    borderColor: "#4b88c2",
+    //paddingTop: 80
+  },
+  editModeContainer: {
+    backgroundColor: "#fffbee",
+    borderColor: "#ffd161",
+    borderWidth: 2,
+    padding: 10
   },
   mainTitle: {
     fontSize: 20,
@@ -331,22 +368,21 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
-   symptomContainer: {
+   fieldContainer: {
     backgroundColor: "#ffffff",
     marginBottom: 20
-  
   },
   title: {
     fontSize: 15,
     fontWeight: "bold",
     marginBottom: 20
   },
-  symptomGrid: {
+  grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
-  symptomItem: {
+  item: {
     alignItems: "center",
     width: "30%", 
     marginBottom: 20,
@@ -356,61 +392,10 @@ const styles = StyleSheet.create({
     textAlign: "justify",
     color: "#2C3E50"
   },
-  symptomSeverityContainer: {
-    backgroundColor: "#ffffff",
-    marginBottom: 20,
-  },
-  timePeriodsContainer: {
-    backgroundColor: "#ffffff",
-    marginBottom: 20
-  },
-  activityTypeContainer: {
-    backgroundColor: "#ffffff",
-    marginBottom: 20
-  },
-  activityLevelContainer: {
-    backgroundColor: "#ffffff",
-    marginBottom: 20
-  },
-  environmentalFactorsContainer: {
-    backgroundColor: "#ffffff",
-    marginBottom: 20
-  },
-  triggersContainer: {
-    backgroundColor: "#ffffff",
-    marginBottom: 20
-  },
-  inhalerContainer: {
-    backgroundColor: "#ffffff",
-    marginBottom: 20
-  },
-  symptomTextSelected: {
+ 
+  textSelected: {
     color: "#009688",
     fontWeight: "bold",
-  },
-  severityTextSelected: {
-    color: "#009688", 
-    fontWeight: "bold",
-  },
-  timeTextSelected: {
-    color: "#009688", 
-    fontWeight: "bold",
-  }, 
-  activityTypeTextSelected: {
-    color: "#009688", 
-    fontWeight: "bold",
-  },
-  activityLevelTextSelected: {
-    color: "#009688",
-    fontweight: "bold"
-  },
-  factorsTextSelected: {
-    color: "#009688",
-    font: "bold"
-  },
-  triggersTextSelected: {
-    color: "#009688",
-    font: "bold"
   },
   section: {
     flexDirection: "row",
@@ -425,19 +410,17 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     backgroundColor: "#4A90E2",
-    padding: 15,
+    padding: 10,
     borderRadius: 5,
     alignItems: "center",
-    marginTop: 20,
-    marginBottom: 40
+    marginTop: 10,
+    //marginBottom: 40
   },
   submitButtonText: {
     color: "#ffffff",
     fontWeight: "bold",
-    fontSize: 16
+    //fontSize: 16
   }
-  
-
 });
 
 

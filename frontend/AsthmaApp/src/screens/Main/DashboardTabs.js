@@ -89,7 +89,7 @@ const DashboardTabs = () => {
             />
           )
         }}
-      />
+      />  
     </Tab.Navigator>
   );
 }

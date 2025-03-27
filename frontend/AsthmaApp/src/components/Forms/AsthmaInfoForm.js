@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RNPickerSelect from "react-native-picker-select";
 import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import {View, Text, StyleSheet, Button} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 import CustomButton from "../Common/CustomButton";
 import {useForm } from "react-hook-form";
+import CheckBox  from "expo-checkbox";
 
 
 const AsthmaInfoForm = ({ initialData, onSubmit}) => {
@@ -15,6 +16,7 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
   const [selectedSeverity, setSelectedSeverity] = useState(null);
   const [medicationOpen, setMedicationOpen] = useState(false);
   const [selectedMedication, setSelectedMedication] = useState([]);
+  const [checked, setChecked] = useState(false);
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
@@ -22,11 +24,12 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
 
   useEffect(() => {
     if (initialData) {
-      const { triggers, severity_level, medication_type, date_of_birth} = initialData
+      console.log("initial data for asthma info", initialData);
+      const { triggers, severity_level, medication_type, asthma_diagnosis} = initialData
       setSelectedTriggers(triggers || []);
       setSelectedSeverity(severity_level || null);
       setSelectedMedication(medication_type || []);
-      setDate(date_of_birth ? new Date(date_of_birth) : new Date());
+      setChecked(asthma_diagnosis || false)
       setIsEditMode(false);
     }
   }, [initialData]);
@@ -41,10 +44,11 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
   const processForm = () => {
     try {
       const asthmainfo = {
+        asthma_diagnosis: checked,
         triggers: selectedTriggers,
         severity_level: selectedSeverity,
         medication_type: selectedMedication,
-        date_of_birth: date
+        //updated_at: new Date().toISOString().split("T")[0]
       };
       onSubmit(asthmainfo);
       setIsEditMode(false);
@@ -59,7 +63,7 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
       styles.formContainer,
       isEditMode ? styles.editModeContainer : styles.viewModeContainer
     ]}>
-      <View style={styles.birth}>
+      {/*<View style={styles.birth}>
       <Button title="Select Date of Birth" onPress={() => isEditMode && setShow(true)} disabled={!isEditMode} />
       <Text>DOB: {date.toDateString()}</Text>
       {show && (
@@ -71,14 +75,27 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
           editable={isEditMode}
         />
       )}
+      </View>*/}
+
+      <View style={styles.fieldContainer}>
+        <Text style={styles.fieldLabel}>Asthma Diagnosis: </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-around"}}>
+        <CheckBox
+          value={checked}
+          onValueChange={setChecked}
+          style={styles.checkbox}
+        />
+        <Text style={styles.paragraph}>Have you been diagnosed with Asthma?</Text>
+        </View>
       </View>
 
    
-    
-      <View style={styles.severity}>
+      <View style={styles.fieldContainer}>
+       <Text style={styles.fieldLabel}>Asthma Severity: </Text>
         <RNPickerSelect
-          placeholder={{ label: "Select the asthma severity", value: null, color: "black"}}
+          placeholder={{ label: "Select the asthma severity", value: null}}
           onValueChange={setSelectedSeverity}
+          value={selectedSeverity}
           items={[
             {label: "Mild", value: "mild"},
             {label: "Moderate", value: "moderate"},
@@ -89,12 +106,15 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
             placeholder: {
               fontWeight: "bold",
               color: "black"
-            }
+            }, 
+            inputIOS: { color: "black", fontSize: 16 },      
+            inputAndroid: { color: "black", fontSize: 16 }
           }}
         />
       </View>
 
-      <View style={styles.trigger}>
+      <View style={styles.fieldContainer}>
+        <Text style={styles.fieldLabel}>Triggers: </Text>
         <DropDownPicker
           placeholder="Select any known triggers"
           open={triggersOpen}
@@ -111,7 +131,9 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
             {label: "Strong Odors", value: "strong_odors"},
             {label: "Cleaning products", value: "cleaning_products"},
             {label: "Respiratory Infection", value: "respiratory_infection"},
-            {label: "Allergies", value: "allergies"}
+            {label: "Allergies", value: "allergies"},
+            {label: "Pet Dander", value: "pet_dander"},
+            {label: "Scented Lotion", value: "scented_lotion"}
           ]}
           setOpen={(open) => {
             if (isEditMode) {
@@ -120,7 +142,6 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
             }
           }}
           setValue={setSelectedTriggers}
-          setItems={setTriggers}
           multiple={true}
           mode="BADGE"
           listMode="MODAL"
@@ -130,7 +151,9 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
 
   
 
-      <View style={styles.medication}>
+      <View style={styles.fieldContainer}>
+        <Text style={styles.fieldLabel}>Medication: </Text>
+
         <DropDownPicker
           placeholder="Select medication types, if any"
           open={medicationOpen}
@@ -147,33 +170,36 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
             }
           }}
           setValue={setSelectedMedication}
-          setItems={setMedication}
           multiple={true}
           mode="BADGE"
           disabled={!isEditMode}
         />
       </View>
-
-   
+  
         {error && <Text style={styles.errorText}>{error}</Text>}
-        <View>
+        <View style={styles.button}>
           {isEditMode ? (
             <>
+              <View style={{ padding: 10}}>
               <CustomButton 
                 title="Save"
                 onPress={handleSubmit(processForm)}
-                disabled={isLoading}
               />
+              </View>
+              <View style={{padding: 10}}>
               <CustomButton
                 title="Cancel"
                 onPress={() => setIsEditMode(false)}
               />
+              </View>
             </>
           ) : (
+            <View style={{ padding: 10}}>
             <CustomButton
               title="Edit"
               onPress={() => setIsEditMode(true)}
             />
+            </View>
           )}
       </View>
     </View> 
@@ -188,7 +214,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   formContainer: {
-    padding: 16,
+    padding: 10,
     borderRadius: 8,
     borderWidth: 1
   },
@@ -207,23 +233,41 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 15,
   },
-  birth: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    margin: 10
+  //birth: {
+    //flexDirection: "row",
+    //justifyContent: "space-between",
+    //margin: 10
+  //},
+  //severity: {
+    //margin: 10
+  //},
+  //trigger: {
+    //width: 300,
+    //margin: 10,
+    //zIndex: 3000
+  //},
+  //medication: {
+    //width: 300,
+    //margin: 10,
+  //},
+  button: {
+    padding: 10
   },
-  severity: {
-    margin: 10
+  fieldContainer: {
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: '#fff'
   },
-  trigger: {
-    width: 300,
-    margin: 10,
-    zIndex: 3000
-  },
-  medication: {
-    width: 300,
-    margin: 10,
-  },
+  fieldLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 6,
+    color: '#333'
+  }
+
 });
 
 export default AsthmaInfoForm;
