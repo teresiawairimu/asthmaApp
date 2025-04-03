@@ -1,35 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
 import CheckBox  from "expo-checkbox";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome6";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from "@react-navigation/native";
+import { useEntries } from "../../context/EntriesContext";
 
 
+const SymptomsScreen = ({ existingData, editFromDateClick}) => {
 
-const SymptomsScreen = ({ existingData, selectedDate, onSubmit}) => {
-const [selectedSymptoms, setSelectedSymptoms] = useState(existingData?.symptoms || []);
-  console.log(selectedSymptoms);
-  const [selectedSymptomsSeverity, setSelectedSymptomsSeverity] = useState(existingData?.symptoms_severity || null);
-  console.log(selectedSymptomsSeverity);
-  const [selectedTimePeriods, setSelectedTimePeriods] = useState(existingData?.time_periods || []);
-  console.log(selectedTimePeriods)
-  const [selectedActivityType, setSelectedActivityType] = useState(existingData?.activity_type || []);
-  console.log(selectedActivityType)
-  const [selectedActivityLevel, setSelectedActivityLevel] = useState(existingData?.activity_level || null);
-  console.log(selectedActivityLevel);
-  const [selectedEnvironmentalFactors, setSelectedEnvironmentalFactors] = useState(existingData?.environmental_factors || []);
-  console.log(selectedEnvironmentalFactors);
-  const [selectedTriggers, setSelectedTriggers] = useState(existingData?.triggers || [])
-  const [isChecked, setIsChecked] = useState(existingData?.rescueinhaler_used || false);
-  const [isEditMode, setIsEditMode] = useState(!existingData);
+  const {
+     symptoms: contextSymptoms, 
+     selectedDate,
+     handleSymptomsUpdate, 
+     loading: EntriesLoading
+  } = useEntries();
+
+  
+  //const symptomDataToUse = existingData || contextSymptoms;
+  const symptomDataToUse = existingData || (contextSymptoms && selectedDate === new Date().toLocaleDateString("en-CA") ? contextSymptoms : null);
+
+
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+  const [selectedSymptomsSeverity, setSelectedSymptomsSeverity] = useState(null);
+  const [selectedTimePeriods, setSelectedTimePeriods] = useState([]);
+  const [selectedActivityType, setSelectedActivityType] = useState([]);
+  const [selectedActivityLevel, setSelectedActivityLevel] = useState(null);
+  const [selectedEnvironmentalFactors, setSelectedEnvironmentalFactors] = useState([]);
+  const [selectedTriggers, setSelectedTriggers] = useState([])
+  const [isChecked, setIsChecked] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(!symptomDataToUse);
   const [error, setError] = useState(null);
+  const [loading, isLoading] = useState(false);
   console.log("existing data in symptoms file", existingData);
 
 
- 
 
+  useEffect(() => {
+    if (symptomDataToUse) {
+      setSelectedSymptoms(symptomDataToUse.symptoms || []);
+      setSelectedSymptomsSeverity(symptomDataToUse.symptoms_severity || null);
+      setSelectedTimePeriods(symptomDataToUse.time_periods || []);
+      setSelectedActivityType(symptomDataToUse.activity_type || []);
+      setSelectedActivityLevel(symptomDataToUse.activity_level || null);
+      setSelectedEnvironmentalFactors(symptomDataToUse.environmental_factors || []);
+      setSelectedTriggers(symptomDataToUse.triggers || []);
+      setIsChecked(symptomDataToUse.rescueinhaler_used || false);
+      setIsEditMode(false);
+    }
+  }, [symptomDataToUse]);
+
+  
   const formatSymptomName = (key) => {
     return key
       .split('_')
@@ -37,7 +60,7 @@ const [selectedSymptoms, setSelectedSymptoms] = useState(existingData?.symptoms 
       .join(' ');
   };
 
-  const processSymptomData = async () => {
+  const handleSubmit = async () => {
     try {
       const symptomData = {
         symptom_date : selectedDate || new Date().toISOString(),
@@ -50,8 +73,14 @@ const [selectedSymptoms, setSelectedSymptoms] = useState(existingData?.symptoms 
         triggers: selectedTriggers,
         rescueinhaler_used: isChecked,
       };
-      await onSubmit(symptomData);
-      setIsEditMode(false);
+      const result = await handleSymptomsUpdate(symptomData);
+      //await onSubmit(symptomData);
+      if (result && result.success) {
+        setIsEditMode(false);
+      } else {
+        setError("Failed to update symptoms")
+      }
+      
     } catch (error) {
       console.error(error);
       setError("An error occurred while processing symptom data")
@@ -121,7 +150,10 @@ const [selectedSymptoms, setSelectedSymptoms] = useState(existingData?.symptoms 
     strong_odors: <FontAwesomeIcon name="head-side-mask" size={20} color="#4A90E2" />   
   }
 
- 
+  if (loading || EntriesLoading) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
       <View style={styles.mainContainer}>
@@ -216,7 +248,7 @@ const [selectedSymptoms, setSelectedSymptoms] = useState(existingData?.symptoms 
                   >
                     {icon}
                     <Text style={[styles.symptomText,
-                      selectedTimePeriods.includes(activityType) ? styles.textSelected : null
+                      selectedActivityType.includes(activityType) ? styles.textSelected : null
                       ]}>{activityType}</Text> 
                   </TouchableOpacity>
                 </View>
@@ -305,18 +337,20 @@ const [selectedSymptoms, setSelectedSymptoms] = useState(existingData?.symptoms 
 
       {isEditMode ? (
         <>
-        <TouchableOpacity 
-        style={styles.submitButton}
-        onPress={processSymptomData}
-        >
-          <Text style={styles.submitButtonText}>Save Symptoms</Text>
-        </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.submitButton}
+            onPress={handleSubmit}
+          >
+            <Text style={styles.submitButtonText}>Save Symptoms</Text>
+          </TouchableOpacity>
+        {isEditMode && editFromDateClick && (
         <TouchableOpacity 
         style={styles.submitButton}
         onPress={() => setIsEditMode(false)}
         >
           <Text style={styles.submitButtonText}>Cancel</Text>
         </TouchableOpacity>
+        )}
         </>
       ) : (
         <TouchableOpacity

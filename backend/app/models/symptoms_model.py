@@ -66,7 +66,7 @@ class SymptomModel(BaseModel):
   time_periods: Optional[List[TimePeriods]] = None
   activity_level: Optional[ActivityLevel] = None
   activity_type: Optional[List[ActivityType]] = None
-  symptoms: List[AsthmaSymptoms] 
+  symptoms: List[AsthmaSymptoms]
   symptoms_severity: Optional[SymptomSeverity] = None
   triggers: Optional[List[AsthmaTriggers]] = None
   rescueinhaler_used: Optional[bool] = False

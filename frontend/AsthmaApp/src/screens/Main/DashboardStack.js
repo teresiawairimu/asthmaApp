@@ -5,6 +5,8 @@ import {getAuth, signOut} from "firebase/auth";
 import {Alert, TouchableOpacity} from "react-native";
 import { useAuth } from "../../context/AuthContext";
 import EntryScreen from "./EntryScreen";
+import SymptomsScreen from "./SymptomsScreen";
+import MoodScreen from "./MoodScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,10 +49,16 @@ const DashboardStack = () => {
         }}
       />
       <Stack.Screen
-        name="Entry"
+        name="Entries"
         component={EntryScreen}
-        options={{ title: "Daily Entry"}}
+        options={{ title: "Multiple Entries"}}
       />
+       <Stack.Screen
+        name="Mood"
+        component={MoodScreen}
+        options={{ title: "Mood Entry"}}
+      />
+    
     </Stack.Navigator>
   )
 }

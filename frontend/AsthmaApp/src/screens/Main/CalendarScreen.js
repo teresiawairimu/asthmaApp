@@ -13,8 +13,8 @@ const CalendarScreen = () => {
 
 
   const handleDateChange = (selectedDate) => {
-    navigation.navigate("Entry", {
-      selectedDate: selectedDate.toISOString().split("T")[0]
+    navigation.navigate("Entries", {
+      routeSelectedDate: selectedDate.toISOString().split("T")[0]
     })
   }
     

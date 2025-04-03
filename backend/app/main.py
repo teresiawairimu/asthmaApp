@@ -1,8 +1,17 @@
 from fastapi import FastAPI 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from openai import OpenAI
+import os
+from dotenv import load_dotenv
 from routes import user_routes, mood_routes, symptoms_routes, asthma_info_routes
 
+
+load_dotenv()
+
+client = OpenAI(
+  api_key = os.getenv("OPENAI_API_KEY")
+)
 
 
 app = FastAPI()

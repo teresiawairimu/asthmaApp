@@ -25,6 +25,46 @@ export const logSymptoms = async(symptomData, idToken) => {
   }
 };
 
+export const symptomsSummary = async(idToken) => {
+  console.log("Id token from summary:", idToken);
+  try {
+    const response = await axios.post(`${symptom_api_url}/summary`, {},
+      { 
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+        },        
+      }   
+    );
+    console.log("symptom_api_url", symptom_api_url);
+    console.log("response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+};
+
+export const symptomsStats = async(idToken) => {
+  console.log("Id token from stats:", idToken);
+  try {
+    const response = await axios.post(`${symptom_api_url}/stats`, {},
+      { 
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+        },        
+      }   
+    );
+    console.log("symptom_api_url", symptom_api_url);
+    console.log("response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+};
+
 
 export const getSymptoms = async(idToken) => {
   console.log("Id token:", idToken);
@@ -46,6 +86,28 @@ export const getSymptoms = async(idToken) => {
     throw error;
   }
 };
+/*
+export const retrieveSymptomsByDate = async (selectedDate, idToken) => {
+  console.log("retrieve date", selectedDate);
+  console.log("id token", idToken);
+  try {
+    const response = await axios.get(`${symptom_api_url}/`,
+      {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+          "X-Symptom-Date": selectedDate,
+        },
+      }
+    );
+    console.log("symptom_api_url", symptom_api_url);
+    console.log("response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error retrieving symptom data by date", error?.response?.data || error.message || error);
+    throw error;
+  }
+};*/
 
 export const retrieveSymptomsByDate = async (selectedDate, idToken) => {
   console.log("retrieve date", selectedDate);
@@ -63,7 +125,7 @@ export const retrieveSymptomsByDate = async (selectedDate, idToken) => {
     console.log("response data:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error", error);
+    console.error("Error retrieving symptom data by date", error?.response?.data || error.message || error);
     throw error;
   }
 };

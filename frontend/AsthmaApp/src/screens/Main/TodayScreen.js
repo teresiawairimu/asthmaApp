@@ -1,136 +1,108 @@
-import React, {useState} from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome6";
+import React, {use, useEffect, useState} from "react";
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import MoodScreen from "./MoodScreen";
+import { symptomsSummary } from "../../services/symptomServices";
+import { useAuth } from "../../context/AuthContext";
 import CustomButton from "../../components/Common/CustomButton";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
-const TodayScreen = ({existingData, selectedDate, onSubmit}) => {
-  const [selectedMood, setSelectedMood] = useState(existingData?.mood_today || null);
-  const [isEditMode, setIsEditMode] = useState(!existingData);
+const TodayScreen = () => {
+
+  const [summaryData, setSummaryData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
+ 
 
 
-  const handleMoodData = async () => {
+  const handleGenerateInsights = async () => {
+    if (!user) return;
     try {
-      if (!selectedMood) {
-        setError("Please select a mood");
-        return;
-      }
-      
-      const moodData = {
-        mood_today: selectedMood,
-        mood_date: selectedDate || new Date().toISOString(),
-      }
-      await onSubmit(moodData);
-      setIsEditMode(false);
+      setIsLoading(true);
+      setError(null);
+      const idToken = await user.getIdToken();
+      console.log("idToken THIS IS THE INVALID", idToken);
+      const summaryInfo = await symptomsSummary(idToken);
+      console.log("summarydata", summaryInfo);
+      setSummaryData(summaryInfo);
     } catch (error) {
-      console.error(error);
-      setError("An error occurred while processing mood data");
+      setError("Failed to load data");
+      console.error(error)
+    } finally {
+      setIsLoading(false);
     }
-  };
-
-  const customEmojis = {
-    happy: <Icon name="face-smile-beam" size={30} color="#4A90E2" />,
-    energetic: <Icon name="face-laugh-beam" size={30} color="#4A90E2" />,
-    calm: <Icon name="face-smile" size={30} color="#4A90E2" />,
-    anxious: <Icon name="face-sad-tear" size={30} color="#4A90E2" />,
-    stressed: <Icon name="face-frown" size={30} color="#4A90E2" />,
-    irritable: <Icon name="face-angry" size={30} color="#4A90E2" />,
-    sad: <Icon name="face-sad-cry" size={30} color="#4A90E2" />,
-    tired: <Icon name="face-tired" size={30} color="#4A90E2" />
   }
-  
-  console.log("TodayScreen props:", {existingData, onSubmit});
-  console.log("onSubmit type:", typeof onSubmit);
+
+
+
+  if (isLoading) return <Text>Loading...</Text>;
+  if (error) return <Text>{error}</Text>
+
   return (
+    <SafeAreaView style={styles.safeAreaStyle}>
     <View style={styles.container}>
-      <View>
-      <Text style={styles.title}>How are you feeling today?</Text>
-          <View style={styles.emojiGrid}>
-            {Object.entries(customEmojis).map(([mood, icon]) => (
-              <View key={mood} style={styles.emojiItem}>
-                <TouchableOpacity disabled={!isEditMode} onPress={() => {
-                  setSelectedMood(previous =>
-                    previous === mood ? null : mood);
-                  }}
-                >
-                  {icon}
-                  <Text style={[styles.moodText,
-                    selectedMood === mood ? styles.textSelected : null]}>{mood}</Text>
-                </TouchableOpacity>
-              </View>
-            ))}
-          </View>
-      </View>
+      <ScrollView>
+        <View style={styles.moodView}>
+        <MoodScreen />
+        </View>
 
+      {summaryData ? (
+        <View style={styles.insightView}>
+          <Text style={styles.title}>
+            Here's Today's Insight!
+            <AntDesign name="star" size={24} color="gold" />
 
-      {error && <Text style={styles.errorText}>{error}</Text>}
-      {isEditMode ? (
-        <>
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={handleMoodData}
-          >
-            <Text style={styles.submitButtonText}>
-              Submit Mood
-            </Text>
-          </TouchableOpacity>
-          <CustomButton title="Cancel" onPress={() => {
-            setIsEditMode(false);
-          }}/>
-        </>
+          </Text>
+          <Text style={styles.insightText}>{summaryData.summary}</Text>
+        </View> 
       ) : (
-        <CustomButton title="Edit Mood" 
-        onPress={() => setIsEditMode(true)} />
+      <Text style={styles.noInsightText}>No insights yet. Tap the button below to generate one.</Text>
       )}
+      <View style={{ margin: 10}}>
+        <CustomButton title={summaryData ? "Refresh Insight" : "Generate Insight"} onPress={handleGenerateInsights}/>
+      </View>
+      </ScrollView>
+
+
     </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeAreaStyle: {
     flex: 1,
-    padding: 20,
+    //paddingTop: 0
+  },
+  container: {
+    //flex: 1,
+    //padding: 10,
+    margin: 10,
     color: "#F5F7FA"
+  },
+  insightView: {
+    margin: 10,
+    backgroundColor: "#fff8dc"
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    alignSelf: "center"
   },
-  emojiGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+  insightText: {
+    color: "#2D3748",
+    fontSize: 16
   },
-  emojiItem: {
-    alignItems: 'center',
-    width: '25%', 
-    marginBottom: 20,
-  },
-  moodText: {
-    marginTop: 5,
-    textAlign: 'center',
-    color: "#2C3E50"
-  },
-  textSelected: {
-    color: "#009688",
-    fontWeight: "bold",
-  },
-  submitButton: {
-    backgroundColor: "#4A90E2",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginTop: 30,
-  },
-  submitButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
+  noInsightText: {
     fontSize: 16,
+    margin: 10,
+    fontWeight: "bold"
   },
-  buttonDisabled: {
-    backgroundColor: "#aaa",
-  }
+  moodView: {
+    paddingBottom: 20
+  },
 });
 
 export default TodayScreen;

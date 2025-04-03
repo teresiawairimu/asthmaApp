@@ -3,56 +3,70 @@ import { View, Text, ScrollView, TouchableOpacity, Modal, Pressable, StyleSheet 
 import { useRoute, useNavigation} from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import { useAuth } from "../../context/AuthContext";
-import { logSymptoms, retrieveSymptomsByDate, updateSymptoms } from "../../services/symptomServices";
+//import { logSymptoms, getSymptoms, retrieveSymptomsByDate, updateSymptoms } from "../../services/symptomServices";
 import { retrieveMoodByDate, logMood, updateMood } from "../../services/moodServices";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SymptomsScreen from "./SymptomsScreen";
 import TodayScreen from "./TodayScreen";
+import MoodScreen from "./MoodScreen";
+import { useEntries } from "../../context/EntriesContext";
 
 
-const EntryScreen = () => {
-  const [mood, setMood] = useState([]);
-  const [symptoms, setSymptoms] = useState([]);
-  const [loading, setLoading] = useState(true);
+const EntryScreen = ({route}) => {
+  //const [mood, setMood] = useState(null);
+  //const [symptoms, setSymptoms] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const {user} = useAuth();
 
-  const route = useRoute();
+  //const route = useRoute();
   const navigation = useNavigation();
-  const {selectedDate} = route.params;
+  const {routeSelectedDate} = route.params;
+
+  const {
+    setSelectedDate,
+    selectedDate,
+    symptoms,
+    mood,
+    loading: EntriesLoading
+  } = useEntries();
 
   useEffect(() => {
-    const fetchEntries = async () => {
+    setSelectedDate(routeSelectedDate);
+  }, [routeSelectedDate, setSelectedDate]);
+
+  /*useEffect(() => {
+    const fetchMoodData = async () => {
       if (!user) return;
       try {
         setLoading(true);
         setError(null);
         const idToken = await user.getIdToken();
-        const symptomsData = await retrieveSymptomsByDate(selectedDate, idToken);
-        const moodData = await retrieveMoodByDate(selectedDate, idToken);
-        console.log("symptoms data from selected date in entry screen", symptomsData);
+        //const symptomsData = await retrieveSymptomsByDate(selectedDate, idToken);
+        const moodData = await retrieveMoodByDate(routeSelectedDate, idToken);
+        //console.log("symptoms data from selected date in entry screen", symptomsData);
         console.log("mood data from selected date", moodData);
-        setSymptoms(symptomsData);
+        //setSymptoms(symptomsData);
         setMood(moodData);
       } catch (error) {
         console.error(error);
-        setError("Failed to retrieve entries. Please try again later");
+        setError("Failed to retrieve mood entries. Please try again later");
       } finally {
         setLoading(false);
       }
     }
-    fetchEntries();
-  }, [selectedDate, user]);
+    fetchMoodData();
+  }, [routeSelectedDate, user]);
 
-
+  
   const handleSymptomsUpdate = async (newSymptomData) => {
     if (!user) return;
     try {
       setLoading(true);
       setError(null);
       const idToken = await user.getIdToken(true);
-      if (symptoms) {
+      if (symptoms && symptoms.id) {
         await updateSymptoms(symptoms.id, newSymptomData, idToken);
         setSymptoms({...newSymptomData, id: symptoms.id})
       } else {
@@ -88,37 +102,48 @@ const EntryScreen = () => {
     } finally {
       setLoading(false);
     }
-  };
+  };*/
 
-
-  
-
-  if (loading) {
+  if (loading || EntriesLoading) {
       return <Text>Loading...</Text>;
   }
   if (error) {
       return <Text>{error}</Text>
   }
 
-  console.log("Mood data type:", typeof mood);
-  console.log("Mood data:", mood);
-  console.log("handleMoodUpdate type:", typeof handleMoodUpdate);
+  
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeAreaStyle}>
       <View>
-        <Text>Entry for { selectedDate}</Text>
-
-          <TodayScreen
+        <Text>Entry for { routeSelectedDate}</Text>
+        <View>
+          {mood && Object.keys(mood).length > 0 ? (
+          <MoodScreen
             existingData={mood || null}
-            selectedDate={selectedDate}
-            onSubmit={handleMoodUpdate}  
+            key={selectedDate || "new-entry"}
+            //routeSelectedDate={routeSelectedDate}
+            editFromDateClick={true}
           />
-       
-          
-        
+        ) : (
+          <Text>No Moods logged</Text>
+        )}
+        </View>
 
 
+      <View>
+       {symptoms ? (
+        <>
+        <Pressable
+          onPress={() => setModalVisible(true)}
+        >
+          <View style={styles.show}>
+            <Icon name="clipboard" size={30} color="#4A90E2" />
+            <Text style={{ padding: 10, fontSize: 16, fontWeight: "bold"}}>
+              View Symptoms
+            </Text>
+          </View>
+        </Pressable>
         <Modal
           animationType="slide"
           transparent={true}
@@ -130,15 +155,14 @@ const EntryScreen = () => {
           <SafeAreaView style={styles.modalContainer}>
             <ScrollView contentContainerStyle={styles.modalScrollContent}
               showsVerticalScrollIndicator={true}>
-              {symptoms ? (
+              
                 <SymptomsScreen
                   existingData={symptoms}
-                  selectedDate={selectedDate}
-                  onSubmit={handleSymptomsUpdate}
+                  //selectedDate={selectedDate}
+                  editFromDateClick={true}
+                  //onSubmit={handleSymptomsUpdate}
                 />
-              ) : (
-                <Text>No symptoms logged</Text>
-              )}
+              
               <Pressable
                 onPress={() => setModalVisible(!modalVisible)}
                 style={styles.closeButton}
@@ -149,19 +173,11 @@ const EntryScreen = () => {
             </ScrollView>
           </SafeAreaView>
         </Modal>
-        <Pressable
-          onPress={() => setModalVisible(true)}
-        >
-          <View style={styles.show}>
-            <Icon name="clipboard" size={30} color="#4A90E2" />
-            <Text>
-              Symptoms
-            </Text>
-          </View>
-        </Pressable>         
-
-     
-
+        </> 
+        ) : (
+        <Text>No symptoms logged</Text>
+      )}
+      </View>
       </View>
     </SafeAreaView>
   )
@@ -171,10 +187,14 @@ const EntryScreen = () => {
 export default EntryScreen;
 
 const styles = StyleSheet.create({
+  safeAreaStyle: {
+    flex: 1
+  },
   modalContainer: {
     //flex: 1,
     backgroundColor: "#ffffff",
-    paddingTop: 30
+    paddingTop: 30,
+    paddingBottom: 30
   },
   modalScrollContent: {
     paddingHorizontal: 10,
@@ -190,5 +210,11 @@ const styles = StyleSheet.create({
   closeText: {
     color: "#ffffff",
     fontWeight: "bold"
+  },
+  show: {
+    flexDirection: "row",
+    //alignSelf: "center"
+    padding: 10
+
   }
 })

@@ -1,9 +1,9 @@
 from .firebase_config import db
 from models.mood_model import MoodModel, MoodUpdateModel
-from typing import Annotated
+from typing import Annotated, Optional
 from fastapi import HTTPException
 from firebase_admin import firestore
-from datetime import datetime, date
+from datetime import datetime, date, timezone, timedelta
 from utils.date_parser import parse_date_string
 from google.cloud.firestore_v1 import FieldFilter
 
@@ -19,14 +19,24 @@ class Mood:
     try:
       user_id = token["uid"]
       mood_dict = mood_data.dict()
+      mood_date = mood_dict.get("mood_date")
+      print("mood_date to log", mood_date)
+      print(f"Type of mood_date: {type(mood_date)}")
+      print(f"Value of mood_date: {mood_date}")
+      if mood_date:
+        mood_date_timestamp = mood_date.replace(hour=12, minute=0, second=0, microsecond=0, tzinfo=timezone.utc)
+      else:
+        mood_date_timestamp = None
+
+      mood_dict["mood_today"] = mood_dict["mood_today"].value
       mood_ref = db.collection("mood").document()
       await mood_ref.set({
         "user_id": user_id,
         "mood_today": mood_dict.get("mood_today"),
-        "mood_date": mood_dict.get("today"),
+        "mood_date": mood_date_timestamp,
         "created_at": firestore.SERVER_TIMESTAMP
       })
-      return {"status": "success"}
+      return {"status": "success", "id": mood_ref.id}
     except Exception as e:
       print(f"Error saving mood: {str(e)}")
       raise HTTPException(status_code=500, detail="Internal Error")
@@ -73,48 +83,37 @@ class Mood:
       raise HTTPException(status_code=500, detail="Internal server error")
     
 
-  async def get_mood_by_date(self, retrieve_date: date, token: dict) -> MoodModel:
-    """"""
 
+  async def get_mood_by_date(self, retrieve_date: date, token: dict) -> Optional[MoodModel]:
+    print("PRINT: FUNCTION ENTRY POINT")
     try:
       user_id = token["uid"]
-      mood_data = None
+      print(f"this is the retrieve date: {retrieve_date}")
 
-      mood_doc = (
-        db.collection("mood")
-        .where(filter=FieldFilter("user_id", "==", user_id))
-        .limit(1)
-        .stream()
-      )
       
-      #target_date = retrieve_date.date()
+      start_datetime = datetime.combine(retrieve_date, datetime.min.time(), tzinfo=timezone.utc)
+      end_datetime = start_datetime + timedelta(days=1)
 
-      async for doc in mood_doc:
+      print(f"Query range: {start_datetime} to {end_datetime}")
+
+      
+      mood_docs = db.collection("mood") \
+        .where(filter=FieldFilter("user_id", "==", user_id)) \
+        .where(filter=FieldFilter("mood_date", ">=", start_datetime)) \
+        .where(filter=FieldFilter("mood_date", "<", end_datetime)) \
+        .stream()
+
+      async for doc in mood_docs:
         mood_data = doc.to_dict()
-        mood_date = mood_data.get("mood_date")
-        if isinstance(mood_date, str):
-          try:
-            parsed_date = parse_date_string(mood_date)
-            mood_date_only = parsed_date.date()
-          except Exception as e:
-            print(f"Error parsing date string '{mood_date}': {str(e)}")
-            continue
-        elif hasattr(mood_date, "date"):
-          mood_date_only = mood_date.date()
-        else:
-          print(f"Unrecognized date format: {mood_date}")
-          continue
+        mood_data["id"] = doc.id
+        return MoodModel(**mood_data)
 
-        if mood_date_only == retrieve_date: 
-          mood_data["id"] = doc.id
-          return MoodModel(**mood_data)
-        
-      if mood_data is None:
-        return None
-       
+      return None  
+
     except Exception as e:
-      print(f"Error retrieving mood data by date: {str(e)}")
-      raise HTTPException(status_code=500, detail="Internal server error")
+        print(f"Error fetching mood: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to retrieve mood data by date")
+    
   
 
   async def delete_mood(self, mood_data) -> dict:

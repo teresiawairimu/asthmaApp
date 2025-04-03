@@ -5,6 +5,8 @@ import CalendarScreen from "./CalendarScreen";
 import ProfileScreen from "./ProfileScreen";
 import ProfileStack from "./ProfileStack";
 import SymptomsScreen from "./SymptomsScreen";
+import { useEntries } from "../../context/EntriesContext";
+import EntryScreen from "./EntryScreen";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import { signOut } from "../../firebaseConfig";
 import { Touchable, TouchableOpacity } from "react-native";
@@ -13,6 +15,9 @@ const Tab = createBottomTabNavigator();
 
 
 const DashboardTabs = () => {
+  const {
+       selectedDate,
+    } = useEntries();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -52,7 +57,8 @@ const DashboardTabs = () => {
         }}
       />
        <Tab.Screen 
-        name="Entries" 
+        name="Entry" 
+        key={selectedDate || "new-entry"}
         component={SymptomsScreen}
         options={{
           tabBarIcon: ({color}) => (
@@ -64,6 +70,15 @@ const DashboardTabs = () => {
           )
         }}
       />
+       {/*
+        {(props) => (
+          <SymptomsScreen
+            {...props}
+            onSubmit={handleSymptomsUpdate}
+            selectedDate={new Date().toISOString().split("T")[0]}
+          />
+        )}*/}
+     
       <Tab.Screen 
         name="Calendar" 
         component={CalendarScreen}

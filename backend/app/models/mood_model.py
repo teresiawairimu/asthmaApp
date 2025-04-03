@@ -22,14 +22,14 @@ class MoodModel(BaseModel):
 
   mood_today: MoodState
   mood_date: datetime
-  created_at: Optional[datetime]
+  created_at: Optional[datetime] = None
 
 
 class MoodUpdateModel(BaseModel):
   """The mood update model validates the user's mood updates"""
 
-  mood_today: Optional[MoodState]
-  update_at: Optional[datetime]
+  mood_today: Optional[MoodState] = None
+  update_at: Optional[datetime] = None
 
 
 

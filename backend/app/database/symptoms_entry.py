@@ -1,12 +1,15 @@
 from .firebase_config import db
 from app.models.symptoms_model import SymptomModel, SymptomUpdateModel
-from datetime import datetime, timezone
-from typing import Annotated
+from datetime import datetime, timezone, date, timedelta
+from typing import Annotated, Optional
 from fastapi import Depends, HTTPException
 from app.middleware.authentication_middleware import verify_firebase_token
 from firebase_admin import firestore
 from google.cloud.firestore_v1 import FieldFilter
-from utils.date_parser import parse_date_string
+from utils.date_range import date_range
+from utils.month_range import month_range
+
+
 
 
 class Symptom:
@@ -17,9 +20,18 @@ class Symptom:
 
     try:
       user_id = token["uid"]
-      symptom_dict = symptom_data.dict()
-      #symptom_date = symptom_dict.get("symptom_date")
-      #symptom_date_timestamp = datetime.combine(symptom_date, datetime.min.time()) if symptom_date else None
+      symptom_dict = symptom_data.model_dump()
+      symptom_date = symptom_dict.get("symptom_date")
+      print("symptom_date to log", symptom_date)
+      print(f"Type of symptom_date: {type(symptom_date)}")
+      print(f"Value of symptom_date: {symptom_date}")
+      if symptom_date:
+        symptom_date_timestamp = symptom_date.replace(hour=12, minute=0, second=0, microsecond=0, tzinfo=timezone.utc)
+      else:
+        symptom_date_timestamp = None
+      #datetime.combine(symptom_date, datetime.time(12, 0)).replace(tzinfo=timezone.utc)if symptom_date else None
+      #datetime.min.time()) 
+      print("symptom timestamp", symptom_date_timestamp)
       symptom_ref = db.collection("symptoms").document()
       symptom_dict["time_periods"] = [period.value for period in symptom_dict["time_periods"]]
       symptom_dict["activity_level"] = symptom_dict["activity_level"].value
@@ -30,7 +42,7 @@ class Symptom:
       symptom_dict["environmental_factors"] = [factor.value for factor in symptom_dict["environmental_factors"]]
       await symptom_ref.set({
         "user_id": user_id,
-        "symptom_date": symptom_dict.get("symptom_date"),
+        "symptom_date": symptom_date_timestamp,
         "time_periods": symptom_dict.get("time_periods", []),
         "activity_level": symptom_dict.get("activity_level", None),
         "activity_type": symptom_dict.get("activity_type", []),
@@ -91,62 +103,108 @@ class Symptom:
       print(f"Error retrieving symptom data: {str(e)}")
       raise HTTPException(status_code=500, detail="Internal server error")
     
-  
 
-  async def get_symptoms_by_date(self, retrieve_date: datetime,  token: dict) -> list[SymptomModel]:
-    """"""
+    
 
+  async def get_symptoms_by_date(self, retrieve_date: date, token: dict) -> Optional[SymptomModel]:
+    print("PRINT: FUNCTION ENTRY POINT")
+    try:
+      user_id = token["uid"]
+      print(f"this is the retrieve date: {retrieve_date}")
+
+      
+      start_datetime = datetime.combine(retrieve_date, datetime.min.time(), tzinfo=timezone.utc)
+      end_datetime = start_datetime + timedelta(days=1)
+
+      print(f"Query range: {start_datetime} to {end_datetime}")
+
+      
+      symptom_docs = db.collection("symptoms") \
+        .where(filter=FieldFilter("user_id", "==", user_id)) \
+        .where(filter=FieldFilter("symptom_date", ">=", start_datetime)) \
+        .where(filter=FieldFilter("symptom_date", "<", end_datetime)) \
+        .stream()
+
+      async for doc in symptom_docs:
+        symptom_data = doc.to_dict()
+        symptom_data["id"] = doc.id
+        return SymptomModel(**symptom_data)
+
+      return None  
+
+    except Exception as e:
+        print(f"Error fetching symptoms: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to retrieve symptom data")
+    
+
+  async def get_symptoms_by_date_range(self, token: dict) -> list:
     try:
       user_id = token["uid"]
 
-      symptom_docs = (
-        db.collection("symptoms")
-        .where(filter=FieldFilter("user_id", "==", user_id))
+      start_date, end_date = date_range()
+
+      start_datetime = datetime.combine(start_date, datetime.min.time(), tzinfo=timezone.utc)
+      end_datetime = datetime.combine(end_date + timedelta(days=1), datetime.min.time(), tzinfo=timezone.utc)
+
+      print(f"Query range: {start_datetime} to {end_datetime}")
+
+      
+      symptom_docs = db.collection("symptoms") \
+        .where(filter=FieldFilter("user_id", "==", user_id)) \
+        .where(filter=FieldFilter("symptom_date", ">=", start_datetime)) \
+        .where(filter=FieldFilter("symptom_date", "<", end_datetime)) \
         .stream()
-      )
-      
-      if not symptom_docs:
-        return []
-      
-      target_date = retrieve_date.date()
-      
+
       symptom_list = []
       async for doc in symptom_docs:
         symptom_data = doc.to_dict()
-        symptom_date = symptom_data.get("symptom_date")
-        if isinstance(symptom_date, str):
-          try:
-            parsed_date = parse_date_string(symptom_date)
-            symptom_date_only = parsed_date.date()
-          except Exception as e:
-            print(f"Error parsing date string '{symptom_date}': {str(e)}")
-            continue
-        elif hasattr(symptom_date, "date"):
-          symptom_date_only = symptom_date.date()
-        else:
-          print(f"Unrecognized date format: {symptom_date}")
-          continue
-
-        if symptom_date_only == target_date: 
-          symptom_data["id"] = doc.id
-          symptom_model = SymptomModel(**symptom_data)
-          symptom_list.append(symptom_model)
-      print(symptom_list) 
+        symptom_data["id"] = doc.id
+        symptom_list.append(symptom_data)
       return symptom_list
-       
-    except Exception as e:
-      print(f"Error retrieving symptom data: {str(e)}")
-      raise HTTPException(status_code=500, detail="Internal server error")
     
-  
+    except Exception as e:
+      print(f"Error fetching symptoms from the date range: {str(e)}")
+      raise HTTPException(status_code=500, detail="Failed to retrieve symptom data from the date range")
 
+      
+  async def get_symptoms_by_month_range(self, token: dict) -> list:
+    try:
+      user_id = token["uid"]
+
+      start_date, end_date = month_range()
+
+      start_datetime = datetime.combine(start_date, datetime.min.time(), tzinfo=timezone.utc)
+      end_datetime = datetime.combine(end_date + timedelta(days=1), datetime.min.time(), tzinfo=timezone.utc)
+
+      print(f"Query range: {start_datetime} to {end_datetime}")
+
+      
+      symptom_docs = db.collection("symptoms") \
+        .where(filter=FieldFilter("user_id", "==", user_id)) \
+        .where(filter=FieldFilter("symptom_date", ">=", start_datetime)) \
+        .where(filter=FieldFilter("symptom_date", "<", end_datetime)) \
+        .stream()
+
+      symptom_list = []
+      async for doc in symptom_docs:
+        symptom_data = doc.to_dict()
+        symptom_data["id"] = doc.id
+        symptom_list.append(symptom_data)
+      return symptom_list
+    
+    except Exception as e:
+      print(f"Error fetching symptoms from the month range: {str(e)}")
+      raise HTTPException(status_code=500, detail="Failed to retrieve symptom data from the month range")
+
+
+    
     
   async def update_symptom(self, symptom_id, symptom_data: SymptomUpdateModel, token: dict) -> dict:
     """"""
 
     try:
       user_id = token["uid"]
-      symptom_dict = symptom_data.dict()
+      symptom_dict = symptom_data.model_dump()
       updated_at_timestamp = datetime.now(timezone.utc)
       #symptom_id = symptom_dict.get("symptom_id")
       if not symptom_id:
