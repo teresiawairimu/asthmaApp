@@ -45,10 +45,10 @@ export const symptomsSummary = async(idToken) => {
   }
 };
 
-export const symptomsStats = async(idToken) => {
+export const symptomsStats = async(idToken, range = "default") => {
   console.log("Id token from stats:", idToken);
   try {
-    const response = await axios.post(`${symptom_api_url}/stats`, {},
+    const response = await axios.get(`${symptom_api_url}/stats/${range}`,
       { 
         headers: {
           Authorization: `Bearer ${idToken}`,
@@ -86,6 +86,7 @@ export const getSymptoms = async(idToken) => {
     throw error;
   }
 };
+
 /*
 export const retrieveSymptomsByDate = async (selectedDate, idToken) => {
   console.log("retrieve date", selectedDate);

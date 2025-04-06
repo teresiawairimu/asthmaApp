@@ -8,6 +8,7 @@ from firebase_admin import firestore
 from google.cloud.firestore_v1 import FieldFilter
 from utils.date_range import date_range
 from utils.month_range import month_range
+from fastapi.encoders import jsonable_encoder
 
 
 
@@ -105,7 +106,7 @@ class Symptom:
     
 
     
-
+  
   async def get_symptoms_by_date(self, retrieve_date: date, token: dict) -> Optional[SymptomModel]:
     print("PRINT: FUNCTION ENTRY POINT")
     try:
@@ -189,7 +190,9 @@ class Symptom:
       async for doc in symptom_docs:
         symptom_data = doc.to_dict()
         symptom_data["id"] = doc.id
-        symptom_list.append(symptom_data)
+        model= SymptomModel(**symptom_data)
+        symptom_list.append(model.model_dump())
+        
       return symptom_list
     
     except Exception as e:

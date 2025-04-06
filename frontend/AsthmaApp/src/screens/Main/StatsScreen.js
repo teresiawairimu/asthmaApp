@@ -1,7 +1,10 @@
-import React from "react";
-import { View, Text} from "react-native";
+import React, { useState, useEffect} from "react";
+import { View, Text, StyleSheet, ScrollView} from "react-native";
 import { symptomsStats } from "../../services/symptomServices";
-import SymptomTrends from "../../graphs/symptomTrends";
+import SymptomTrends from "../../graphs/SymptomTrends";
+import SymptomSeverityTrends from "../../graphs/SymptomSeverityTrends";
+import { useAuth } from "../../context/AuthContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const StatsScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,8 +22,8 @@ const StatsScreen = () => {
         const idToken = await user.getIdToken();
         console.log("idToken THIS IS THE INVALID", idToken);
         const statsInfo = await symptomsStats(idToken);
-        console.log("statsInfo", statsInfo);
-        setStatsData(userInfo);
+        console.log("statsInfo is here", statsInfo);
+        setStatsData(statsInfo);
       } catch (error) {
         setError("Failed to load data");
         console.error(error)
@@ -31,14 +34,28 @@ const StatsScreen = () => {
       fetchStatsData();
     }, [user]);
   return (
+    <SafeAreaView style={styles.safeAreaStyle}>
     <View>
+      <ScrollView>
     <Text>Welcome to Stats Screen</Text>
     <SymptomTrends 
-      symptomData={statsData}
+      symptomsData={statsData}
     />
+    <SymptomSeverityTrends
+      symptomsData={statsData}
+    />
+    </ScrollView>
     </View>
+    </SafeAreaView>
 
   );
 };
+
+const styles = StyleSheet.create({
+  safeAreaStyle: {
+    flex: 1
+
+  }
+})
 
 export default StatsScreen;

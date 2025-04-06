@@ -73,7 +73,6 @@ async def retrieve_symptoms_by_date(retrieve_date: str):
     except ValueError as e:
         print(f"Date parsing error: {str(e)}")
         raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD.")
-
 """
 
 
@@ -109,8 +108,8 @@ async def get_summary(token: Annotated[dict, Depends(verify_firebase_token)]):
   #model="gpt-3.5-turbo"   
   return {"summary": completion.choices[0].message.content}
 
-@router.get("/stats")
-async def retrieve_symptoms_by_month_range(token: Annotated[dict, Depends(verify_firebase_token)]):
+@router.get("/stats/{month_range}")
+async def retrieve_symptoms_by_month_range(month_range: str, token: Annotated[dict, Depends(verify_firebase_token)]):
   return await symptom_db.get_symptoms_by_month_range(token)
 
 

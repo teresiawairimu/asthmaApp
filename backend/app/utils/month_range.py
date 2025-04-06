@@ -3,10 +3,10 @@ from dateutil.relativedelta import relativedelta
 
 def month_range():
   today = datetime.today()
-  date_only = today.date()
+  end_date = today.date()
 
-  month_before_date = date_only - relativedelta(months=1)
-  print(month_before_date)
+  start_date = end_date - relativedelta(months=1)
+  print(start_date)
 
-  return month_before_date
+  return start_date, end_date
 
