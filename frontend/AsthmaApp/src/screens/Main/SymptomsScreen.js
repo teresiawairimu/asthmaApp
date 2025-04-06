@@ -9,6 +9,14 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useEntries } from "../../context/EntriesContext";
 
 
+const TOComponent = ({isEditMode, onPress, icon, text, styles, styleSelector}) => {
+  return <TouchableOpacity disabled={!isEditMode} onPress={onPress} >
+  {icon}
+  <Text style={[styles.symptomText, 
+                      styleSelector ? styles.textSelected : null]}>{text}</Text>
+</TouchableOpacity>  
+}
+
 const SymptomsScreen = ({ existingData, editFromDateClick}) => {
 
   const {
@@ -154,6 +162,15 @@ const SymptomsScreen = ({ existingData, editFromDateClick}) => {
     return <Text>Loading...</Text>;
   }
 
+  // zk This function may allow you to reduce code even further
+  const toComponentProps = () => {
+    return {isEditMode: isEditMode,
+    icon: icon,
+    styles: styles}
+  }
+
+
+
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
       <View style={styles.mainContainer}>
@@ -171,6 +188,14 @@ const SymptomsScreen = ({ existingData, editFromDateClick}) => {
             <View style={styles.grid}>
               {Object.entries(customSymptoms).map(([symptom, icon]) => (
                 <View key={symptom} style={styles.item}>
+                  <TOComponent isEditMode={isEditMode} icon={icon} onPress={() => {
+                      setSelectedSymptoms(previousSymptoms => previousSymptoms.includes(symptom)
+                        ? previousSymptoms.filter(s => s !== symptom)
+                        : [...previousSymptoms, symptom]);
+                    }} 
+                    styles={styles}
+                    styleSelector={selectedSymptoms.includes(symptom)}                    
+                    text={formatSymptomName(symptom)}/>
                   <TouchableOpacity
                     disabled={!isEditMode}
                     onPress={() => {
@@ -194,6 +219,15 @@ const SymptomsScreen = ({ existingData, editFromDateClick}) => {
             <View style={styles.grid}>
               {Object.entries(customSymptomSeverityLevels).map(([symptomSeverity, icon]) => (
                 <View key={symptomSeverity} style={styles.item}>
+                  <TOComponent disabled={isEditMode}
+                   onPress={() => {setSelectedSymptomsSeverity(previous =>
+                    previous === symptomSeverity ? null : symptomSeverity);
+                }}
+                icon={icon}
+                text={symptomSeverity}
+                styles={styles}
+                styleSelector={previous === symptomSeverity}
+                  />
                   <TouchableOpacity 
                     disabled={!isEditMode}
                     onPress={() => {
@@ -215,6 +249,16 @@ const SymptomsScreen = ({ existingData, editFromDateClick}) => {
             <View style={styles.grid}>
               {Object.entries(customTimePeriods).map(([timePeriod, icon]) => (
                 <View key={timePeriod} style={styles.item}>
+                 <TOComponent isEditMode={isEditMode}
+                 onPress={() =>{
+                  setSelectedTimePeriods(previousPeriods => previousPeriods.includes(timePeriod)
+                    ? previousPeriods.filter(p => p !== timePeriod)
+                    : [...previousPeriods, timePeriod]);
+                }}
+                icon={icon}
+                styles={styles}
+                styleSelector={selectedTimePeriods.includes(timePeriod)}
+                  />
                   <TouchableOpacity 
                     disabled={!isEditMode} 
                     onPress={() =>{
@@ -238,6 +282,14 @@ const SymptomsScreen = ({ existingData, editFromDateClick}) => {
             <View style={styles.grid}>
               {Object.entries(customActivityType).map(([activityType, icon]) => (
                 <View key={activityType} style={styles.item}>
+                  <TOComponent {...toComponentProps()}
+                  onPress={() => {
+                    setSelectedActivityType(previousActivity => previousActivity.includes(activityType)
+                      ? previousActivity.filter(activity => activity !== activityType)
+                      : [...previousActivity, activityType]);
+                  }}
+                  styleSelector={selectedActivityType.includes(activityType)}
+                  />
                   <TouchableOpacity 
                     disabled={!isEditMode} 
                     onPress={() => {
