@@ -15,6 +15,7 @@ export const EntriesProvider = ({children}) => {
   const [mood, setMood] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString("en-CA"))
     //new Date().toISOString().split("T")[0]);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   console.log("selected date in context", selectedDate);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,7 +43,7 @@ export const EntriesProvider = ({children}) => {
        
     }
     fetchEntries();
-  }, [selectedDate, user]);
+  }, [selectedDate, user,refreshTrigger]);
 
 
   const handleSymptomsUpdate = async (newSymptomData) => {
@@ -98,7 +99,8 @@ export const EntriesProvider = ({children}) => {
           updatedMood = { ...moodData, id: result.id}; 
           //navigation.navigate("Today")
         }
-        setMood(updatedMood)
+        setMood(updatedMood);
+        setRefreshTrigger(prev => prev + 1);
         return { success: true, mood: updatedMood };
       } catch (error) {
         setError("Failed to update mood info");

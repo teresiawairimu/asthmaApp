@@ -63,6 +63,7 @@ const SymptomTrends = ({symptomsData}) => {
           },
         }}
         fromZero
+        
         segments={1} 
         bezier
         style={{ marginVertical: 8, borderRadius: 10 }}

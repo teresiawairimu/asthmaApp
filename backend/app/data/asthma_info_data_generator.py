@@ -1,5 +1,5 @@
 import random
-from datetime import datetime
+from datetime import datetime, timezone
 import sys
 import os
 import asyncio
@@ -20,7 +20,7 @@ medication_map = {
 
 user_ids = ["9dIA3BDqxbUQoRqZEq6rieiKLhu1", "HjbhpCO5U6b1dEANWMskvBM2f393", "IJug4o9NG7Y6h8Q6UwUyL3mmrK12"]
 
-num_users = 10
+#num_users = 10
 
 data_generated = {}
 
@@ -55,7 +55,7 @@ async def generate_data():
     
     triggers = random.sample(list(AsthmaTriggers), k=random.randint(1,3)) if asthma_diagnosis else None
     custom_triggers = random.sample(["cold beverages", "scented lotion", "perfume", "humidity", "pet dander"], k=random.randint(0, 2)) if asthma_diagnosis else None 
-    created_at = datetime(2024, 1, 1)
+    created_at = datetime(2025, 3, 1, tzinfo=timezone.utc)
 
     data_generated.update({
       "user_id": user_id,

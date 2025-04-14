@@ -12,7 +12,8 @@ const MoodScreen = ({existingData, editFromDateClick}) => {
        selectedDate, 
        handleMoodUpdate, 
        loading: EntriesLoading
-    } = useEntries();
+  } = useEntries();
+
 
   //const MoodDataToUse = existingData || contextMood;
   const MoodDataToUse = existingData || (contextMood && selectedDate === new Date().toLocaleDateString("en-CA") ? contextMood : null);
@@ -25,9 +26,9 @@ const MoodScreen = ({existingData, editFromDateClick}) => {
 
   useEffect(() => {
     if (MoodDataToUse) {
-      setSelectedMood(MoodDataToUse.mood_today || null);
+      setSelectedMood(MoodDataToUse.mood || null);
     }
-  })
+  }, [MoodDataToUse]);
 
   
   const handleSubmit = async () => {
@@ -38,7 +39,7 @@ const MoodScreen = ({existingData, editFromDateClick}) => {
       }
       
       const moodData = {
-        mood_today: selectedMood,
+        mood: selectedMood,
         mood_date: selectedDate || new Date().toISOString(),
       }
       console.log("selected date in today screen", moodData)

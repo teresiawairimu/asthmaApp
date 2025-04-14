@@ -18,7 +18,7 @@ class Mood:
 
     try:
       user_id = token["uid"]
-      mood_dict = mood_data.dict()
+      mood_dict = mood_data.model_dump()
       mood_date = mood_dict.get("mood_date")
       print("mood_date to log", mood_date)
       print(f"Type of mood_date: {type(mood_date)}")
@@ -28,11 +28,11 @@ class Mood:
       else:
         mood_date_timestamp = None
 
-      mood_dict["mood_today"] = mood_dict["mood_today"].value
+      mood_dict["mood"] = mood_dict["mood"].value
       mood_ref = db.collection("mood").document()
       await mood_ref.set({
         "user_id": user_id,
-        "mood_today": mood_dict.get("mood_today"),
+        "mood": mood_dict.get("mood"),
         "mood_date": mood_date_timestamp,
         "created_at": firestore.SERVER_TIMESTAMP
       })
@@ -46,7 +46,7 @@ class Mood:
 
     try:
       user_id = token["uid"]
-      mood_dict = mood_data.dict()
+      mood_dict = mood_data.model_dump()
       mood_id = mood_dict.get("mood_id")
       if not mood_id:
         raise HTTPException(status_code=400, detail="Missing mood id")
@@ -105,6 +105,7 @@ class Mood:
 
       async for doc in mood_docs:
         mood_data = doc.to_dict()
+        print(f"mood data: {mood_data}")
         mood_data["id"] = doc.id
         return MoodModel(**mood_data)
 

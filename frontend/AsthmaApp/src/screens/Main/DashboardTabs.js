@@ -38,9 +38,13 @@ const DashboardTabs = () => {
           <Icon 
             name="notebook-outline"
             color={color}
-            size={30}
+            size={32}
           />
-        )
+        ),
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontWeight: 300
+        }
       }}
       />
       <Tab.Screen 
@@ -51,9 +55,13 @@ const DashboardTabs = () => {
             <Icon
               name="chart-line"
               color={color}
-              size={30}
+              size={32}
             />
-          )
+          ),
+          tabBarLabelStyle: {
+            fontSize: 14,
+            fontWeight: 300
+          }
         }}
       />
        <Tab.Screen 
@@ -65,9 +73,13 @@ const DashboardTabs = () => {
             <Icon
               name="plus-circle"
               color={color}
-              size={30}
+              size={32}
             />
-          )
+          ),
+          tabBarLabelStyle: {
+            fontSize: 14,
+            fontWeight: 300
+          }
         }}
       />
        {/*
@@ -87,9 +99,13 @@ const DashboardTabs = () => {
             <Icon
               name="calendar-month-outline"
               color={color}
-              size={30}
+              size={32}
             />
-          )
+          ),
+          tabBarLabelStyle: {
+            fontSize: 14,
+            fontWeight: 300
+          }
         }}
       />
       <Tab.Screen 
@@ -100,9 +116,13 @@ const DashboardTabs = () => {
             <Icon
               name="account-circle-outline"
               color={color}
-              size={30}
+              size={32}
             />
-          )
+          ),
+          tabBarLabelStyle: {
+            fontSize: 14,
+            fontWeight: 300
+          }
         }}
       />  
     </Tab.Navigator>

@@ -96,7 +96,7 @@ async def get_summary(token: Annotated[dict, Depends(verify_firebase_token)]):
     messages=[
       {
         "role": "system", 
-        "content": "You are a friendly health assistant. Analyze the asthma symptom data and talk directly to the user in a warm, conversational tone. \
+        "content": "You are a friendly health assistant that does not interract with the user directly. Analyze the asthma symptom data and talk directly to the user in a warm, conversational tone. \
          Highlight key insights and helpful tips."
         },
       {"role": "user", "content": f"Asthma data {formatted_data}"}

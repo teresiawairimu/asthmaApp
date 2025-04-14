@@ -2,7 +2,7 @@ import sys
 import os
 import asyncio
 import random
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from google.cloud.firestore_v1.base_query import FieldFilter
 
 
@@ -36,7 +36,9 @@ asthma_triggers_map = {
   AsthmaTriggers.SMOKE: [AsthmaSymptoms.COUGH, AsthmaSymptoms.WHEEZING],
   AsthmaTriggers.STRESS: [AsthmaSymptoms.CHEST_TIGHTNESS, AsthmaSymptoms.FATIGUE],
   AsthmaTriggers.STRONG_ODORS: [AsthmaSymptoms.CHEST_TIGHTNESS, AsthmaSymptoms.FATIGUE],
-  AsthmaTriggers.RESPIRATORY_INFECTION: [AsthmaSymptoms.WHEEZING, AsthmaSymptoms.DIFFICULTY_SPEAKING, AsthmaSymptoms.FATIGUE]
+  AsthmaTriggers.RESPIRATORY_INFECTION: [AsthmaSymptoms.WHEEZING, AsthmaSymptoms.DIFFICULTY_SPEAKING, AsthmaSymptoms.FATIGUE],
+  AsthmaTriggers.SCENTED_LOTION: [AsthmaSymptoms.COUGH, AsthmaSymptoms.SHORTNESS_OF_BREATH, AsthmaSymptoms.CHEST_TIGHTNESS],
+  AsthmaTriggers.PET_DANDER: [AsthmaSymptoms.WHEEZING, AsthmaSymptoms.COUGH, AsthmaSymptoms.SHORTNESS_OF_BREATH]
 }
 
 mood_probabilities = {
@@ -65,8 +67,8 @@ async def generate_data():
 
   #print(asthma_info)
 
-  start_date = datetime(2024, 1, 1)
-  num_weeks = 4
+  start_date = datetime(2025, 3, 1)
+  num_weeks = 6
   symptoms_data = {}
   mood_data = {}
 
@@ -96,7 +98,7 @@ async def generate_data():
 
         symptoms_data.update({
           "user_id": info["user_id"],
-          "symptom_date": day,
+          "symptom_date": day.replace(tzinfo=timezone.utc),
           "time_periods": random.sample([time.value for time in TimePeriods], k=random.randint(1, 2)),
           "activity_level": random.choice([activity.value for activity in ActivityLevel]),
           "activity_type": random.sample([a.value for a in ActivityType], k=random.randint(0,2)),
@@ -105,7 +107,7 @@ async def generate_data():
           "triggers": [trigger] if trigger else None,
           "rescueinhaler_used": rescueinhaler_used,
           "environmental_factors": random.sample([e.value for e in EnvironmentalFactors], k=random.randint(1, 2)),
-          "created_at": day,
+          "created_at": day.replace(tzinfo=timezone.utc),
         })
 
         print(symptoms_data)
@@ -113,9 +115,9 @@ async def generate_data():
 
         mood_data.update({
           "user_id": info["user_id"],
-          "mood_date": day,
+          "mood_date": day.replace(tzinfo=timezone.utc),
           "mood": selected_moods,
-          "created_at": day
+          "created_at": day.replace(tzinfo=timezone.utc)
         })
 
         print(mood_data)
