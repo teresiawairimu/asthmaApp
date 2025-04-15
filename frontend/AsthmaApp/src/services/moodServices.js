@@ -46,3 +46,25 @@ export const retrieveMoodByDate = async (selectedDate, idToken) => {
     throw error;
   }
 };
+
+
+
+export const moodStats = async(idToken, range = "default") => {
+  console.log("Id token from stats:", idToken);
+  try {
+    const response = await axios.get(`${mood_api_url}/stats/${range}`,
+      { 
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+        },        
+      }   
+    );
+    console.log("mood_api_url", mood_api_url);
+    console.log("response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+};

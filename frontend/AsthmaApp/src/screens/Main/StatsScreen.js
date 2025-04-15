@@ -1,8 +1,9 @@
 import React, { useState, useEffect} from "react";
 import { View, Text, StyleSheet, ScrollView} from "react-native";
-import { symptomsStats } from "../../services/symptomServices";
-import SymptomTrends from "../../graphs/SymptomTrends";
-import SymptomSeverityTrends from "../../graphs/SymptomSeverityTrends";
+import { symptomsStats } from "../../services/symptomServices"; 
+import SymptomTrends from "../../components/graphs/SymptomTrends";
+import SymptomSeverityTrends from "../../components/graphs/SymptomSeverityTrends";
+import CorrelationInsightsDisplay from "../../components/DisplayTracker/CorrelationInsightsDisplay";
 import { useAuth } from "../../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -33,9 +34,11 @@ const StatsScreen = () => {
     }
       fetchStatsData();
     }, [user]);
+
+    if (isLoading) return <Text>Loading...</Text>;
+    if (error) return <Text>{error}</Text>
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
-    <View>
       <ScrollView>
     <Text>Welcome to Stats Screen</Text>
     <SymptomTrends 
@@ -44,8 +47,12 @@ const StatsScreen = () => {
     <SymptomSeverityTrends
       symptomsData={statsData}
     />
-    </ScrollView>
+
+    <View>
+      <CorrelationInsightsDisplay />
     </View>
+    </ScrollView>
+  
     </SafeAreaView>
 
   );
@@ -54,7 +61,6 @@ const StatsScreen = () => {
 const styles = StyleSheet.create({
   safeAreaStyle: {
     flex: 1
-
   }
 })
 

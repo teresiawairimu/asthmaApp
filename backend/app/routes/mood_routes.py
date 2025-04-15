@@ -4,6 +4,7 @@ from middleware.authentication_middleware import verify_firebase_token
 from models.mood_model import MoodModel
 from database.mood_entry import Mood
 from datetime import datetime, date
+from openai import OpenAI
 
 router = APIRouter()
 mood_db = Mood()
@@ -17,4 +18,10 @@ async def log_mood(data: MoodModel, token: Annotated[dict, Depends(verify_fireba
 @router.get("/")
 async def retrieve_mood_by_date(retrieve_date: date, token: Annotated[dict, Depends(verify_firebase_token)]):
   """"""
-  return await mood_db.get_mood_by_date(retrieve_date, token)
+  
+
+@router.get("/stats/{month_range}")
+async def retrieve_mood_by_month_range(month_range: str, token: Annotated[dict, Depends(verify_firebase_token)]):
+  return await mood_db.get_mood_by_month_range(token)
+
+
