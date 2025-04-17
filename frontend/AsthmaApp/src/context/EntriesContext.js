@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, createContext } from "react";
 import {useAuth } from "./AuthContext";
-import { getSymptoms, retrieveSymptomsByDate, updateSymptoms, logSymptoms } from "../services/symptomServices";
+import { retrieveSymptomsByDate, updateSymptoms, logSymptoms } from "../services/symptomServices";
 import { retrieveMoodByDate, logMood, updateMood } from "../services/moodServices";
 
 
@@ -15,7 +15,7 @@ export const EntriesProvider = ({children}) => {
   const [mood, setMood] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString("en-CA"))
     //new Date().toISOString().split("T")[0]);
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
+  //const [refreshTrigger, setRefreshTrigger] = useState(0);
   console.log("selected date in context", selectedDate);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,7 +43,8 @@ export const EntriesProvider = ({children}) => {
        
     }
     fetchEntries();
-  }, [selectedDate, user,refreshTrigger]);
+  }, [selectedDate, user]);
+    //refreshTrigger]);
 
 
   const handleSymptomsUpdate = async (newSymptomData) => {
@@ -100,7 +101,7 @@ export const EntriesProvider = ({children}) => {
           //navigation.navigate("Today")
         }
         setMood(updatedMood);
-        setRefreshTrigger(prev => prev + 1);
+        //setRefreshTrigger(prev => prev + 1);
         return { success: true, mood: updatedMood };
       } catch (error) {
         setError("Failed to update mood info");

@@ -65,6 +65,26 @@ export const symptomsStats = async(idToken, range = "default") => {
   }
 };
 
+export const getSymptomsByCurrentMonth = async(idToken, range = "default") => {
+  console.log("Id token from current month:", idToken);
+  try {
+    const response = await axios.get(`${symptom_api_url}/calender/${range}`,
+      { 
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+        },        
+      }   
+    );
+    console.log("symptom_api_url", symptom_api_url);
+    console.log("response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+};
+
 
 export const getSymptoms = async(idToken) => {
   console.log("Id token:", idToken);

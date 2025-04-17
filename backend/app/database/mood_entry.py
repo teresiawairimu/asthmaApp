@@ -6,6 +6,7 @@ from firebase_admin import firestore
 from datetime import datetime, date, timezone, timedelta
 from utils.date_parser import parse_date_string
 from utils.month_range import month_range
+from utils.current_month_range import get_current_month_range
 from google.cloud.firestore_v1 import FieldFilter
 
 
@@ -147,6 +148,37 @@ class Mood:
     except Exception as e:
       print(f"Error fetching mood from the month range: {str(e)}")
       raise HTTPException(status_code=500, detail="Failed to retrieve mood data from the month range")
+    
+
+  async def get_mood_by_current_month_range(self, token: dict) -> dict:
+    try:
+      user_id = token["uid"]
+
+      start_date, end_date = get_current_month_range()
+
+      start_datetime = datetime.combine(start_date, datetime.min.time(), tzinfo=timezone.utc)
+      end_datetime = datetime.combine(end_date + timedelta(days=1), datetime.min.time(), tzinfo=timezone.utc)
+
+      print(f"Query range: {start_datetime} to {end_datetime}")
+
+      
+      mood_docs = db.collection("mood") \
+        .where(filter=FieldFilter("user_id", "==", user_id)) \
+        .where(filter=FieldFilter("mood_date", ">=", start_datetime)) \
+        .where(filter=FieldFilter("mood_date", "<", end_datetime)) \
+        .stream()
+
+      
+      async for doc in mood_docs:
+        mood_data = doc.to_dict()
+        mood_data["id"] = doc.id
+        return mood_data
+      
+      return None
+    
+    except Exception as e:
+      print(f"Error fetching mood from the current month range: {str(e)}")
+      raise HTTPException(status_code=500, detail="Failed to retrieve mood data from the current month range")
     
   
 

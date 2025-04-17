@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import {View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { correlationInsights } from "../../services/correlationServices";
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -12,32 +12,37 @@ const CorrelationInsightsDisplay =() => {
   const [error, setError] = useState(null);
   const { user } = useAuth();
 
+
   const handleGenerateCorrelationInsights = async () => {
-      if (!user) return;
-      try {
-        setIsLoading(true);
-        setError(null);
-        const idToken = await user.getIdToken();
-        console.log("idToken THIS IS THE INVALID", idToken);
-        const insightsInfo = await correlationInsights(idToken);
-        console.log("insightsdata", insightsInfo);
-        setInsightsData(insightsInfo);
-      } catch (error) {
-        setError("Failed to load data");
-        console.error(error)
-      } finally {
-        setIsLoading(false);
-      }
+    if (!user) return;
+    try {
+      setIsLoading(true);
+      setError(null);
+      const idToken = await user.getIdToken();
+      console.log("idToken THIS IS THE INVALID", idToken);
+      const insightsInfo = await correlationInsights(idToken);
+      console.log("insightsdata", insightsInfo);
+      setInsightsData(insightsInfo);
+    } catch (error) {
+      setError("Failed to load data");
+      console.error(error)
+    } finally {
+      setIsLoading(false);
     }
+  }
+
+  useEffect(() => {
+    handleGenerateCorrelationInsights();
+  }, [user])
   
-    if (isLoading) return <Text>Loading...</Text>
-    if (error) return <Text>{error}</Text>
-    return (
-      <View style={styles.correlationContainer}>
+  if (isLoading) return <Text style={styles.loadingStyle}>Loading...</Text>
+  if (error) return <Text>{error}</Text>
+  return (
+    <View style={styles.correlationContainer}>
       {insightsData ? (
         <View>
           <Text style={styles.correlationTitle}>
-            Here's the Monthly Correlation between Mood and Symptom Severity Insight!
+           Monthly Correlation Insight!
             <AntDesign name="star" size={24} color="gold" />
           </Text>
           <Text style={styles.correlationText}>
@@ -56,21 +61,22 @@ const CorrelationInsightsDisplay =() => {
       ) : (
         <Text style={styles.noCorrelationInsightText}>No Correlation insights yet. Tap the button below to generate one.</Text>
       )}
-      <View >
+      <View>
         <TouchableOpacity style={styles.correlationButton} onPress={handleGenerateCorrelationInsights}>
-          <Text style={styles.correlationButtonText}>{insightsData ? "Refresh Correlation Insight" : "Generate Correlation Insight"}</Text>
+          <Text style={styles.correlationButtonText}>
+           Refresh Insight
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
-
-    )
-
+  )
 }
+
 export default CorrelationInsightsDisplay;
 
 const styles = StyleSheet.create({
   correlationContainer: {
-    backgroundColor: "#dcdcdc", 
+    backgroundColor: "#fffafa", 
     marginTop: 30, 
     borderRadius: 30, 
     padding: 20
@@ -106,5 +112,10 @@ const styles = StyleSheet.create({
     color: "#ffffff", 
     fontSize: 20, 
     fontWeight: "bold"
-  } 
+  },
+  loadingStyle: {
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 300
+  }
 });

@@ -18,10 +18,17 @@ async def log_mood(data: MoodModel, token: Annotated[dict, Depends(verify_fireba
 @router.get("/")
 async def retrieve_mood_by_date(retrieve_date: date, token: Annotated[dict, Depends(verify_firebase_token)]):
   """"""
+  print("retrieve date from mood routes", retrieve_date)
+  return await mood_db.get_mood_by_date(retrieve_date, token)
   
 
 @router.get("/stats/{month_range}")
 async def retrieve_mood_by_month_range(month_range: str, token: Annotated[dict, Depends(verify_firebase_token)]):
   return await mood_db.get_mood_by_month_range(token)
+
+
+@router.get("/calender/{month_range}")
+async def retrieve_mood_by_current_month_range(month_range: str, token: Annotated[dict, Depends(verify_firebase_token)]):
+  return await mood_db.get_mood_by_current_month_range(token)
 
 

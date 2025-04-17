@@ -31,8 +31,8 @@ const CurrentWeatherDisplay = () => {
     fetchWeather();
   }, [user]);
 
-  if (isLoading) return <Text>Loading...</Text>;
-  if (error) return <Text>{error}</Text>
+  if (isLoading) return <Text style={styles.loadingStyle}>Loading...</Text>;
+  if (error) return <Text style={styles.errorStyle}>{error}</Text>
   return (
     <View style={styles.weatherContainer} >
       <View style={styles.titleContainer}>
@@ -81,5 +81,14 @@ const styles = StyleSheet.create({
    },
    temp: {
     fontSize: 24
-   }
+   },
+   loadingStyle: {
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 300
+  }, 
+  errorStyle:{
+    fontSize: 16, 
+    fontWeight: 300
+  }
 })

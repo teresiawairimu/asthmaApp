@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import {View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { symptomsSummary } from "../../services/symptomServices";
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -29,8 +29,12 @@ const CurrentInsightsDisplay = () => {
     }
   }
 
-  if (isLoading) return <Text>Loading...</Text>;
-  if (error) return <Text>{error}</Text>
+  useEffect(() => {
+    handleGenerateInsights();
+  }, [user])
+
+  if (isLoading) return <Text style={styles.loadingStyle}>Loading...</Text>;
+  if (error) return <Text style={styles.errorStyle}>{error}</Text>
   return (
     <View style={styles.insightContainer}>
       {summaryData ? (
@@ -104,5 +108,14 @@ const styles = StyleSheet.create({
     color: "#ffffff", 
     fontSize: 20, 
     fontWeight: "bold"
-  } 
+  },
+  loadingStyle: {
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 300
+  }, 
+  errorStyle:{
+    fontSize: 16, 
+    fontWeight: 300
+  }
 });

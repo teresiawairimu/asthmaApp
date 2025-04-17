@@ -112,6 +112,10 @@ async def get_summary(token: Annotated[dict, Depends(verify_firebase_token)]):
 async def retrieve_symptoms_by_month_range(month_range: str, token: Annotated[dict, Depends(verify_firebase_token)]):
   return await symptom_db.get_symptoms_by_month_range(token)
 
+@router.get("/calender/{month_range}")
+async def retrieve_symptoms_by_current_month_range(month_range: str, token: Annotated[dict, Depends(verify_firebase_token)]):
+  return await symptom_db.get_symptoms_by_current_month_range(token)
+
 
 
 @router.put("/{symptom_id}")

@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, ScrollView} from "react-native";
+import { View, Text, Dimensions, ScrollView, StyleSheet} from "react-native";
 import { LineChart } from "react-native-chart-kit";
 
 
@@ -48,8 +48,7 @@ const transformForChartKit = (symptomsData) => {
     labels: formattedDates,
     datasets,
     legend: severityLevels,
-  };
-  
+  }; 
 }
 
 const SymptomSeverityTrends = ({symptomsData}) => {
@@ -71,14 +70,14 @@ const SymptomSeverityTrends = ({symptomsData}) => {
  
   const renderLegend = () => {
     return (
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', paddingVertical: 10 }}>
+      <View style={styles.renderLegendContainer}>
         {chartData.legend.map((severityLevels, index) => {
           const color = chartData.datasets[index].color();
           const displayName = severityLevels.replace(/_/g, ' '); 
           
           return (
-            <View key={severityLevels} style={{ flexDirection: 'row', alignItems: 'center', marginRight: 16, marginBottom: 8 }}>
-              <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: color, marginRight: 4 }} />
+            <View key={severityLevels} style={styles.renderLegendView}>
+              <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: color, marginRight: 4 }} /> 
               <Text>{displayName}</Text>
             </View>
           );
@@ -89,8 +88,7 @@ const SymptomSeverityTrends = ({symptomsData}) => {
 
   return (
     <View>
-      <Text> Here is the severity trends</Text>
-      <Text style={{ fontSize: 16, fontWeight: "bold", margin: 10 }}>
+      <Text style={styles.textStyle}>
         Symptom Severity Presence Over Time
       </Text>
       {renderLegend()}
@@ -167,3 +165,23 @@ const SymptomSeverityTrends = ({symptomsData}) => {
 };
 
 export default SymptomSeverityTrends;
+
+const styles = StyleSheet.create({
+  renderLegendContainer: {
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    justifyContent: 'center', 
+    paddingVertical: 10
+  },
+  renderLegendView: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginRight: 16, 
+    marginBottom: 8
+  },
+  textStyle: {
+    fontSize: 16, 
+    fontWeight: "bold", 
+    margin: 10
+  }
+});

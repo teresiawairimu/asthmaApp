@@ -40,23 +40,19 @@ const StatsScreen = () => {
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
       <ScrollView>
-    <Text>Welcome to Stats Screen</Text>
-    <SymptomTrends 
-      symptomsData={statsData}
-    />
-    <SymptomSeverityTrends
-      symptomsData={statsData}
-    />
-
-    <View>
-      <CorrelationInsightsDisplay />
-    </View>
-    </ScrollView>
-  
+        <SymptomTrends 
+          symptomsData={statsData}
+        />
+        <SymptomSeverityTrends
+          symptomsData={statsData}
+        />
+        <View style={{ padding: 20}}>
+          <CorrelationInsightsDisplay />
+        </View>
+      </ScrollView>
     </SafeAreaView>
-
   );
-};
+}
 
 const styles = StyleSheet.create({
   safeAreaStyle: {
