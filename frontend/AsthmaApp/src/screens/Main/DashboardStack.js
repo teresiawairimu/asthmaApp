@@ -53,11 +53,11 @@ const DashboardStack = () => {
         component={EntryScreen}
         options={{ title: "Multiple Entries"}}
       />
-       <Stack.Screen
+       {/*<Stack.Screen
         name="Mood"
         component={MoodScreen}
         options={{ title: "Mood Entry"}}
-      />
+      />*/}
     
     </Stack.Navigator>
   )

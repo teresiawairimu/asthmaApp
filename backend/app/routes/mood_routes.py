@@ -5,6 +5,7 @@ from models.mood_model import MoodModel
 from database.mood_entry import Mood
 from datetime import datetime, date
 from openai import OpenAI
+from utils.get_month_start_end import get_month_start_end
 
 router = APIRouter()
 mood_db = Mood()
@@ -29,6 +30,7 @@ async def retrieve_mood_by_month_range(month_range: str, token: Annotated[dict, 
 
 @router.get("/calender/{month_range}")
 async def retrieve_mood_by_current_month_range(month_range: str, token: Annotated[dict, Depends(verify_firebase_token)]):
-  return await mood_db.get_mood_by_current_month_range(token)
+  start, end = get_month_start_end(month_range)
+  return await mood_db.get_mood_by_current_month_range(token, start, end)
 
 

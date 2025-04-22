@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import CustomButton from "../../components/Common/CustomButton";
 import { useEntries } from "../../context/EntriesContext";
 
 
-const MoodScreen = ({existingData, editFromDateClick}) => {
+const CreateMoodForm = () => {
   //console.log("isondashboard", isOnDashboard);
   const {
        mood: contextMood, 
@@ -18,38 +18,9 @@ const MoodScreen = ({existingData, editFromDateClick}) => {
   console.log("context mood", contextMood);
 
 
-  //const MoodDataToUse = existingData || contextMood;
-  {/*const MoodDataToUse = existingData || 
-    (isOnDashboard
-      ? (contextMood && selectedDate === new Date().toLocaleDateString("en-CA") ? contextMood : null)
-      : contextMood);*/}
-
-  
-  const MoodDataToUse = existingData || 
-    (contextMood && selectedDate === new Date().toLocaleDateString("en-CA") 
-    ? contextMood 
-    : null);
-
-  {/*const MoodDataToUse = existingData || 
-    (selectedDate === new Date().toLocaleDateString("en-CA") 
-    ? contextMood 
-    : null);*/}
-
-  //const isToday = selectedDate === new Date().toLocaleDateString("en-CA");
-
-  
-
   const [selectedMood, setSelectedMood] = useState(null);
-  //const [isEditMode, setIsEditMode] = useState(!existingData);
-  const [isEditMode, setIsEditMode] = useState(!MoodDataToUse);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (MoodDataToUse) {
-      setSelectedMood(MoodDataToUse.mood || null);
-    }
-  }, [MoodDataToUse]);
 
   
   const handleSubmit = async () => {
@@ -89,20 +60,22 @@ const MoodScreen = ({existingData, editFromDateClick}) => {
   
 
 
-  if (loading || EntriesLoading || !selectedDate) {
+  if (loading || EntriesLoading) {
       return <Text>Loading...</Text>
     }
   
   return (
     /*<SafeAreaView style={styles.safeAreaStyle}>*/
     <View style={styles.container}>
-      <View style={isEditMode ?  styles.editModeContainer : styles.viewModeContainer}>
+      <View style={styles.editModeContainer}>
       <View>
       <Text style={styles.title}>How are you feeling today?</Text>
           <View style={styles.emojiGrid}>
             {Object.entries(customEmojis).map(([mood, icon]) => (
               <View key={mood} style={styles.emojiItem}>
-                <TouchableOpacity disabled={!isEditMode} onPress={() => {
+                <TouchableOpacity 
+                //disabled={!isEditMode} 
+                onPress={() => {
                   setSelectedMood(previous =>
                     previous === mood ? null : mood);
                   }}
@@ -118,27 +91,13 @@ const MoodScreen = ({existingData, editFromDateClick}) => {
 
 
       {error && <Text style={styles.errorText}>{error}</Text>}
-      {isEditMode ? (
-        <>
-          <View style={{margin: 10}}>
-            <CustomButton
+        <View style={{margin: 10}}>
+          <CustomButton
             title="Save Mood"
             onPress={handleSubmit}
 
           />
           </View>
-          {isEditMode && editFromDateClick && (
-          <View style={{ margin: 10}}>
-            <CustomButton title="Cancel" onPress={() => {
-            setIsEditMode(false);
-          }}/>
-          </View>
-        )}
-        </>
-      ) : (
-        <CustomButton title="Edit Mood" 
-        onPress={() => setIsEditMode(true)} />
-      )}
       </View>
     </View>
     /*</SafeAreaView>*/
@@ -146,7 +105,7 @@ const MoodScreen = ({existingData, editFromDateClick}) => {
 };
 
 
-export default MoodScreen;
+export default CreateMoodForm;
 
 const styles = StyleSheet.create({
   safeAreaStyle: {

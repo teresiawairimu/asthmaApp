@@ -8,7 +8,6 @@ from firebase_admin import firestore
 from google.cloud.firestore_v1 import FieldFilter
 from utils.date_range import date_range
 from utils.month_range import month_range
-from utils.current_month_range import get_current_month_range
 from fastapi.encoders import jsonable_encoder
 
 
@@ -200,14 +199,14 @@ class Symptom:
       print(f"Error fetching symptoms from the month range: {str(e)}")
       raise HTTPException(status_code=500, detail="Failed to retrieve symptom data from the month range")
     
-  async def get_symptoms_by_current_month_range(self, token: dict) -> list:
+  async def get_symptoms_by_current_month_range(self, token: dict, start: datetime, end: datetime) -> list:
     try:
       user_id = token["uid"]
 
-      start_date, end_date = get_current_month_range()
+      #start_date, end_date = get_current_month_range()
 
-      start_datetime = datetime.combine(start_date, datetime.min.time(), tzinfo=timezone.utc)
-      end_datetime = datetime.combine(end_date + timedelta(days=1), datetime.min.time(), tzinfo=timezone.utc)
+      start_datetime = datetime.combine(start, datetime.min.time(), tzinfo=timezone.utc)
+      end_datetime = datetime.combine(end + timedelta(days=1), datetime.min.time(), tzinfo=timezone.utc)
 
       print(f"Query range: {start_datetime} to {end_datetime}")
 

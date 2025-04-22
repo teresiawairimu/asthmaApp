@@ -6,6 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import { getSymptomsByCurrentMonth } from "../../services/symptomServices";
 import { getMoodByCurrentMonth } from "../../services/moodServices";
 import { useAuth } from "../../context/AuthContext";
+import { startOfMonth, endOfMonth } from "date-fns";
+import { format } from "date-fns";
 
 const CalendarScreen = () => {
   const [selectedDay, setSelectedDay] = useState('');
@@ -18,30 +20,6 @@ const CalendarScreen = () => {
   const [moodData, setMoodData] = useState([]);
   const { user } = useAuth();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!user) return;
-      try {
-        setIsLoading(true);
-        setError(null);
-        const idToken = await user.getIdToken();
-        console.log("idToken THIS IS THE INVALID", idToken);
-        const symptomsInfo = await getSymptomsByCurrentMonth(idToken);
-        console.log("symptomsInfo is here", symptomsInfo);
-        const moodInfo = await getMoodByCurrentMonth(idToken);
-        console.log("moodInfo is here", moodInfo);
-        setSymptomsData(symptomsInfo);
-        setMoodData(moodInfo);
-      } catch (error) {
-        setError("Failed to load data");
-        console.error(error)
-      } finally {
-        setIsLoading(false);
-      }
-    }
-      fetchData();
-    }, [user]);
-
 
   const symptomList = symptomsData || [];
   const moodList = moodData || [];
@@ -52,6 +30,33 @@ const CalendarScreen = () => {
     })
   }
 
+  const handleMonthChange = async (date) => {
+    if (!user) return;
+    const range = format(date, "yyyy-MM");
+    try {
+      setIsLoading(true);
+      setError(null);
+      const idToken = await user.getIdToken();
+      console.log("idToken THIS IS THE INVALID", idToken);
+      const symptomsInfo = await getSymptomsByCurrentMonth(idToken, range);
+      console.log("symptomsInfo is here", symptomsInfo);
+      const moodInfo = await getMoodByCurrentMonth(idToken, range);
+      console.log("moodInfo is here", moodInfo);
+      setSymptomsData(symptomsInfo);
+      setMoodData(moodInfo);
+    } catch (error) {
+      setError("Failed to load data");
+      console.error(error)
+    } finally {
+      setIsLoading(false);
+    }    
+  }
+
+  useEffect(() => {
+    handleMonthChange(new Date());
+  }, [user])
+    
+
   const markedDates = {};
   symptomList.forEach(entry => {
   const date = entry.symptom_date.split("T")[0];
@@ -59,13 +64,13 @@ const CalendarScreen = () => {
       ...(markedDates[date] || {}),
       dots: [
         ...(markedDates[date]?.dots || []),
-        { key: "symptom", color: "orange" }
+        { key: "symptom", color: "#ff0000" }
       ],
       marked: true,
     };
   });
 
-  {/*moodList.forEach(entry => {
+  moodList.forEach(entry => {
     const date = entry.mood_date.split("T")[0];
     markedDates[date] = {
       ...(markedDates[date] || {}),
@@ -75,7 +80,8 @@ const CalendarScreen = () => {
       ],
       marked: true,
     };
-  });*/}
+  });
+
 
   if (isLoading) return <Text>Loading...</Text>;
   if (error) return <Text>{error}</Text>
@@ -100,6 +106,10 @@ const CalendarScreen = () => {
               //selectedDotColor: "#cd5c5c"
               //}
           //}}
+          onMonthChange={(month) => {
+            const date = new Date(month);
+            handleMonthChange(date);
+          }}
         />
       </View>
     </SafeAreaView>

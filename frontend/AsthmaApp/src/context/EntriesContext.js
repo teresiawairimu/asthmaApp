@@ -21,6 +21,7 @@ export const EntriesProvider = ({children}) => {
   const [error, setError] = useState(null);
   const {user} = useAuth();
 
+  
   useEffect(() => {
     const fetchEntries = async () => {
       if (!user) return;
@@ -44,7 +45,7 @@ export const EntriesProvider = ({children}) => {
     }
     fetchEntries();
   }, [selectedDate, user]);
-    //refreshTrigger]);
+
 
 
   const handleSymptomsUpdate = async (newSymptomData) => {
@@ -111,20 +112,6 @@ export const EntriesProvider = ({children}) => {
       }
     };
 
-
-  /*const hasTodayEntry = () => {
-    const today = new Date().toLocaleDateString();
-    return symptoms.some(symptom => 
-      new Date(symptom.symptom_date).toLocaleDateString() === today
-    );
-  };
-  
-  const getTodayEntry = () => {
-    const today = new Date().toLocaleDateString();
-    return symptoms.find(symptom => 
-      new Date(symptom.symptom_date).toLocaleDateString() === today
-    );
-  };*/
 
   const value = {
     symptoms,

@@ -34,7 +34,7 @@ const SymptomsScreen = ({ existingData, editFromDateClick}) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isEditMode, setIsEditMode] = useState(!symptomDataToUse);
   const [error, setError] = useState(null);
-  const [loading, isLoading] = useState(false);
+  const [loading, setIsLoading] = useState(false);
   console.log("existing data in symptoms file", existingData);
 
 
@@ -157,7 +157,6 @@ const SymptomsScreen = ({ existingData, editFromDateClick}) => {
 
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
-      <View style={styles.mainContainer}>
     <ScrollView
     //style={styles.scrollView}
     //contentContainerStyle={styles.scrollViewContent}
@@ -355,15 +354,15 @@ const SymptomsScreen = ({ existingData, editFromDateClick}) => {
         </>
       ) : (
         <TouchableOpacity
+        style={styles.submitButton}
         onPress={() => setIsEditMode(true)}
         >
-          <Text>Edit Symptoms</Text>
+          <Text style={styles.submitButtonText}>Edit Symptoms</Text>
         </TouchableOpacity>
       )}
       </View>
      </View>
      </ScrollView>
-     </View>
      </SafeAreaView>
 
   );

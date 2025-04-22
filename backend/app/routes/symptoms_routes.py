@@ -9,6 +9,7 @@ from openai import OpenAI
 from fastapi.responses import JSONResponse
 import json
 from fastapi.responses import Response
+from utils.get_month_start_end import get_month_start_end
 
 router = APIRouter()
 symptom_analysis = SymptomTrends()
@@ -114,7 +115,8 @@ async def retrieve_symptoms_by_month_range(month_range: str, token: Annotated[di
 
 @router.get("/calender/{month_range}")
 async def retrieve_symptoms_by_current_month_range(month_range: str, token: Annotated[dict, Depends(verify_firebase_token)]):
-  return await symptom_db.get_symptoms_by_current_month_range(token)
+  start, end = get_month_start_end(month_range)
+  return await symptom_db.get_symptoms_by_current_month_range(token, start, end)
 
 
 

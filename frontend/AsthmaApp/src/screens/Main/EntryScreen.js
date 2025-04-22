@@ -18,6 +18,7 @@ const EntryScreen = ({route}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const {user} = useAuth();
 
   //const route = useRoute();
