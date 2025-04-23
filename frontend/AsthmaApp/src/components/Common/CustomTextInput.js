@@ -15,19 +15,25 @@ const CustomTextInput = ({value, onChangeText, onBlur, error, isSecure, placehol
         placeholder={placeholder}
       />
       {error && (
-        <Text>{error}</Text>
+        <Text style={styles.errorText}>{error}</Text>
       )}
     </View>
   );
 };
 
+export default CustomTextInput;
+
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    margin: 12,
+    width: 250,
+    height: 50,
+    borderRadius: 10,
     borderWidth: 1,
     padding: 10,
   },
+  errorText: {
+    color: "#ff0000",
+    fontSize: 14,
+  }
 });
 
-export default CustomTextInput;

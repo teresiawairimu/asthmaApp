@@ -2,7 +2,8 @@ import * as React from "react";
 import * as yup from "yup";
 import { yupResolver} from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import { useNavigation} from "@react-navigation/native";
 import CustomTextInput from "../Common/CustomTextInput";
 import CustomButton from "../Common/CustomButton";
 
@@ -15,10 +16,15 @@ const schema = yup.object({
     .required("Email is required"),
   password: yup.string()
     .min(8, "Password must be at least 8 characters")
-    .required("Password is required")
+    .required("Password is required"),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], "Passwords must match")
+    .required("Confirm Password is required")
 }).required();
 
 const RegisterForm = ({ onSubmit, error, isLoading }) => {
+
+  const navigation = useNavigation();
   const { control, handleSubmit, formState: { errors}} = useForm({
     resolver: yupResolver(schema)
   });
@@ -28,52 +34,72 @@ const RegisterForm = ({ onSubmit, error, isLoading }) => {
   };
 
   return (
-    <View>
-      <Text>Username</Text>
-      <Controller
-        control={control}
-        name="username"
-        render={({field: {onChange, onBlur, value }}) => (
-          <CustomTextInput
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            value={value}
-            placeholder="Enter your username"
-            error={errors.username?.message}
+    <View style={styles.container}>
+      <Text style={styles.registerHeading}>Sign Up</Text>
+      <View>
+        <View style={styles.textInputView}>
+          <Controller
+            control={control}
+            name="username"
+            render={({field: {onChange, onBlur, value }}) => (
+              <CustomTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                placeholder="Username"
+                error={errors.username?.message}
+              />
+            )}
           />
-        )}
-        
-      />
-      <Text>Email</Text>
-      <Controller
-        control={control}
-        name="email"
-        render={({field: {onChange, onBlur, value}}) => (
-          <CustomTextInput
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            value={value}
-            placeholder="Enter your email"
-            error={errors.email?.message}
+        </View>
+        <View style={styles.textInputView}>
+          <Controller
+            control={control}
+            name="email"
+            render={({field: {onChange, onBlur, value}}) => (
+              <CustomTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                placeholder="Email"
+                error={errors.email?.message}
+              />
+            )}
           />
-        )}
-        
-      />
-      <Text>Password</Text>
-      <Controller
-        control={control}
-        name="password"
-        render={({field: {onChange, onBlur, value}}) => (
-          <CustomTextInput
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            value={value}
-            placeholder="Enter your password"
-            isSecure={true}
-            error={errors.password?.message}
+        </View>
+        <View style={styles.textInputView}>
+          <Controller
+            control={control}
+            name="password"
+            render={({field: {onChange, onBlur, value}}) => (
+              <CustomTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                placeholder="Password"
+                isSecure={true}
+                error={errors.password?.message}
+              />
+            )}
           />
-        )}
-      />
+        </View>
+        <View style={styles.textInputView}>
+          <Controller
+            control={control}
+            name="confirmPassword"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                placeholder="Confirm Password"
+                isSecure={true}
+                error={errors.confirmPassword?.message}
+              />
+            )}
+          />
+        </View>
+      </View>
 
       <View>
         {error && <Text style={styles.errorText}>{error}</Text>}
@@ -83,23 +109,56 @@ const RegisterForm = ({ onSubmit, error, isLoading }) => {
           disabled={isLoading}
         />
       </View>
+      <View style={styles.loginView}>
+        <Text style={styles.loginText}>Already have an account?</Text>
+        <TouchableOpacity
+          style={styles.loginLink}
+          onPress={() => navigation.navigate("Login")}
+        > 
+          <Text style={styles.loginLinkText}>Log</Text>
+        </TouchableOpacity>
+      </View>
     </View>  
   );
 };
 
+export default RegisterForm;
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    margin: 10,
+    padding: 30
+  },
+  registerHeading: {
+    alignSelf: "center", 
+    fontSize: 24, 
+    fontWeight: "bold", 
+    marginBottom: 20
+  },
+  textInputView: {
+    marginBottom: 20
+  },
+  loginView: {
+    flexDirection:"row", 
+    marginTop: 20
+  },
+  loginText: {
+    fontSize: 16, 
+    fontWeight: 500
+  },
+  loginLink: {
+    marginLeft: 5
+  },
+  loginLinkText: {
+    color: "#4169e1", 
+    fontSize: 16, 
+    fontWeight: 500
   },
   errorText: {
-    color: "red",
+    color: "#ff0000",
     fontSize: 14,
-    textAlign: "center",
-    marginBottom: 10,
   }
 });
 
-export default RegisterForm;
+

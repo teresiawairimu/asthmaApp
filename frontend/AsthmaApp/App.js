@@ -27,11 +27,38 @@ const App = () => {
                 name="Home" 
                 component={HomeScreen}
                 options={{
-                  title: "AsthmaTrack"
+                  title: "AsthmaTrack",
+                  headerTitleStyle: {
+                    color: "#2C3E50",
+                    fontWeight: "bold",
+                    fontSize: 20
+                  }
                 }}
               />
-              <Stack.Screen name="Register" component={RegisterScreen} />
-              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen 
+                name="Register" 
+                component={RegisterScreen}
+                options={{
+                  title: "AsthmaTrack",
+                  headerTitleStyle: {
+                    color: "#2C3E50",
+                    fontWeight: "bold",
+                    fontSize: 20
+                  }
+                }} 
+              />
+              <Stack.Screen 
+                name="Login" 
+                component={LoginScreen} 
+                options={{
+                  title: "AsthmaTrack",
+                  headerTitleStyle: {
+                    color: "#2C3E50",
+                    fontWeight: "bold",
+                    fontSize: 20
+                  }
+                }} 
+              />
             </>
             ) : (
               <Stack.Screen 

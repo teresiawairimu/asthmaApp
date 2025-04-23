@@ -2,7 +2,8 @@ import React from "react";
 import * as yup from "yup";
 import { yupResolver} from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
-import {View, StyleSheet, Text} from "react-native";
+import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
+import { useNavigation} from "@react-navigation/native";
 import CustomTextInput from "../Common/CustomTextInput";
 import CustomButton from "../Common/CustomButton";
 
@@ -13,10 +14,16 @@ const schema = yup.object({
     .required("Email is required"),
   password: yup.string()
     .min(8, "Password must be at least 8 characters")
-    .required("Password is required")
+    .required("Password is required"),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref('password'), null], "Passwords must match")
+    .required("Confirm Password is required")
 }).required();
 
 const LoginForm = ({ error, isLoading, onSubmit}) => {
+
+  const navigation = useNavigation();
+
   const { control, handleSubmit, formState: { errors}} = useForm({
     resolver: yupResolver(schema)
   });
@@ -26,39 +33,59 @@ const LoginForm = ({ error, isLoading, onSubmit}) => {
   };
 
   return (
-    <View>
-      <Text>Email</Text>
-      <Controller
-        control={control}
-        name="email"
-        render={({field: {onChange, onBlur, value}}) => (
-          <CustomTextInput
-            label="email"
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            value={value}
-            placeholder="Enter your email"
-            error={errors.email?.message}
+    <View style={styles.container}>
+      <Text style={styles.logHeading}>Log In</Text>
+      <View>
+        <View style={styles.textInputView}>
+          <Controller
+            control={control}
+            name="email"
+            render={({field: {onChange, onBlur, value}}) => (
+              <CustomTextInput
+                label="email"
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                placeholder="Email"
+                error={errors.email?.message}
+              />
+            )}
           />
-        )}
-        
-      />
-      <Text>Password</Text>
-      <Controller
-        control={control}
-        name="password"
-        render={({field: {onChange, onBlur, value}}) => (
-          <CustomTextInput
-            label="Password"
-            onBlur={onBlur}
-            onChangeText={value => onChange(value)}
-            value={value}
-            placeholder="Enter your password"
-            isSecure={true}
-            error={errors.password?.message}
+        </View>
+        <View style={styles.textInputView}>
+          <Controller
+            control={control}
+            name="password"
+            render={({field: {onChange, onBlur, value}}) => (
+              <CustomTextInput
+                label="Password"
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                placeholder="Password"
+                isSecure={true}
+                error={errors.password?.message}
+              />
+            )}
           />
-        )}
-      />
+        </View>
+        <View style={styles.textInputView}>
+          <Controller
+            control={control}
+            name="confirmPassword"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomTextInput
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+                placeholder="Confirm Password"
+                isSecure={true}
+                error={errors.confirmPassword?.message}
+              />
+            )}
+          />
+        </View>
+      </View>
 
       <View>
         {error && <Text style={styles.errorText}>{error}</Text>}
@@ -68,26 +95,58 @@ const LoginForm = ({ error, isLoading, onSubmit}) => {
           disabled={isLoading}
         />
       </View>
+      <View style={styles.registerView}>
+        <Text style={styles.registerText}>Don't have an account?</Text>
+        <TouchableOpacity
+          style={styles.registerLink}
+          onPress={() => navigation.navigate("Register")}
+        > 
+          <Text style={styles.registerLinkText}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   
    
   );
 };
 
+
+export default LoginForm;
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin: 10,
+    padding: 40
+  },
+  logHeading: {
+    alignSelf: "center", 
+    fontSize: 24, 
+    fontWeight: "bold", 
+    marginBottom: 20
+  },
+  textInputView: {
+    marginBottom: 20
+  },
+  registerView: {
+    flexDirection:"row", 
+    marginTop: 20
+  },
+  registerText: {
+    fontSize: 16, 
+    fontWeight: 500
+  },
+  registerLink: {
+    marginLeft: 5
+  },
+  registerLinkText: {
+    color: "#4169e1", 
+    fontSize: 16, 
+    fontWeight: 500
   },
   errorText: {
-    color: "red",
+    color: "#ff0000",
     fontSize: 14,
-    textAlign: "center",
-    marginBottom: 10,
   }
 });
 
-
-export default LoginForm;

@@ -25,36 +25,6 @@ async def log_symptom(data: SymptomModel, token: Annotated[dict, Depends(verify_
 async def get_symptom(symptom_id: str):
     return await symptom_db.get_symptom_by_id({"symptom_id": symptom_id})
 
-"""
-@router.get("/")
-async def retrieve_symptoms_by_user(token: Annotated[dict, Depends(verify_firebase_token)]):
-  
-  return await symptom_db.get_symptoms_by_user(token)
-
-
-@router.get("/")
-async def retrieve_symptoms_by_date(token: Annotated[dict, Depends(verify_firebase_token)], 
-                                    x_symptom_date: str = Header(...)):
-  print("retrieve date from headers:", x_symptom_date)
-  try:
-    parsed_date = datetime.strptime(x_symptom_date, "%Y-%m-%d")
-  except ValueError:
-    raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD.")
-  return await symptom_db.get_symptoms_by_date(parsed_date, token)
-
-
-@router.get("/")
-async def retrieve_symptoms_by_date(retrieve_date: str, token: Annotated[dict, Depends(verify_firebase_token)]):
-
-  print("retrieve date from routes", retrieve_date)
-
-  try:
-    parsed_date = datetime.strptime(retrieve_date, "%Y-%m-%d")
-  except ValueError:
-    raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD.")
-  return await symptom_db.get_symptoms_by_date(parsed_date, token)
-"""
-
 
 @router.get("/")
 async def retrieve_symptoms_by_date(retrieve_date: date, token: Annotated[dict, Depends(verify_firebase_token)]):
@@ -62,19 +32,6 @@ async def retrieve_symptoms_by_date(retrieve_date: date, token: Annotated[dict, 
   print("retrieve date from routes", retrieve_date)
   return await symptom_db.get_symptoms_by_date(retrieve_date, token)
 
-"""
-@router.get("/")
-async def retrieve_symptoms_by_date(retrieve_date: str):
-    print("retrieve date from routes", retrieve_date)
-    
-    try:
-        parsed_date = datetime.strptime(retrieve_date, "%Y-%m-%d")
-        # Return just the date in a string format to avoid any serialization issues
-        return {"received_date": retrieve_date, "parsed_date": parsed_date.isoformat()}
-    except ValueError as e:
-        print(f"Date parsing error: {str(e)}")
-        raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD.")
-"""
 
 
 @router.post("/summary")
@@ -103,10 +60,7 @@ async def get_summary(token: Annotated[dict, Depends(verify_firebase_token)]):
       {"role": "user", "content": f"Asthma data {formatted_data}"}
     ]
   )
-  #Keep the summary brief, personalized, and easy to understand.
-       # Make it clear, well-structured, and easy to read. Use headings, bullet points, and keep it concise.
-  #"Analyze this asthma symptom data and provide a concise summary with key insights."
-  #model="gpt-3.5-turbo"   
+   
   return {"summary": completion.choices[0].message.content}
 
 @router.get("/stats/{month_range}")
@@ -124,24 +78,3 @@ async def retrieve_symptoms_by_current_month_range(month_range: str, token: Anno
 async def modify_symptoms(symptom_id, data: SymptomUpdateModel, token: Annotated[dict, Depends(verify_firebase_token)]):
   """"""
   return await symptom_db.update_symptom(symptom_id, data, token)
-
-
-
-@router.post("/frequency_trend")
-async def create_symptom_frequency_trend(data: DateRangeRequest, token: Annotated[dict, Depends(verify_firebase_token)]):
-  """"""
-  return await symptom_analysis.create_frequency_trend(data, token)
-
-@router.post("/severity_trend")
-async def create_symptom_frequency_trend(data: DateRangeRequest, token: Annotated[dict, Depends(verify_firebase_token)]):
-  """"""
-  return await symptom_analysis.create_severity_trend(data, token)
-
-@router.post("/correlation_trend")
-async def create_symptom_correlation_trend(data: DateRangeRequest, token: Annotated[dict, Depends(verify_firebase_token)]):
-  """"""
-  return await symptom_analysis.create_correlation_trend(data, token)
-
-
-
-

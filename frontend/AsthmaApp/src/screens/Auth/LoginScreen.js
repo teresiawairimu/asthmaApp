@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet} from "react-native";
+import {View, StyleSheet} from "react-native";
 import LoginForm from "../../components/Forms/LoginForm";
 import { auth, signInWithEmailAndPassword } from "../../firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const LoginScreen = () => {
   const [error, setError] = useState(null);
@@ -38,19 +39,24 @@ const LoginScreen = () => {
     }
   };
   return (
-    <View style={styles.container}>
-      <LoginForm onSubmit={handleLogin} error={error} isLoading={isLoading}/>
-    </View>
+    <SafeAreaView style={styles.safeAreaStyle}>
+      <View style={styles.container}>
+        <LoginForm onSubmit={handleLogin} error={error} isLoading={isLoading}/>
+      </View>
+    </SafeAreaView>
   );
 }
 
+export default LoginScreen;
+
 const styles = StyleSheet.create({
-  container: {
+  safeAreaStyle: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'red',
+    backgroundColor: "#d3d3d3",
+    alignItems: "center",
+    justifyContent: "center",
   },
+ 
 });
 
-export default LoginScreen;

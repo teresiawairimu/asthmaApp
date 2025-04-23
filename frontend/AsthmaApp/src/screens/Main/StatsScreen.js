@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import { View, Text, StyleSheet, ScrollView} from "react-native";
 import { symptomsStats } from "../../services/symptomServices"; 
 import SymptomTrends from "../../components/graphs/SymptomTrends";
-import SymptomSeverityTrends from "../../components/graphs/SymptomSeverityTrends";
+import SymptomsSeverityTrend from "../../components/graphs/SymptomsSeverityTrend";
 import CorrelationInsightsDisplay from "../../components/DisplayTracker/CorrelationInsightsDisplay";
 import { useAuth } from "../../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -43,9 +43,7 @@ const StatsScreen = () => {
         <SymptomTrends 
           symptomsData={statsData}
         />
-        <SymptomSeverityTrends
-          symptomsData={statsData}
-        />
+        <SymptomsSeverityTrend/>
         <View style={{ padding: 20}}>
           <CorrelationInsightsDisplay />
         </View>

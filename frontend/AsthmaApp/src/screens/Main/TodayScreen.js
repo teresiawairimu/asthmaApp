@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback} from "react";
+import React, { useState, useCallback} from "react";
 import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal} from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,8 +12,6 @@ import { useEntries } from "../../context/EntriesContext";
 const TodayScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-
 
   const {
     mood: contextMood,
@@ -21,12 +19,6 @@ const TodayScreen = () => {
     setSelectedDate
   } = useEntries()
 
-  //useEffect(() => {
-    //const todayDate = new Date().toLocaleDateString("en-CA");
-    //setSelectedDate(todayDate);
-    //console.log("today's screen selected date", selectedDate);
-    //console.log("Today screen focused - setting date to:", todayDate);
-  //}, [])
 
   useFocusEffect(
     useCallback(() => {
@@ -37,37 +29,6 @@ const TodayScreen = () => {
       };
     }, [])
   );
-
-  {/*useFocusEffect(
-   useCallback(() => {
-      const todayDate = new Date().toLocaleDateString("en-CA");
-      
-      // Only open modal or update if date has changed
-      if (selectedDate !== todayDate) {
-        setSelectedDate(todayDate);
-        console.log("Today screen focused - setting date to:", todayDate);
-        
-        // Force a delay before allowing interactions
-        setIsReady(false);
-        setTimeout(() => {
-          setIsReady(true);
-        }, 300); // Small delay to allow context to update
-      } else {
-        setIsReady(true);
-      }
-      
-      return () => {};
-    }, [selectedDate])
-  );*/}
-
-  {/*useFocusEffect(
-    useCallback(() => {
-      // This function both updates the selected date and fetches today's data
-      resetToToday();
-      return () => {};
-    }, [resetToToday])
-  );*/}
-  
 
 
   return (
@@ -110,19 +71,10 @@ const TodayScreen = () => {
 const styles = StyleSheet.create({
   safeAreaStyle: {
     flex: 1,
-    //paddingTop: 0
   },
   container: {
-    //flex: 1,
-    //padding: 10,
     margin: 10,
     color: "#F3A87E"
-    //"#F5B895"
-    //"#FAD7C1"
-    //"#FAF7F0" 
-    //"#FDF9F3"
- 
-    //"#F5F7FA"
   },
   modalOpenButton: {
     alignItems: "center", 
@@ -137,7 +89,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   moodView: {
-    //paddingBottom: 20
     flex: 1, 
     marginTop: 200, 
     padding: 10

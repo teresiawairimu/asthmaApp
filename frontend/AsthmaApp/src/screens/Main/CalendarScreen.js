@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet,} from "react-native";
+import { View, Text,} from "react-native";
 import { Calendar } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { getSymptomsByCurrentMonth } from "../../services/symptomServices";
 import { getMoodByCurrentMonth } from "../../services/moodServices";
 import { useAuth } from "../../context/AuthContext";
-import { startOfMonth, endOfMonth } from "date-fns";
 import { format } from "date-fns";
 
 const CalendarScreen = () => {
@@ -33,6 +32,7 @@ const CalendarScreen = () => {
   const handleMonthChange = async (date) => {
     if (!user) return;
     const range = format(date, "yyyy-MM");
+    console.log("range", range);
     try {
       setIsLoading(true);
       setError(null);
@@ -64,7 +64,7 @@ const CalendarScreen = () => {
       ...(markedDates[date] || {}),
       dots: [
         ...(markedDates[date]?.dots || []),
-        { key: "symptom", color: "#ff0000" }
+        { key: "symptom", color: "#7fff00" }
       ],
       marked: true,
     };

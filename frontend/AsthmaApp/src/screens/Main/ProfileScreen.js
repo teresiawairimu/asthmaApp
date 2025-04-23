@@ -132,10 +132,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   centeredView: {
-    //flex: 1,
-    //justifyContent: "space-between",
-    //alignItems: "stretch"
-    //alignItems: "flex-start"
     paddingTop: 60
   },
   mainView: {

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import {View, Text, StyleSheet} from "react-native";
+import {View, StyleSheet} from "react-native";
 import RegisterForm from "../../components/Forms/RegisterForm";
 import { auth, createUserWithEmailAndPassword } from "../../firebaseConfig";
 import { registerUser } from "../../services/userServices";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const RegisterScreen = () => {
   const [error, setError] = useState(null);
@@ -43,21 +44,23 @@ const RegisterScreen = () => {
     }
   };
   return (
-    <View style={styles.container}>
-      <RegisterForm onSubmit={handleRegister} error={error} isLoading={isLoading} />
-    </View>
+    <SafeAreaView style={styles.safeAreaStyle}>
+      <View style={styles.container}>
+        <RegisterForm onSubmit={handleRegister} error={error} isLoading={isLoading} />
+      </View>
+    </SafeAreaView>
   );
 }
 
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  safeAreaStyle: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#d3d3d3",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
 
-export default RegisterScreen;
