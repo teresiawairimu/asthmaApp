@@ -95,10 +95,10 @@ export const EntriesProvider = ({children}) => {
         let updatedMood;
         if (mood && mood.id) {
           await updateMood(mood.id, moodData, idToken);
-          updatedMood = { ...moodData, id: mood.id}; 
+          updatedMood = { ...moodData, mood_id: mood.id}; 
         } else {
           const result = await logMood(moodData, idToken);
-          updatedMood = { ...moodData, id: result.id}; 
+          updatedMood = { ...moodData, mood_id: result.id}; 
           //navigation.navigate("Today")
         }
         setMood(updatedMood);

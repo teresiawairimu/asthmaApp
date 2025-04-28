@@ -5,6 +5,7 @@ import { auth, createUserWithEmailAndPassword } from "../../firebaseConfig";
 import { registerUser } from "../../services/userServices";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import { retrieveConsent } from "../../services/consentServices";
 
 const RegisterScreen = () => {
   const [error, setError] = useState(null);
@@ -27,7 +28,14 @@ const RegisterScreen = () => {
         email: formData.email,
         consent_signed: false
       }, idToken);
-      navigation.navigate("Login");
+      //const idToken = await user.getIdToken();
+      const consentData = await retrieveConsent(idToken);
+      console.log("consentData", consentData);
+      if (!consentData?.signed) {
+        navigation.navigate("Consent");
+      } else {
+        navigation.navigate("Dashboard");
+      }
 
     } catch (error) {
       let errorMessage = "Something went wrong. Please try again.";

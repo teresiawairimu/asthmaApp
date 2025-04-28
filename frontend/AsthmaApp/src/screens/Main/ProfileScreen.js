@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { View, Text, Modal, Pressable, StyleSheet } from "react-native";
 import ProfileForm from "../../components/Forms/ProfileForm";
 import { logAsthmaInfo, updateAsthmaInfo, getAsthmaInfo } from "../../services/asthmaInfoServices";
-import { updateUser, retrieveUser } from "../../services/userServices";
+import { updateUser, retrieveUser, deleteUser } from "../../services/userServices";
 import { useAuth } from "../../context/AuthContext";
 import {getAuth, signOut} from "firebase/auth";
 import AsthmaInfoForm from "../../components/Forms/AsthmaInfoForm";
@@ -16,7 +16,7 @@ const ProfileScreen = () => {
   const [userData, setUserData] = useState(null);
   const [asthmaData, setAsthmaData] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
 
 
   useEffect(() => {

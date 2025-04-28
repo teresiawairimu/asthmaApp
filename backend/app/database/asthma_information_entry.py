@@ -16,11 +16,26 @@ class AsthmaInformation:
 
     try:
       user_id = token["uid"]
-      asthmainfo_dict = asthma_info_data.dict()
+      asthmainfo_dict = asthma_info_data.model_dump()
       asthmainfo_ref = db.collection("asthmainfo").document()
-      asthmainfo_dict["severity_level"] = asthmainfo_dict["severity_level"].value
+      if asthmainfo_dict.get("severity_level") is not None:
+        asthmainfo_dict["severity_level"] = asthmainfo_dict["severity_level"].value
+      else:
+        asthmainfo_dict["severity_level"] = None
+      
+      if asthmainfo_dict.get("triggers") is not None:
+        asthmainfo_dict["triggers"] = [trigger.value for trigger in asthmainfo_dict["triggers"]]
+      else:
+        asthmainfo_dict["triggers"] = None
+
+      if asthmainfo_dict.get("medication_type") is not None:
+        asthmainfo_dict["medication_type"] = [m.value for m in asthmainfo_dict["medication_type"]]
+      else:
+        asthmainfo_dict["medication_type"] = None
+      
+      """asthmainfo_dict["severity_level"] = asthmainfo_dict["severity_level"].value
       asthmainfo_dict["triggers"] = [trigger.value for trigger in asthmainfo_dict["triggers"]]
-      asthmainfo_dict["medication_type"] = [m.value for m in asthmainfo_dict["medication_type"]]
+      asthmainfo_dict["medication_type"] = [m.value for m in asthmainfo_dict["medication_type"]]"""
       await asthmainfo_ref.set({
         "user_id": user_id,
         "asthma_diagnosis": asthmainfo_dict.get("asthma_diagnosis"),
@@ -65,7 +80,7 @@ class AsthmaInformation:
 
     try:
       user_id = token["uid"]
-      asthmainfo_dict = asthmainfo_data.dict()
+      asthmainfo_dict = asthmainfo_data.model_dump()
       #asthma_info_id = asthma_info_dict.get("asthma_info_id")
       #updated_at = asthmainfo_dict.get("updated_at")
       #updated_at_timestamp = datetime.combine(updated_at, datetime.min.time())
@@ -78,9 +93,23 @@ class AsthmaInformation:
       if not asthmainfo.exists or asthmainfo.to_dict().get("user_id") != user_id:
         raise HTTPException(status_code=403, detail="Not authorized to edit the asthma information")
       
-      asthmainfo_dict["severity_level"] = asthmainfo_dict["severity_level"].value
+      """asthmainfo_dict["severity_level"] = asthmainfo_dict["severity_level"].value
       asthmainfo_dict["triggers"] = [trigger.value for trigger in asthmainfo_dict["triggers"]]
-      asthmainfo_dict["medication_type"] = [m.value for m in asthmainfo_dict["medication_type"]]
+      asthmainfo_dict["medication_type"] = [m.value for m in asthmainfo_dict["medication_type"]]"""
+      if asthmainfo_dict.get("severity_level") is not None:
+        asthmainfo_dict["severity_level"] = asthmainfo_dict["severity_level"].value
+      else:
+        asthmainfo_dict["severity_level"] = None
+      
+      if asthmainfo_dict.get("triggers") is not None:
+        asthmainfo_dict["triggers"] = [trigger.value for trigger in asthmainfo_dict["triggers"]]
+      else:
+        asthmainfo_dict["triggers"] = None
+
+      if asthmainfo_dict.get("medication_type") is not None:
+        asthmainfo_dict["medication_type"] = [m.value for m in asthmainfo_dict["medication_type"]]
+      else:
+        asthmainfo_dict["medication_type"] = None
       await asthmainfo_ref.update({
         "asthma_diagnosis": asthmainfo_dict.get("asthma_diagnosis"),
         "severity_level": asthmainfo_dict.get("severity_level"),

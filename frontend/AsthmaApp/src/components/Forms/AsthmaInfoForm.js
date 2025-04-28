@@ -61,7 +61,7 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
   return (
     <View style={[
       styles.formContainer,
-      isEditMode ? styles.editModeContainer : styles.viewModeContainer
+      isEditMode ? styles.viewModeContainer : styles.editModeContainer
     ]}>
    
 

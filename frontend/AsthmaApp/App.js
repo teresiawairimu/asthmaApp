@@ -6,7 +6,8 @@ import RegisterScreen from './src/screens/Auth/RegisterScreen';
 import LoginScreen from "./src/screens/Auth/LoginScreen";
 import { AuthProvider, useAuth } from "./src/context/AuthContext";
 import { EntriesProvider } from "./src/context/EntriesContext";
-import DashboardStack from "./src/screens/Main/DashboardStack"
+import DashboardStack from "./src/screens/Main/DashboardStack";
+import ConsentScreen from "./src/screens/Main/ConsentScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -61,6 +62,16 @@ const InnerApp = () => {
               />
             </>
             ) : (
+              <>
+              <Stack.Screen
+                name="Consent"
+                component={ConsentScreen}
+                options={{ 
+                  title: "Consent Form",
+                  headerBackVisible: false,
+                  gestureEnabled: false, 
+                }}
+              />
               <Stack.Screen 
                 name="Dashboard" 
                 component={DashboardStack}
@@ -69,6 +80,7 @@ const InnerApp = () => {
                  headerShown: false
                 }}
               />
+            </>
           )}
         </Stack.Navigator>
       </NavigationContainer>

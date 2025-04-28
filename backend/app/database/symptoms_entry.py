@@ -34,13 +34,43 @@ class Symptom:
       #datetime.min.time()) 
       print("symptom timestamp", symptom_date_timestamp)
       symptom_ref = db.collection("symptoms").document()
-      symptom_dict["time_periods"] = [period.value for period in symptom_dict["time_periods"]]
+      """symptom_dict["time_periods"] = [period.value for period in symptom_dict["time_periods"]]
       symptom_dict["activity_level"] = symptom_dict["activity_level"].value
       symptom_dict["activity_type"] = [type.value for type in symptom_dict["activity_type"]]
       symptom_dict["symptoms"] = [symptom.value for symptom in symptom_dict["symptoms"]]
       symptom_dict["symptoms_severity"] = symptom_dict["symptoms_severity"].value
       symptom_dict["triggers"] = [trigger.value for trigger in symptom_dict["triggers"]]
-      symptom_dict["environmental_factors"] = [factor.value for factor in symptom_dict["environmental_factors"]]
+      symptom_dict["environmental_factors"] = [factor.value for factor in symptom_dict["environmental_factors"]]"""
+   
+      if symptom_dict.get("time_periods") is not None:
+        symptom_dict["time_periods"] = [period.value for period in symptom_dict["time_periods"]]
+
+      if symptom_dict.get("activity_level") is not None:
+        symptom_dict["activity_level"] = symptom_dict["activity_level"].value
+      else:
+        symptom_dict["activity_level"] = None
+
+      if symptom_dict.get("activity_type") is not None:
+        symptom_dict["activity_type"] = [type.value for type in symptom_dict["activity_type"]]
+      else:
+        symptom_dict["activity_type"] = None
+
+      symptom_dict["symptoms"] = [symptom.value for symptom in symptom_dict["symptoms"]]
+
+      if symptom_dict.get("symptoms_severity") is not None:
+        symptom_dict["symptoms_severity"] = symptom_dict["symptoms_severity"].value
+      else:
+        symptom_dict["symptoms_severity"] = None
+
+      if symptom_dict.get("triggers") is not None:
+        symptom_dict["triggers"] = [trigger.value for trigger in symptom_dict["triggers"]]
+      else:
+        symptom_dict["triggers"] = None
+
+      if symptom_dict.get("environmental_factors") is not None:
+        symptom_dict["environmental_factors"] = [factor.value for factor in symptom_dict["environmental_factors"]]
+      else:
+        symptom_dict["environmental_factors"] = None
       await symptom_ref.set({
         "user_id": user_id,
         "symptom_date": symptom_date_timestamp,
@@ -249,13 +279,43 @@ class Symptom:
       if not symptom.exists or symptom.to_dict().get("user_id") != user_id:
         raise HTTPException(status_code=403, detail="Not authorized to edit this symptom")
       
-      symptom_dict["time_periods"] = [period.value for period in symptom_dict["time_periods"]]
+      """symptom_dict["time_periods"] = [period.value for period in symptom_dict["time_periods"]]
       symptom_dict["activity_level"] = symptom_dict["activity_level"].value
       symptom_dict["activity_type"] = [type.value for type in symptom_dict["activity_type"]]
       symptom_dict["symptoms"] = [symptom.value for symptom in symptom_dict["symptoms"]]
       symptom_dict["symptoms_severity"] = symptom_dict["symptoms_severity"].value
       symptom_dict["triggers"] = [trigger.value for trigger in symptom_dict["triggers"]]
-      symptom_dict["environmental_factors"] = [factor.value for factor in symptom_dict["environmental_factors"]]
+      symptom_dict["environmental_factors"] = [factor.value for factor in symptom_dict["environmental_factors"]]"""
+
+      if symptom_dict.get("time_periods") is not None:
+        symptom_dict["time_periods"] = [period.value for period in symptom_dict["time_periods"]]
+
+      if symptom_dict.get("activity_level") is not None:
+        symptom_dict["activity_level"] = symptom_dict["activity_level"].value
+      else:
+        symptom_dict["activity_level"] = None
+
+      if symptom_dict.get("activity_type") is not None:
+        symptom_dict["activity_type"] = [type.value for type in symptom_dict["activity_type"]]
+      else:
+        symptom_dict["activity_type"] = None
+
+      symptom_dict["symptoms"] = [symptom.value for symptom in symptom_dict["symptoms"]]
+
+      if symptom_dict.get("symptoms_severity") is not None:
+        symptom_dict["symptoms_severity"] = symptom_dict["symptoms_severity"].value
+      else:
+        symptom_dict["symptoms_severity"] = None
+
+      if symptom_dict.get("triggers") is not None:
+        symptom_dict["triggers"] = [trigger.value for trigger in symptom_dict["triggers"]]
+      else:
+        symptom_dict["triggers"] = None
+
+      if symptom_dict.get("environmental_factors") is not None:
+        symptom_dict["environmental_factors"] = [factor.value for factor in symptom_dict["environmental_factors"]]
+      else:
+        symptom_dict["environmental_factors"] = None
       await symptom_ref.update({
         "time_periods": symptom_dict.get("time_periods"),
         "activity_level": symptom_dict.get("activity_level"),

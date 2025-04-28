@@ -29,7 +29,11 @@ const ConsentForm = () => {
       }
       await logConsent(consentData, idToken);
       setSuccess(true);
-      navigation.navigate('DashboardTabs', { screen: 'Today' }); 
+      //navigation.navigate('DashboardTabs', { screen: 'Today' }); 
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Dashboard" }],
+      });
     } catch(error) {
       console.error("Failed to update the Consent Form", error);
       setError("Failed to update Consent Form");

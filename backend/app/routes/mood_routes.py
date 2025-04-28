@@ -34,6 +34,6 @@ async def retrieve_mood_by_current_month_range(month_range: str, token: Annotate
   return await mood_db.get_mood_by_current_month_range(token, start, end)
 
 @router.put("/{mood_id}")
-async def modify_mood(mood_id, data: MoodUpdateModel, token: Annotated[dict, Depends(verify_firebase_token)]):
+async def modify_mood(data: MoodUpdateModel, token: Annotated[dict, Depends(verify_firebase_token)]):
   """"""
-  return await mood_db.update_mood(mood_id, data, token)
+  return await mood_db.update_mood(data, token)

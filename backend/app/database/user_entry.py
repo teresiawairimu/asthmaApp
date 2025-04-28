@@ -26,7 +26,7 @@ class User:
           "email": user_dict.get("email"),
           "display_name": user_dict.get("display_name", None),
           #"date_of_birth": date_of_birth_timestamp,
-          "consent_signed": user_dict.get("consent_signed", False),
+          #"consent_signed": user_dict.get("consent_signed", False),
           "created_at": firestore.SERVER_TIMESTAMP
         }
       )

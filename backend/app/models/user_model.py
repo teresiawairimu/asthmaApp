@@ -21,7 +21,6 @@ class UserModel(BaseModel):
   uid: Optional[str] = Field(None, description="Firebase UID")
   email: EmailStr
   display_name: Optional[str] = None
-  consent_signed: bool = False
   created_at: Optional[date] = None
 
   @classmethod

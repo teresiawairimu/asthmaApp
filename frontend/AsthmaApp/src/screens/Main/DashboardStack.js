@@ -59,15 +59,7 @@ const DashboardStack = () => {
         component={MoodScreen}
         options={{ title: "Mood Entry"}}
       />*/}
-      <Stack.Screen
-        name="Consent"
-        component={ConsentScreen}
-        options={{ 
-          title: "Consent Form",
-          headerBackVisible: false,
-          gestureEnabled: false, 
-        }}
-      />
+      
     
     </Stack.Navigator>
   )
