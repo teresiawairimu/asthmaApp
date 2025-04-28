@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, Image} from "react-native";
 import React, { useEffect, useState} from "react";
 import { retrieveWeather } from "../../services/weatherServices";
 import { useAuth } from "../../context/AuthContext";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const CurrentWeatherDisplay = () => {
@@ -17,10 +19,18 @@ const CurrentWeatherDisplay = () => {
       try {
         setIsLoading(true);
         setError(null);
+        const cachedWeather = await AsyncStorage.getItem('weatherData');
+        if (cachedWeather) {
+          setWeatherData(JSON.parse(cachedWeather));
+          setIsLoading(false); 
+          return;
+        }
         const idToken = await user.getIdToken();
         const weatherData = await retrieveWeather(idToken);
         console.log("weather data", weatherData);
         setWeatherData(weatherData);
+        await AsyncStorage.setItem('weatherData', JSON.stringify(weatherData));
+
       } catch (error) {
         console.error("Failed to fetch weather data:", error);
         setError("Failed to retrieve weather data. Please try again later");

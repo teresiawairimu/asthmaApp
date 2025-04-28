@@ -88,3 +88,27 @@ export const getMoodByCurrentMonth = async(idToken, range = "default") => {
     throw error;
   }
 };
+
+
+export const updateMood = async(mood_id, moodData, idToken) => {
+  console.log("loging mood data", moodData);
+  console.log("Id token:", idToken);
+  console.log("mood_id:", mood_id);
+  try {
+    const response = await axios.put(`${mood_api_url}/${mood_id}`, moodData,
+      {
+        
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+          "Content-Type": "application/json",
+        },        
+      }   
+    );
+    console.log("mood_api_url", mood_api_url);
+    console.log("response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+};

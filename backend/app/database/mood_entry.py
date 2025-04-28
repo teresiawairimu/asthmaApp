@@ -59,7 +59,7 @@ class Mood:
       
       await mood_ref.update({
         "mood": mood_dict.get("mood"),
-        "updated_at": firestore.FieldValue.serverTimestamp()
+        "updated_at": firestore.SERVER_TIMESTAMP
       })
       return {"status": "success"}
     except Exception as e:

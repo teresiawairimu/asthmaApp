@@ -80,10 +80,12 @@ class User:
       print(f"Error retrieving user: {str(e)}")
       raise HTTPException(status_code=500, detail="Internal server error")
     
-  async def delete_user(self, user_id: Annotated[str, Depends(verify_firebase_token)]) -> dict | HTTPException:
+  async def delete_user(self, user_id: str, token: dict) -> dict:
     """"""
 
     try:
+      if token.get('uid') != user_id:
+        raise HTTPException(status_code=403, detail="Unauthorized to delete this user.")
       await db.collection("users").document(user_id).delete()
       return {"status": "success"}
     except Exception as e:

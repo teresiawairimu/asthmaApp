@@ -63,19 +63,7 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
       styles.formContainer,
       isEditMode ? styles.editModeContainer : styles.viewModeContainer
     ]}>
-      {/*<View style={styles.birth}>
-      <Button title="Select Date of Birth" onPress={() => isEditMode && setShow(true)} disabled={!isEditMode} />
-      <Text>DOB: {date.toDateString()}</Text>
-      {show && (
-        <DateTimePicker
-          value={date}
-          mode="date"
-          display="default"
-          onChange={onChange}
-          editable={isEditMode}
-        />
-      )}
-      </View>*/}
+   
 
       <View style={styles.fieldContainer}>
         <Text style={styles.fieldLabel}>Asthma Diagnosis: </Text>
@@ -206,6 +194,8 @@ const AsthmaInfoForm = ({ initialData, onSubmit}) => {
   );
 };
 
+export default AsthmaInfoForm;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -258,7 +248,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 5,
-    padding: 10,
+    padding: 3,
     backgroundColor: '#fff'
   },
   fieldLabel: {
@@ -270,4 +260,3 @@ const styles = StyleSheet.create({
 
 });
 
-export default AsthmaInfoForm;

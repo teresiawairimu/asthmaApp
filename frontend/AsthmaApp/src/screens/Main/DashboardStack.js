@@ -5,6 +5,7 @@ import {getAuth, signOut} from "firebase/auth";
 import {Alert, TouchableOpacity} from "react-native";
 import { useAuth } from "../../context/AuthContext";
 import EntryScreen from "./EntryScreen";
+import ConsentScreen from "./ConsentScreen";
 import SymptomsScreen from "./SymptomsScreen";
 import MoodScreen from "./MoodScreen";
 
@@ -58,6 +59,15 @@ const DashboardStack = () => {
         component={MoodScreen}
         options={{ title: "Mood Entry"}}
       />*/}
+      <Stack.Screen
+        name="Consent"
+        component={ConsentScreen}
+        options={{ 
+          title: "Consent Form",
+          headerBackVisible: false,
+          gestureEnabled: false, 
+        }}
+      />
     
     </Stack.Navigator>
   )

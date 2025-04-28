@@ -69,3 +69,23 @@ export const updateUser = async(id, data, idToken) => {
     throw error;
   }
 };
+
+export const deleteUser = async (id, idToken) => {
+  console.log("Id from delete user:", id);
+  
+  try {
+    const response = await axios.delete(`${user_api_url}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("user_api_url", user_api_url);
+    console.log("response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting user", error?.response?.data || error.message || error);
+    throw error;
+  }
+};

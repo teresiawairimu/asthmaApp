@@ -4,10 +4,12 @@ import RegisterForm from "../../components/Forms/RegisterForm";
 import { auth, createUserWithEmailAndPassword } from "../../firebaseConfig";
 import { registerUser } from "../../services/userServices";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 const RegisterScreen = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const handleRegister = async (formData) => {
     setError(null);
@@ -25,6 +27,7 @@ const RegisterScreen = () => {
         email: formData.email,
         consent_signed: false
       }, idToken);
+      navigation.navigate("Login");
 
     } catch (error) {
       let errorMessage = "Something went wrong. Please try again.";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { yupResolver} from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
-import {View, Text, StyleSheet } from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import CustomTextInput from "../Common/CustomTextInput";
 import CustomButton from "../Common/CustomButton";
 
@@ -16,7 +16,7 @@ const schema = yup.object({
     .required("Email is required")
 }).required();
 
-const ProfileForm = ({ initialData, onSubmit }) => {
+const ProfileForm = ({ initialData, onSubmit, onDelete}) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [error, setError] = useState("");
 
@@ -126,6 +126,15 @@ const ProfileForm = ({ initialData, onSubmit }) => {
           onPress={() => setIsEditMode(true)}
           />
         )}
+
+        <View>
+          <TouchableOpacity
+            onPress={onDelete} 
+            style={styles.deleteButton}
+          >
+            <Text style={styles.deleteButtonText}>Delete Account</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View> 
   );
@@ -169,7 +178,19 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 5
+  },
+  deleteButton: {
+    backgroundColor: "#ff0000", 
+    alignSelf: "center", 
+    padding: 10, 
+    margin: 10
+  },
+  deleteButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: 400
   }
+  
 });
 
 export default ProfileForm;

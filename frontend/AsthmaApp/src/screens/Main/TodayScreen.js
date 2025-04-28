@@ -1,23 +1,54 @@
-import React, { useState, useCallback} from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal} from "react-native";
 import { useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MoodScreen from "./MoodScreen";
+import ConsentScreen from "./ConsentScreen";
 import CurrentMoodDisplay from "../../components/DisplayTracker/CurrentMoodDisplay";
 import CurrentWeatherDisplay from "../../components/DisplayTracker/CurrentWeatherDisplay";
 import CurrentInsightsDisplay from "../../components/DisplayTracker/CurrentInsightsDisplay";
+import { retrieveConsent } from "../../services/consentServices";
 import { useEntries } from "../../context/EntriesContext";
+import { useAuth } from "../../context/AuthContext";
 
 
 const TodayScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [consentData, setConsentData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigation = useNavigation();
+  const { user } = useAuth();
 
   const {
     mood: contextMood,
     selectedDate,
     setSelectedDate
   } = useEntries()
+
+  useEffect(() => {
+    const fetchConsentData = async () => {
+      if (!user) return;
+      try {
+        setLoading(true);
+        setError(null);
+        const idToken = await user.getIdToken();
+        const consentData = await retrieveConsent(idToken);
+        setConsentData(consentData); 
+        if (!consentData?.signed) {
+          navigation.navigate("Consent");
+        }
+      } catch(error) {
+        console.error("Failed to retrieve consent information", error);
+        setError("Failed to retrieve consent information");
+      } finally {
+        setLoading(false);
+      }
+    } 
+    fetchConsentData();
+  }, [user, navigation])
 
 
   useFocusEffect(

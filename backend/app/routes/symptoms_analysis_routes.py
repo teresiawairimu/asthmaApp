@@ -19,7 +19,10 @@ async def get_severity_trend(month_range: str, token: Annotated[dict, Depends(ve
   symptoms = await symptom_db.get_symptoms_by_month_range(token)
 
   if not symptoms:
-    raise HTTPException(status_code=404, detail="No symptom data found.")
+    return JSONResponse(
+      content={"message": "No symptom data available.", "image": None},
+      status_code=200
+    )
 
 
   severity_levels = {"mild": 0, "moderate": 1, "severe": 2}

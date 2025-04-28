@@ -4,11 +4,14 @@ import LoginForm from "../../components/Forms/LoginForm";
 import { auth, signInWithEmailAndPassword } from "../../firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "../../context/AuthContext";
+import { retrieveConsent } from "../../services/consentServices";
 
 const LoginScreen = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
+  const { user } = useAuth();
 
   const handleLogin = async (formData) => {
     setError(null);
@@ -19,10 +22,17 @@ const LoginScreen = () => {
         formData.email,
         formData.password
       );
-      navigation.navigate({
-        index: 0,
-        routes: [{name : "Dashboard"}],
-      });
+      const idToken = await user.getIdToken();
+      const consentData = await retrieveConsent(idToken);
+      console.log("consentData", consentData);
+      if (!consentData?.signed) {
+        navigation.navigate("Consent");
+      } else {
+        navigation.navigate({
+          index: 0,
+          routes: [{name : "Dashboard"}],
+        });
+      }
     } catch (error) {
       let errorMessage = "Something went wrong. Please try again.";
 

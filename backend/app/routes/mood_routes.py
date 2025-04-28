@@ -1,7 +1,7 @@
 from fastapi import APIRouter, FastAPI, Request, HTTPException, Depends
 from typing import Annotated
 from middleware.authentication_middleware import verify_firebase_token
-from models.mood_model import MoodModel
+from models.mood_model import MoodModel, MoodUpdateModel
 from database.mood_entry import Mood
 from datetime import datetime, date
 from openai import OpenAI
@@ -33,4 +33,7 @@ async def retrieve_mood_by_current_month_range(month_range: str, token: Annotate
   start, end = get_month_start_end(month_range)
   return await mood_db.get_mood_by_current_month_range(token, start, end)
 
-
+@router.put("/{mood_id}")
+async def modify_mood(mood_id, data: MoodUpdateModel, token: Annotated[dict, Depends(verify_firebase_token)]):
+  """"""
+  return await mood_db.update_mood(mood_id, data, token)

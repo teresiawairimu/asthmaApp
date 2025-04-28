@@ -37,12 +37,19 @@ const StatsScreen = () => {
 
     if (isLoading) return <Text>Loading...</Text>;
     if (error) return <Text>{error}</Text>
+
+    const hasValidStatsData = Array.isArray(statsData) && statsData.length > 0;
+
   return (
     <SafeAreaView style={styles.safeAreaStyle}>
       <ScrollView>
-        <SymptomTrends 
-          symptomsData={statsData}
-        />
+        {hasValidStatsData ? (
+          <SymptomTrends symptomsData={statsData} />
+        ) : (
+          <View style={styles.emptyStateContainer}>
+            <Text style={{ fontWeight: 400, fontSize: 16}}>No symptom data available for Symptom Trends generation</Text>
+          </View>
+        )}
         <SymptomsSeverityTrend/>
         <View style={{ padding: 20}}>
           <CorrelationInsightsDisplay />
@@ -55,6 +62,11 @@ const StatsScreen = () => {
 const styles = StyleSheet.create({
   safeAreaStyle: {
     flex: 1
+  }, 
+  emptyStateContainer: {
+    alignSelf: "center",
+    margin: 10,
+    padding: 10
   }
 })
 

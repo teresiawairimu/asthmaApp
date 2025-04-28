@@ -28,4 +28,13 @@ async def modify_user(data: UserUpdateModel, token: Annotated[dict, Depends(veri
   """"""
   return await user_db.update_user(data, token)
 
+@router.delete("/{id}")
+async def delete_user(id: str, token: Annotated[dict, Depends(verify_firebase_token)]):
+    """Deletes a user by ID after verifying token ownership."""
+    if not id:
+        raise HTTPException(status_code=400, detail="User ID is required for deletion.")
+
+    return await user_db.delete_user(id, token)
+
+
  

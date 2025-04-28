@@ -4,9 +4,11 @@ import ProfileForm from "../../components/Forms/ProfileForm";
 import { logAsthmaInfo, updateAsthmaInfo, getAsthmaInfo } from "../../services/asthmaInfoServices";
 import { updateUser, retrieveUser } from "../../services/userServices";
 import { useAuth } from "../../context/AuthContext";
+import {getAuth, signOut} from "firebase/auth";
 import AsthmaInfoForm from "../../components/Forms/AsthmaInfoForm";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome6";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Alert } from "react-native";  
 
 const ProfileScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -78,6 +80,38 @@ const ProfileScreen = () => {
     }
   };
 
+  const handleDeleteUser = async () => {
+    if (!user) return;
+    const confirm = await new Promise((resolve) => {
+      Alert.alert(
+        "Delete Account",
+        "Are you sure you want to delete your account? This action cannot be undone.",
+        [
+          { text: "Cancel", style: "cancel", onPress: () => resolve(false) },
+          { text: "Delete", style: "destructive", onPress: () => resolve(true) },
+        ]
+      );
+    });
+  
+    if (!confirm) {
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const idToken = await user.getIdToken(true);
+      await deleteUser(user.uid, idToken);
+  
+      const auth = getAuth();
+      await signOut(auth); 
+      setUser(null); 
+    } catch (error) {
+      setError("Failed to delete user");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (isLoading) return <Text>Loading...</Text>;
   if (error) return <Text>{error}</Text>
   return (
@@ -86,6 +120,7 @@ const ProfileScreen = () => {
         <ProfileForm 
           initialData={userData} 
           onSubmit={handleProfileUpdate}
+          onDelete={handleDeleteUser}
         />
         <Modal
           animationType="slide"

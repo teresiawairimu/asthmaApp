@@ -11,7 +11,7 @@ import DashboardStack from "./src/screens/Main/DashboardStack"
 
 const Stack = createNativeStackNavigator();
 
-const App = () => {
+const InnerApp = () => {
   const { user } = useAuth();
 
 
@@ -76,14 +76,16 @@ const App = () => {
   );
 }
 
-export default () => {
+const App = () => {
   return (
     <AuthProvider>
       <EntriesProvider>
-        <App />
+        <InnerApp />
       </EntriesProvider>
     </AuthProvider>
   );
 };
+
+export default App;
 
 

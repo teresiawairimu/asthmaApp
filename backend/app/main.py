@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-from routes import user_routes, mood_routes, symptoms_routes, asthma_info_routes, weather_routes, correlation_routes, symptoms_analysis_routes
+from routes import user_routes, mood_routes, symptoms_routes, asthma_info_routes, weather_routes, correlation_routes, symptoms_analysis_routes, consent_routes
 
 
 load_dotenv()
@@ -38,6 +38,7 @@ app.include_router(asthma_info_routes.router, prefix="/api/asthmainfo")
 app.include_router(weather_routes.router, prefix="/api/weather")
 app.include_router(correlation_routes.router, prefix="/api/correlation")
 app.include_router(symptoms_analysis_routes.router, prefix="/api/analysis")
+app.include_router(consent_routes.router, prefix="/api/consent")
 
 if __name__ == "__main__":
   import uvicorn
