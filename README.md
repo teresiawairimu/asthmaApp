@@ -70,8 +70,10 @@ Asthma Tracker is a mobile application that assists individuals in managing thei
 
 ## Frontend
 
-```bash(frontend)
+```bash
 npx expo start
 
-```bash(backend)
+## Backend
+
+```bash
 uvicorn main:app --reload
