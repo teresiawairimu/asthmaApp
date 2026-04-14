@@ -64,3 +64,14 @@ Asthma Tracker is a mobile application that assists individuals in managing thei
 - Sign up for provider
 - Store API key on backend
 - Implement fetch + caching + error handling
+
+
+## Usage
+
+# Frontend
+
+```bash(frontend)
+npx expo start
+
+```bash(backend)
+uvicorn main:app --reload
