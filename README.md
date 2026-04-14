@@ -6,7 +6,7 @@
 Asthma Tracker is a mobile application that assists individuals in managing their asthma by systematically logging and analyzing symptoms. The application leverages analytics and generative AI to provide users with actionable insights tailored to their logged data.
 
 
-## Tech Stack
+# Tech Stack
 
 
 - Frontend: React Native(Expo)
@@ -23,9 +23,9 @@ Asthma Tracker is a mobile application that assists individuals in managing thei
 
 - State Management: Global Context for symptom and mood states
 
-## Installation
+# Installation
 
- # Frontend
+## Frontend
 
 - Install Node.js LTS and Expo tooling
 
@@ -37,7 +37,7 @@ Asthma Tracker is a mobile application that assists individuals in managing thei
 
 - Configure app environment variables for non-secret public config such as Firebase app config
 
-# Backend
+## Backend
 
 - Install Python 3.9+ and create venv
 - Install FastAPI, Pydantic, OpenAI SDK, ASGI server
@@ -45,7 +45,7 @@ Asthma Tracker is a mobile application that assists individuals in managing thei
 - Build routes for AI, weather, summaries, and chart export
 - Add CORS if needed for development
 
-# Firebase
+## Firebase
 
 - Create Firebase project
 - Enable Authentication methods
@@ -53,22 +53,22 @@ Asthma Tracker is a mobile application that assists individuals in managing thei
 - Write security rules
 - Add Firebase config to Expo app
 
-# AI
+## AI
 
 - Create OpenAI API key
 - Store it only on backend
 - Implement one or more FastAPI endpoints that proxy user prompts safely to OpenAI
 
-# Weather
+## Weather
 
 - Sign up for provider
 - Store API key on backend
 - Implement fetch + caching + error handling
 
 
-## Usage
+# Usage
 
-# Frontend
+## Frontend
 
 ```bash(frontend)
 npx expo start
